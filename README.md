@@ -17,6 +17,6 @@
 - Anúncios pós-morte para continuar a tentativa (run) atual
 - Acessórios exclusivos liberados apenas por moedas obtidas através de microtransações
 
-## Obejtivo do Jogo:
+## Objetivo do Jogo:
 
 - Com o objetivo de tranquilizar a Mamãe Pato, você sai em uma jornada em busca de seus irmãos patinhos, que foram brincar em diversos lugares diferentes, mas não atenderam o chamado de sua mãe. Seu objetivo é achá-los e traze-los novamente ao ninho, pois já passou da hora de brincar.
