@@ -11,3 +11,8 @@
 - Super Chicken Jumper
 - Cinco Patinhos (música infantil)
 - O Patinho Feio (conto)
+
+## Receita do Jogo:
+
+- Anúncios pós-morte para continuar a tentativa (run) atual
+- Acessórios exclusivos liberados apenas com microtransações
