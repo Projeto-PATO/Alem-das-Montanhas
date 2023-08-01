@@ -15,7 +15,7 @@
 ## Receita do Jogo:
 
 - Anúncios pós-morte para continuar a tentativa (run) atual
-- Acessórios exclusivos liberados apenas com microtransações
+- Acessórios exclusivos liberados apenas por moedas obtidas através de microtransações
 
 ## Obejtivo do Jogo:
 
