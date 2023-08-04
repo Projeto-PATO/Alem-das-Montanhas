@@ -26,7 +26,7 @@
 ### Personagens:
 
 #### Thiaguinho
-O mais amarelo dos patinhos, Thiaguinho é um pato comum mas isso de jeito algum tira seu brilho. O segundo pato mais novo do ninho foi o único que não foi brincar além das montanhas... pois preferiu tirar uma soneca. A fim de tranquilizar a Mamãe Pato, Thiaguinho sai em busca de seus irmãos apenas com coragem e /\
+O mais amarelo dos patinhos, Thiaguinho é um pato comum mas isso de jeito algum tira seu brilho. O segundo pato mais novo do ninho foi o único que não foi brincar além das montanhas... pois preferiu tirar uma soneca. A fim de tranquilizar a Mamãe Pato, Thiaguinho sai em busca de seus irmãos apenas com coragem e pedras (várias delas).
 
 #### Cacique
 Brincando no meio de um matagal, Cacique foi encontrado por Thiaguinho e agora junta-se a ele na busca de seus irmãos. Sendo o caçula do grupo, Cacique tem menos noção do perigo e acaba se metendo em meio de diversos animais mortais na floresta onde brincava. Para lidar com o perigo, Cacique anda armado com sua zarabatana o tempo todo, disparando incessantes dardos em seus inimigos.
