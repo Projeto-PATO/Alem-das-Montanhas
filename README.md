@@ -42,4 +42,10 @@ Pâm, um marreco-selvagem, é uma patinha que adora a brisa do campo. As vastas 
 Tucano, que tem nome de pássaro, vive com patos mas na verdade é um ganso, foi encontrado na beira do mar, fazendo sabe-se lá o que. Tucano é um mistério entre os patinhos e é de longe o patinho mais distante da familia, tanto em aparência quanto em distância. Ele não é dos mais inteligentes, mas consegue compensar isso com seu incrível vigor físico, não precisando de nada além de seu próprio bico para enfrentar as adversidades.
 
 #### Mamãe Pato
-A Mamãe Pato é a preocupada e carinhosa mãe dos patinhos. Mesmo sendo a progenitora de seres estranhamente únicos, a Mamãe Pato é surpreendente normal, tendo as mesmas preocupações de qualquer mãe de qualquer espécie. Nessa ocasião, ela teme pela segurança de seus filhos, que segundo ela, são jovens demais para saírem por aí brincando sozinhos longe do ninho. 
+A Mamãe Pato é a preocupada e carinhosa mãe dos patinhos. Mesmo sendo a progenitora de seres estranhamente únicos, a Mamãe Pato é surpreendente normal, tendo as mesmas preocupações de qualquer mãe de qualquer espécie. Nessa ocasião, ela teme pela segurança de seus filhos, que segundo ela, são jovens demais para saírem por aí brincando sozinhos longe do ninho.
+
+### Universo:
+
+O universo retratado no jogo é semelhante ao nosso próprio universo, com algumas ressalvas. Os animais selvagens e obstáculos ao longo do caminho no nosso mundo talvez não sejam tão "letais" quanto no universo do jogo, mas nesse contexto, a perda de vidas representa muito mais o patinho possivelmente se machucando do que realmente tendo um destino fatal. A maior ressalva no entanto, se trata da magia, que nesse universo está presente de maneira natural apenas em um "mundo mágico" alternativo. A magia funciona como o fogo, acontecendo de maneira natural no mundo (no caso da magia, no mundo mágico) em casos isolados, mas podendo ser "manipulado", assim como o ser humano hoje em dia consegue ter domínio sobre o fogo. Para se manipular a magia, o indivíduo tem que ser dotado de tremenda astúcia e inteligência, algo que um filhote de pato raramente conseguiria ter. Vale a pena ressaltar que os animais nesse jogo são um pouco mais inteligentes e sencientes do que em nosso mundo.
+
+
