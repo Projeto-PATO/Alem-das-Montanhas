@@ -6,11 +6,11 @@
 
 ## Referências do jogo:
 
-- Crossy Road
-- Forager
-- Super Chicken Jumper
-- Cinco Patinhos (música infantil)
-- O Patinho Feio (conto)
+- Crossy Road;
+- Forager;
+- Super Chicken Jumper;
+- Cinco Patinhos (música infantil);
+- O Patinho Feio (conto);
 
 ## Receita do Jogo:
 
