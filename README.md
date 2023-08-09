@@ -48,6 +48,18 @@ A Mamãe Pato é a preocupada e carinhosa mãe dos patinhos. Mesmo sendo a proge
 
 O universo retratado no jogo é semelhante ao nosso próprio universo, com algumas ressalvas. Os animais selvagens e obstáculos ao longo do caminho no nosso mundo talvez não sejam tão "letais" quanto no universo do jogo, mas nesse contexto, a perda de vidas representa muito mais o patinho possivelmente se machucando do que realmente tendo um destino fatal. A maior ressalva no entanto, se trata da magia, que nesse universo está presente de maneira natural apenas em um "mundo mágico" alternativo. A magia funciona como o fogo, acontecendo de maneira natural no mundo (no caso da magia, no mundo mágico) em casos isolados, mas podendo ser "manipulado", assim como o ser humano hoje em dia consegue ter domínio sobre o fogo. Para se manipular a magia, o indivíduo tem que ser dotado de tremenda astúcia e inteligência, algo que um filhote de pato raramente conseguiria ter. Vale a pena ressaltar que os animais nesse jogo são um pouco mais inteligentes e sencientes do que em nosso mundo.
 
+### Regras do jogo
+
+- Runner vertical;
+- Controle para os lados (esquerda e direita); 
+- Quantidade de vidas limitada( perdidas ao bater em obstáculos e tomar dano de inimigos);
+- Quando o pato colide no obstáculo, fica invulnerável por alguns instantes;
+- Pato dispara projétil que é apenas efetivo em inimigos (porém pode colidir com obstáculos);
+- Medidor de distância no topo da tela;
+- Chegada uma certa distância, muda a fase, mudando os inimigos e obstáculos;
+- Ao longo do caminho, o pato coleta "migalhas", que estão dispostas no chão e também são largadas pelos inimigos;
+- Migalhas servem para desbloquear novos patos e acessórios.
+
 ### Desenvolvimento/enredo:
 
 Era uma vez, 6 patos que viviam tranquilamente em seu ninho próximo à lagoa, a Mamãe Pato e seus 5 filhos: Isa, Tucano, Thiaguinho, Pâm e Cacique. Eles sempre foram uma família bem excêntrica, pois cada filho era bem único e diferente um do outro, algo que não era comum entre as famílias de pato por aí espalhadas. Apesar de suas diferenças, os Patinhos eram uma família bem unida e que não abalaria tão fácil, assim como tantas outras famílias animais das redondezas. Devido a esse forte laço entre os Patinhos, a Mamãe Pato começou a conceder cada vez mais liberdade aos seus filhotes, a medida que cada um deles ia crescendo. Um dia, a Mamãe Pato liberou sua prole para ir brincar além das montanhas (algo que era muito pedido pelos próprios patinhos), contanto que voltassem assim que ouvissem o seu gracitar.
