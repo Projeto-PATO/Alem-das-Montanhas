@@ -16,6 +16,7 @@
 
 - Anúncios pós-morte para continuar a tentativa (run) atual;
 - Acessórios exclusivos liberados apenas por moedas obtidas através de microtransações;
+- Versão premium do jogo sem anúncios.
 
 ## Objetivo do Jogo:
 
