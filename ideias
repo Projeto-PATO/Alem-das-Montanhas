@@ -1,1 +1,12 @@
 ## Botar as ideias aqui
+
+
+### Regras do jogo
+Runner vertical;
+Se mexendo para os lados; 
+Vidas (perdidas ao bater em obstáculos e tomar dano de inimigos;
+Pato dispara projétil que é apenas efetivo em inimigos (porém pode colidir com obstáculos);
+Quando bate no obstáculo, fica invulnerável por alguns instantes;
+Medidor de distância no topo da tela;
+Chegada uma certa distância, muda a fase, mudando os inimigos e obstáculos;
+Ao longo do caminho, o pato coleta "migalhas", que estão dispostas no chão e largadas pelos inimigos.
