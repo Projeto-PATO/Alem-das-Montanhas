@@ -6,21 +6,22 @@
 
 ## Referências do jogo:
 
-- Crossy Road;
-- Forager;
-- Super Chicken Jumper;
+- Crossy Road (jogo);
+- Forager (jogo);
+- Super Chicken Jumper (jogo);
 - Cinco Patinhos (música infantil);
 - O Patinho Feio (conto);
 
 ## Receita do Jogo:
 
 - Anúncios pós-morte para continuar a tentativa (run) atual;
-- Acessórios exclusivos liberados apenas por moedas obtidas através de microtransações;
+- Acessórios exclusivos (e algumas vezes limitados) liberados apenas por moedas obtidas através de microtransações;
 - Versão premium do jogo sem anúncios.
+- Season pass que desbloqueia todos os acessórios atuais e futuros (exceto os limitados);
 
 ## Objetivo do Jogo:
 
-- Com o objetivo de tranquilizar a Mamãe Pato, você sai em uma jornada em busca de seus irmãos patinhos, que foram brincar em diversos lugares diferentes, mas não atenderam o chamado de sua mãe. Seu objetivo é achá-los e traze-los novamente ao ninho, pois já passou da hora de brincar.
+- Com o objetivo de tranquilizar a Mamãe Pato, você sai em uma jornada em busca de seus irmãos patinhos, que foram brincar em diversos lugares diferentes, mas não atenderam o chamado de sua mãe. Seu objetivo é achá-los e trazê-los novamente ao ninho, pois já passou da hora de brincar.
 
 ## Jogo Ideal:
 
