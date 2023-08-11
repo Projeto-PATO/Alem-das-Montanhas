@@ -53,7 +53,7 @@ O universo retratado no jogo é semelhante ao nosso próprio universo, com algum
 
 - Runner vertical;
 - Controle para os lados (esquerda e direita); 
-- Quantidade de vidas limitada( perdidas ao bater em obstáculos e tomar dano de inimigos);
+- Quantidade de vidas limitada (perdidas ao bater em obstáculos e tomar dano de inimigos);
 - Quando o pato colide no obstáculo, fica invulnerável por alguns instantes;
 - Pato dispara projétil que é apenas efetivo em inimigos (porém pode colidir com obstáculos);
 - Medidor de distância no topo da tela;
