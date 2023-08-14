@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin;0;
+    padding:0;
+    background-color: #323232;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+
+h1 {
+    color: whitesmoke;
+    font-size: 60px;
+    text-align: center;
+}
+
+h1:nth-child(1) {
+    font-family: 'VT323', monospace;
+}
+h1:nth-child(2) {
+    font-family: 'DotGothic16', sans-serif;
+}
+h1:nth-child(3) {
+    font-family: 'Silkscreen', cursive;
+}
