@@ -1,5 +1,5 @@
 tasks:
-  - init: apt-install
+  - init: npm install
   - command: node servidor.js
 
 ports:
