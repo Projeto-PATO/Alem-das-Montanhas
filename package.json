@@ -1,12 +1,17 @@
 {
-    "devDependencies": {
-        "eslint": "^8.47.0",
-        "eslint-config-standard": "^17.1.0",
-        "eslint-plugin-import": "^2.28.1",
-        "eslint-plugin-n": "^16.0.2",
-        "eslint-plugin-promise": "^6.1.1"
-    },
-    "scripts": {
-        "start": "npm start --prefix servidor"
-    }
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.0.2",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "scripts": {
+    "start": "npm start --prefix servidor"
+  },
+  "name": "alem-das-montanhas",
+  "description": "jogo do pato",
+  "version": "0.1.0",
+  "author": "projeto-PATO <davi.m12@aluno.ifsc.edu.br>",
+  "license": "MIT"
 }
