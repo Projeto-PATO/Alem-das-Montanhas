@@ -16,8 +16,8 @@
 
 - Anúncios pós-morte para continuar a tentativa (run) atual;
 - Acessórios exclusivos (e algumas vezes limitados) liberados apenas por moedas obtidas através de microtransações;
-- Versão premium do jogo sem anúncios.
-- Season pass que desbloqueia todos os acessórios atuais e futuros (exceto os limitados);
+- Versão premium do jogo sem anúncios;
+- Season pass que desbloqueia todos os acessórios atuais e futuros (exceto os limitados).
 
 ## Objetivo do Jogo:
 
