@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
-export default class cena0 extends Phaser.Scene {
+export default class abertura extends Phaser.Scene {
   constructor () {
-    super('cena0')
+    super('abertura')
   }
 
   preload () {
@@ -14,7 +14,7 @@ export default class cena0 extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.imagem.destroy()
-        this.game.scene.start('cena1')
+        this.game.scene.start('sala')
       })
   }
 
