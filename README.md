@@ -76,3 +76,30 @@ Depois de achar um portal de volta para o mundo normal, Thiaguinho se vê em um 
 Após passar pelo campo, Thiaguinho se encontra na beira-mar: um ponto onde muitos animais se unem para socializar. Depois de ultrapassar muitos animais mal-intencionados, Thiaguinho acha o patinho mais sociável e atlético entre os Patinhos: Tucano. Esse patinho adora multidões e de ser o centro das atenções, então se algum patinho estaria na beira-mar, seria ele. A beira-mar também é um bom local para se praticar esportes, algo de que Tucano gosta e tem bastante aptidão. Infelizmente, para compensar a grande proeza física desse pato (que na realidade é um ganso), sua noção sobre as coisas é extremamente limitada. A sua falta de noção talvez não fosse perigosa quando Tucano se encontrava no ninho, mas agora sozinho e na beira-mar, ele corria um alto risco de se meter com animais de caráter duvidoso.
 
 Depois de encontrar todos os patinhos filhotes, a missão de Thiaguinho está completa. Após todos voltarem ao ninho, a Mãmãe Pato pode voltar a respirar tranquilamente e os Patinhos podem voltar a conviver nessa família muito amorosa e nada ortodoxa.
+
+```mermaid
+flowchart TD
+    A(Cena de abertura) -->|Clique na tela| B(Cena das salas)
+    B -->|Escolha da sala| C[Aguardando outro jogador]
+    C -->|Outro jogador entra| D(CUTSCENE / Cena da lagoa)
+    D --> E{Menu principal}
+    E -->|Clica em Iniciar| F{GAMEPLAY
+    Cena da floresta}
+    F -->|Sobrevive| G[Encontra Cacique]
+    F -->|Morre| Z[Tela de Game Over]
+    Z --> E
+    G --> I{GAMEPLAY
+    Cena do mundo mágico}
+    I -->|Sobrevive| J[Acha Isa]
+    I -->|Morre| Z
+    J --> K{GAMEPLAY
+    Cena do campo}
+    K -->|Sobrevive| L[Acha Pâm]
+    K -->|Morre| Z
+    L --> M{GAMEPLAY
+    Cena da beira-mar}
+    M -->|Sobrevive| N[Acha Tucano]
+    M -->|Morre| Z
+    N --> O(Tela de vitória)
+    O -->|Clique na tela| E
+```
