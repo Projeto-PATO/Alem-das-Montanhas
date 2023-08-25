@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export default class lagoa extends Phaser.Scene {
   constructor () {
     super('lagoa')
@@ -15,11 +16,12 @@ export default class lagoa extends Phaser.Scene {
     this.imagem = this.add
       .image(400, 400, 'grama')
     this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho')
-    .setInteractive()
-    .on('pointerdown', () => {
-      this.personagem.anims.play('pato-direita')
-      this.personagem.setVelocityX(50)
-    })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.personagem.anims.play('pato-direita')
+        this.personagem.setVelocityX(50)
+        this.personagem.setVelocityY(50)
+      })
 
     this.anims.create({
       key: 'pato-direita',
@@ -32,5 +34,5 @@ export default class lagoa extends Phaser.Scene {
     })
   }
 
-update() { }
+  update () { }
 }

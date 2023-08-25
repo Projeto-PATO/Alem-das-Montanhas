@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 // eslint-disable-next-line no-undef
 export default class sala extends Phaser.Scene {
   constructor () {
@@ -89,7 +90,8 @@ export default class sala extends Phaser.Scene {
         .on('pointerdown', () => {
           this.salas.forEach((item) => {
             item.botao.destroy()
-          this.game.scene.start('lagoa')  
+          this.game.scene.stop('sala')
+          this.game.scene.start('lagoa')
           })
         })
     })
