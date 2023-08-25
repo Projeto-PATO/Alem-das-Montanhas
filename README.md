@@ -77,27 +77,25 @@ Após passar pelo campo, Thiaguinho se encontra na beira-mar: um ponto onde muit
 
 Depois de encontrar todos os patinhos filhotes, a missão de Thiaguinho está completa. Após todos voltarem ao ninho, a Mãmãe Pato pode voltar a respirar tranquilamente e os Patinhos podem voltar a conviver nessa família muito amorosa e nada ortodoxa.
 
+##Fluxograma das cenas
+
 ```mermaid
 flowchart TD
     A(Cena de abertura) -->|Clique na tela| B(Cena das salas)
     B -->|Escolha da sala| C[Aguardando outro jogador]
     C -->|Outro jogador entra| D(CUTSCENE / Cena da lagoa)
     D --> E{Menu principal}
-    E -->|Clica em Iniciar| F{GAMEPLAY
-    Cena da floresta}
+    E -->|Clica em Iniciar| F{GAMEPLAY\nCena da floresta}
     F -->|Sobrevive| G[Encontra Cacique]
     F -->|Morre| Z[Tela de Game Over]
     Z --> E
-    G --> I{GAMEPLAY
-    Cena do mundo mágico}
+    G --> I{GAMEPLAY\nCena do mundo mágico}
     I -->|Sobrevive| J[Acha Isa]
     I -->|Morre| Z
-    J --> K{GAMEPLAY
-    Cena do campo}
+    J --> K{GAMEPLAY\nCena do campo}
     K -->|Sobrevive| L[Acha Pâm]
     K -->|Morre| Z
-    L --> M{GAMEPLAY
-    Cena da beira-mar}
+    L --> M{GAMEPLAY\nCena da beira-mar}
     M -->|Sobrevive| N[Acha Tucano]
     M -->|Morre| Z
     N --> O(Tela de vitória)
