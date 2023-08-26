@@ -32,6 +32,7 @@ export default class lagoa extends Phaser.Scene {
       frameRate: 32,
       repeat: -1
     })
+
     this.anims.create({
       key: 'pato-idle',
       frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
@@ -41,6 +42,8 @@ export default class lagoa extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     })
+
+    this.cameras.main.startFollow(this.personagem)
   }
 
   /* seta pra esquerda, direita, cima e baixo do pc */
