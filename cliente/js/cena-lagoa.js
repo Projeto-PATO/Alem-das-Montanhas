@@ -6,33 +6,56 @@ export default class lagoa extends Phaser.Scene {
 
   preload () {
     this.load.image('grama', '../assets/cenarios/grama_floresta.png')
-    this.load.spritesheet('thiaguinho', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
+    this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
       frameHeight: 68
+    })
+    this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
+      frameWidth: 64,
+      frameHeight: 64
     })
   }
 
   create () {
     this.imagem = this.add
       .image(400, 400, 'grama')
-    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho')
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.personagem.anims.play('pato-direita')
-        this.personagem.setVelocityX(50)
-        this.personagem.setVelocityY(50)
-      })
+    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+
+    this.cursors = this.input.keyboard.createCursorKeys()
 
     this.anims.create({
-      key: 'pato-direita',
-      frames: this.anims.generateFrameNumbers('thiaguinho', {
+      key: 'pato-walk',
+      frames: this.anims.generateFrameNumbers('thiaguinho-walk', {
         start: 0,
         end: 21
       }),
       frameRate: 32,
       repeat: -1
     })
+    this.anims.create({
+      key: 'pato-idle',
+      frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
+        start: 0,
+        end: 15
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
   }
 
-  update () { }
+  /* seta pra esquerda e direita do pc */
+  update () {
+    if (this.cursors.left.isDown) {
+      this.personagem.anims.play('pato-walk', true)
+      this.personagem.setVelocityX(-100)
+      this.personagem.setFlipX(false)
+    } else if (this.cursors.right.isDown) {
+      this.personagem.anims.play('pato-walk', true)
+      this.personagem.setVelocityX(100)
+      this.personagem.setFlipX(true)
+    } else {
+      this.personagem.anims.play('pato-idle', true)
+      this.personagem.setVelocityX(0)
+    }
+  }
 }
