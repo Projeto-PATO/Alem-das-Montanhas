@@ -43,7 +43,7 @@ export default class lagoa extends Phaser.Scene {
     })
   }
 
-  /* seta pra esquerda e direita do pc */
+  /* seta pra esquerda, direita, cima e baixo do pc */
   update () {
     if (this.cursors.left.isDown) {
       this.personagem.anims.play('pato-walk', true)
@@ -53,9 +53,18 @@ export default class lagoa extends Phaser.Scene {
       this.personagem.anims.play('pato-walk', true)
       this.personagem.setVelocityX(100)
       this.personagem.setFlipX(true)
+    } else if (this.cursors.up.isDown) {
+      this.personagem.anims.play('pato-walk', true)
+      this.personagem.setVelocityY(-100)
+      this.personagem.setFlipX(true)
+    } else if (this.cursors.down.isDown) {
+      this.personagem.anims.play('pato-walk', true)
+      this.personagem.setVelocityY(100)
+      this.personagem.setFlipX(false)
     } else {
       this.personagem.anims.play('pato-idle', true)
       this.personagem.setVelocityX(0)
+      this.personagem.setVelocityY(0)
     }
   }
 }
