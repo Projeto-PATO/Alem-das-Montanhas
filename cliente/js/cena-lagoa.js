@@ -59,11 +59,9 @@ export default class lagoa extends Phaser.Scene {
     } else if (this.cursors.up.isDown) {
       this.personagem.anims.play('pato-walk', true)
       this.personagem.setVelocityY(-100)
-      this.personagem.setFlipX(true)
     } else if (this.cursors.down.isDown) {
       this.personagem.anims.play('pato-walk', true)
       this.personagem.setVelocityY(100)
-      this.personagem.setFlipX(false)
     } else {
       this.personagem.anims.play('pato-idle', true)
       this.personagem.setVelocityX(0)
