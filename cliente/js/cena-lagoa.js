@@ -6,6 +6,9 @@ export default class lagoa extends Phaser.Scene {
 
   preload () {
     this.load.image('grama', '../assets/cenarios/grama_floresta.png')
+
+    this.load.image('fundo', '../assets/telaabertura.png')
+
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
       frameHeight: 68
@@ -14,14 +17,95 @@ export default class lagoa extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     })
+    this.load.spritesheet('botao-cima', '../assets/cima.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
+    this.load.spritesheet('botao-baixo', '../assets/baixo.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
+    this.load.spritesheet('botao-direita', '../assets/direita.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
+    this.load.spritesheet('botao-esquerda', '../assets/esquerda.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
   }
 
   create () {
     this.imagem = this.add
-      .image(400, 400, 'grama')
-    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+      .image(225, 2100, 'fundo')
 
-    this.cursors = this.input.keyboard.createCursorKeys()
+    this.imagem = this.add
+      .image(400, 2400, 'grama')
+
+    this.personagem = this.physics.add.sprite(225, 2400, 'thiaguinho-idle')
+
+    this.cima = this.add.sprite(64, 2372, 'botao-cima')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.cima.setFrame(1)
+        this.personagem.setVelocityY(-100)
+        this.personagem.anims.play('pato-walk', true)
+      })
+      .on('pointerup', () => {
+        this.cima.setFrame(0)
+        this.personagem.setVelocityY(0)
+        this.personagem.anims.play('pato-idle', true)
+      })
+
+    this.baixo = this.add.sprite(64, 2436, 'botao-baixo')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.baixo.setFrame(1)
+        this.personagem.setVelocityY(100)
+        this.personagem.anims.play('pato-walk', true)
+      })
+      .on('pointerup', () => {
+        this.baixo.setFrame(0)
+        this.personagem.setVelocityY(0)
+        this.personagem.anims.play('pato-idle', true)
+      })
+
+    this.direita = this.add.sprite(386, 2436, 'botao-direita')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.direita.setFrame(1)
+        this.personagem.setVelocityX(100)
+        this.personagem.setFlipX(true)
+        this.personagem.anims.play('pato-walk', true)
+      })
+      .on('pointerup', () => {
+        this.direita.setFrame(0)
+        this.personagem.setVelocityX(0)
+        this.personagem.anims.play('pato-idle', true)
+      })
+
+    this.esquerda = this.add.sprite(322, 2436, 'botao-esquerda')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.esquerda.setFrame(1)
+        this.personagem.setVelocityX(-100)
+        this.personagem.setFlipX(false)
+        this.personagem.anims.play('pato-walk', true)
+      })
+      .on('pointerup', () => {
+        this.esquerda.setFrame(0)
+        this.personagem.setVelocityX(0)
+        this.personagem.anims.play('pato-idle', true)
+      })
+    this.cameras.main.startFollow(this.personagem)
+
+    this.personagem.setCollideWorldBounds(true)
+    this.cameras.main.setBounds(0, 0, 450, 2500)
+    this.physics.world.setBounds(0, 0, 450, 2500)
+    this.cameras.main.startFollow(this.personagem)
+
+    this.physics.add.collider(
+      this.personagem)
 
     this.anims.create({
       key: 'pato-walk',
@@ -42,30 +126,9 @@ export default class lagoa extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     })
-
-    this.cameras.main.startFollow(this.personagem)
   }
 
   /* seta pra esquerda, direita, cima e baixo do pc */
   update () {
-    if (this.cursors.left.isDown) {
-      this.personagem.anims.play('pato-walk', true)
-      this.personagem.setVelocityX(-100)
-      this.personagem.setFlipX(false)
-    } else if (this.cursors.right.isDown) {
-      this.personagem.anims.play('pato-walk', true)
-      this.personagem.setVelocityX(100)
-      this.personagem.setFlipX(true)
-    } else if (this.cursors.up.isDown) {
-      this.personagem.anims.play('pato-walk', true)
-      this.personagem.setVelocityY(-100)
-    } else if (this.cursors.down.isDown) {
-      this.personagem.anims.play('pato-walk', true)
-      this.personagem.setVelocityY(100)
-    } else {
-      this.personagem.anims.play('pato-idle', true)
-      this.personagem.setVelocityX(0)
-      this.personagem.setVelocityY(0)
-    }
   }
 }
