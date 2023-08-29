@@ -102,11 +102,8 @@ export default class lagoa extends Phaser.Scene {
       })
       .setScrollFactor(0, 0)
 
-    this.cameras.main.startFollow(this.personagem)
-
     this.personagem.setCollideWorldBounds(true)
-    this.cameras.main.setBounds(0, 0, 450, 900)
-    this.physics.world.setBounds(0, 0, 450, 900)
+    this.physics.world.setBounds(0, 0, 450, 800, true, true, false, true)
     this.cameras.main.startFollow(this.personagem)
 
     this.physics.add.collider(
