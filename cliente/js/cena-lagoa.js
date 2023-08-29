@@ -17,19 +17,19 @@ export default class lagoa extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     })
-    this.load.spritesheet('botao-cima', '../assets/cima.png', {
+    this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 64,
       frameHeight: 64
     })
-    this.load.spritesheet('botao-baixo', '../assets/baixo.png', {
+    this.load.spritesheet('botao-baixo', '../assets/botoes/baixo.png', {
       frameWidth: 64,
       frameHeight: 64
     })
-    this.load.spritesheet('botao-direita', '../assets/direita.png', {
+    this.load.spritesheet('botao-direita', '../assets/botoes/direita.png', {
       frameWidth: 64,
       frameHeight: 64
     })
-    this.load.spritesheet('botao-esquerda', '../assets/esquerda.png', {
+    this.load.spritesheet('botao-esquerda', '../assets/botoes/esquerda.png', {
       frameWidth: 64,
       frameHeight: 64
     })
@@ -37,14 +37,14 @@ export default class lagoa extends Phaser.Scene {
 
   create () {
     this.imagem = this.add
-      .image(225, 2100, 'fundo')
+      .image(225, 400, 'fundo')
 
     this.imagem = this.add
-      .image(400, 2400, 'grama')
+      .image(400, 400, 'grama')
 
-    this.personagem = this.physics.add.sprite(225, 2400, 'thiaguinho-idle')
+    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
 
-    this.cima = this.add.sprite(64, 2372, 'botao-cima')
+    this.cima = this.add.sprite(64, 700, 'botao-cima')
       .setInteractive()
       .on('pointerdown', () => {
         this.cima.setFrame(1)
@@ -56,8 +56,9 @@ export default class lagoa extends Phaser.Scene {
         this.personagem.setVelocityY(0)
         this.personagem.anims.play('pato-idle', true)
       })
+      .setScrollFactor(0, 0)
 
-    this.baixo = this.add.sprite(64, 2436, 'botao-baixo')
+    this.baixo = this.add.sprite(64, 764, 'botao-baixo')
       .setInteractive()
       .on('pointerdown', () => {
         this.baixo.setFrame(1)
@@ -69,8 +70,9 @@ export default class lagoa extends Phaser.Scene {
         this.personagem.setVelocityY(0)
         this.personagem.anims.play('pato-idle', true)
       })
+      .setScrollFactor(0, 0)
 
-    this.direita = this.add.sprite(386, 2436, 'botao-direita')
+    this.direita = this.add.sprite(386, 764, 'botao-direita')
       .setInteractive()
       .on('pointerdown', () => {
         this.direita.setFrame(1)
@@ -83,8 +85,9 @@ export default class lagoa extends Phaser.Scene {
         this.personagem.setVelocityX(0)
         this.personagem.anims.play('pato-idle', true)
       })
+      .setScrollFactor(0, 0)
 
-    this.esquerda = this.add.sprite(322, 2436, 'botao-esquerda')
+    this.esquerda = this.add.sprite(322, 764, 'botao-esquerda')
       .setInteractive()
       .on('pointerdown', () => {
         this.esquerda.setFrame(1)
@@ -97,11 +100,13 @@ export default class lagoa extends Phaser.Scene {
         this.personagem.setVelocityX(0)
         this.personagem.anims.play('pato-idle', true)
       })
+      .setScrollFactor(0, 0)
+
     this.cameras.main.startFollow(this.personagem)
 
     this.personagem.setCollideWorldBounds(true)
-    this.cameras.main.setBounds(0, 0, 450, 2500)
-    this.physics.world.setBounds(0, 0, 450, 2500)
+    this.cameras.main.setBounds(0, 0, 450, 900)
+    this.physics.world.setBounds(0, 0, 450, 900)
     this.cameras.main.startFollow(this.personagem)
 
     this.physics.add.collider(
