@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![alemdasmontanhas-logo](https://github.com/Projeto-PATO/Alem-das-Montanhas/assets/86814910/58856880-ec0b-447d-b80d-f227a499f96d)
+![alemdasmontanhas-logo](https://github.com/Projeto-PATO/Alem-das-Montanhas/assets/86814910/9d9956ec-3602-4b90-9210-91ee3b038033)
 </div>
 
 ## Premissa do jogo:
