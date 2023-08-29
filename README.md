@@ -1,8 +1,8 @@
 <div align="justify"> 
 
 <div align="center">
-    
-![alemdasmontanhas-logo](https://github.com/Projeto-PATO/Alem-das-Montanhas/assets/86814910/865c17ff-4d01-4c83-abf4-245a73bc1b6c)
+
+![alemdasmontanhas-logo](https://github.com/Projeto-PATO/Alem-das-Montanhas/assets/86814910/58856880-ec0b-447d-b80d-f227a499f96d)
 </div>
 
 ## Premissa do jogo:
