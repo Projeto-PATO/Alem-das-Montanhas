@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-export default class lagoa extends Phaser.Scene {
+export default class floresta extends Phaser.Scene {
   constructor () {
-    super('lagoa')
+    super('floresta')
   }
 
   preload () {
@@ -130,7 +130,6 @@ export default class lagoa extends Phaser.Scene {
     })
   }
 
-  /* seta pra esquerda, direita, cima e baixo do pc */
   update () {
   }
 }

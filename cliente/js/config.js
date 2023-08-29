@@ -1,4 +1,5 @@
-/* Configuração do objeto Game*/
+/* eslint-disable no-undef */
+/* Configuração do objeto Game */
 
 export default {
   type: Phaser.AUTO,
