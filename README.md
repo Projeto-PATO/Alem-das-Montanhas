@@ -90,7 +90,7 @@
 flowchart TD
     A(Cena de abertura) -->|Clique na tela| B(Cena das salas)
     B -->|Escolha da sala| C[Aguardando outro jogador]
-    C -->|Outro jogador entra| D(CUTSCENE / Cena da lagoa)
+    C -->|Outro jogador entra| D(CUTSCENE\nCena da lagoa)
     D --> E{Menu principal}
     E -->|Clica em Iniciar| F{GAMEPLAY\nCena da floresta}
     F -->|Sobrevive| G[Encontra Cacique]
