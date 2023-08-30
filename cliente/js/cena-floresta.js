@@ -104,6 +104,7 @@ export default class floresta extends Phaser.Scene {
 
     this.personagem.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 0, 450, 800, true, true, false, true)
+    this.cameras.main.setBounds(0, -10000000, 450, 10000800)
     this.cameras.main.startFollow(this.personagem)
 
     this.physics.add.collider(
