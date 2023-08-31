@@ -5,6 +5,10 @@
 ![alemdasmontanhas-logo](https://github.com/Projeto-PATO/Alem-das-Montanhas/assets/86814910/9d9956ec-3602-4b90-9210-91ee3b038033)
 </div>
 
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Projeto-PATO/Alem-das-Montanhas)
+
+
 ## Premissa do jogo:
 
 &nbsp; &nbsp; 5 patinhos foram passear além das montanhas para brincar, a mamãe gritou quack quack quack quack, mas só 2 patinhos voltaram de lá, que agora irão trilhar uma aventura repleta de cenários e obstáculos em busca de seus irmãos perdidos pelo caminho. Durante sua aventura, junte migalhas para desbloquear novos acessórios estilosos e patos incríveis para se jogar. O jogo conta com um multiplayer online numa gameplay estilo arcade. És capaz de chegar ao final desta jornada? Quack quack!
