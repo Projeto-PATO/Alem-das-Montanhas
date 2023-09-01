@@ -19,21 +19,25 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 80
     })
+    this.load.spritesheet('mamae-pato', '../assets/patos/mamae-pato/mamaepato.png', {
+      frameWidth: 76,
+      frameHeight: 76
+    })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 64,
-      frameHeight: 64
+      frameHeight: 68
     })
     this.load.spritesheet('botao-baixo', '../assets/botoes/baixo.png', {
       frameWidth: 64,
-      frameHeight: 64
+      frameHeight: 68
     })
     this.load.spritesheet('botao-direita', '../assets/botoes/direita.png', {
       frameWidth: 64,
-      frameHeight: 64
+      frameHeight: 68
     })
     this.load.spritesheet('botao-esquerda', '../assets/botoes/esquerda.png', {
       frameWidth: 64,
-      frameHeight: 64
+      frameHeight: 68
     })
     this.load.spritesheet('tela-cheia', '../assets/botoes/tela-cheia.png', {
       frameWidth: 64,
@@ -47,6 +51,8 @@ export default class floresta extends Phaser.Scene {
     this.fundo = this.add.image(225, -160, 'fundo')
 
     this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
+
+    this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
 
     this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
 
@@ -88,7 +94,7 @@ export default class floresta extends Phaser.Scene {
         this.direita.setFrame(1)
         this.personagem.setVelocityX(100)
         this.personagem.setFlipX(true)
-        this.personagem.setOffset(0, 24)
+        this.personagem.setOffset(0, 20)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
@@ -135,10 +141,9 @@ export default class floresta extends Phaser.Scene {
     this.cameras.main.setBounds(0, -10000000, 450, 10000800)
     this.cameras.main.startFollow(this.personagem)
 
-    this.physics.add.collider(
-      this.personagem)
+    this.physics.add.collider(this.personagem)
 
-    // Animação //
+    // Animações //
 
     this.anims.create({
       key: 'pato-walk',
@@ -153,6 +158,16 @@ export default class floresta extends Phaser.Scene {
     this.anims.create({
       key: 'pato-idle',
       frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
+        start: 0,
+        end: 15
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'mamae-pato',
+      frames: this.anims.generateFrameNumbers('mamae-pato', {
         start: 0,
         end: 15
       }),
@@ -177,6 +192,9 @@ export default class floresta extends Phaser.Scene {
       null,
       this
     )
+
+    // Animações automáticas
+    this.mamae.anims.play('mamae-pato', true)
   }
 
   update () {
