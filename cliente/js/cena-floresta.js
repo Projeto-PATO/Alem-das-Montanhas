@@ -33,6 +33,10 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     })
+    this.load.spritesheet('tela-cheia', '../assets/botoes/tela-cheia.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
   }
 
   create () {
@@ -102,8 +106,23 @@ export default class floresta extends Phaser.Scene {
       })
       .setScrollFactor(0, 0)
 
+    this.tela_cheia = this.add
+      .sprite(386, 80, 'tela-cheia', 0)
+      .setInteractive()
+      .on('pointerdown', () => {
+        if (this.scale.isFullscreen) {
+          this.tela_cheia.setFrame(0)
+          this.scale.stopFullscreen()
+        } else {
+          this.tela_cheia.setFrame(1)
+          this.scale.startFullscreen()
+        }
+      })
+      .setScrollFactor(0)
+
     this.personagem.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 0, 450, 800, true, true, false, true)
+    this.cameras.main.setBounds(0, -10000000, 450, 10000800)
     this.cameras.main.startFollow(this.personagem)
 
     this.physics.add.collider(
