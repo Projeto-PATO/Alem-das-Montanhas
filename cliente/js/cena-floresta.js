@@ -5,9 +5,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('grama', '../assets/cenarios/grama_floresta.png')
-
-    this.load.image('fundo', '../assets/telaabertura.png')
+    this.load.image('fundo', '../assets/cenarios/mapa-floresta.png')
 
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
@@ -16,6 +14,10 @@ export default class floresta extends Phaser.Scene {
     this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
       frameWidth: 64,
       frameHeight: 64
+    })
+    this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
+      frameWidth: 64,
+      frameHeight: 80
     })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 64,
@@ -40,13 +42,13 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
-    this.imagem = this.add
-      .image(225, 400, 'fundo')
-
-    this.imagem = this.add
-      .image(400, 400, 'grama')
+    this.fundo = this.add.image(225, 400, 'fundo')
 
     this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+
+    this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
+
+    this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
 
     this.cima = this.add.sprite(64, 700, 'botao-cima')
       .setInteractive()
@@ -107,7 +109,7 @@ export default class floresta extends Phaser.Scene {
       .setScrollFactor(0, 0)
 
     this.tela_cheia = this.add
-      .sprite(386, 80, 'tela-cheia', 0)
+      .sprite(396, 40, 'tela-cheia', 0)
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scale.isFullscreen) {
@@ -147,8 +149,34 @@ export default class floresta extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     })
+
+    this.physics.add.overlap(
+      this.personagem,
+      this.cacique,
+      this.acharcacique,
+      null,
+      this
+    )
+
+    this.physics.add.overlap(
+      this.personagem,
+      this.obstaculo,
+      this.morrer,
+      null,
+      this
+    )
   }
 
   update () {
+  }
+
+  acharcacique (personagem) {
+    this.game.scene.stop('floresta')
+    this.game.scene.start('vitoria')
+  }
+
+  morrer (personagem) {
+    this.game.scene.stop('floresta')
+    this.game.scene.start('gameover')
   }
 }
