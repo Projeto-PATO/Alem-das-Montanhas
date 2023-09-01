@@ -9,11 +9,11 @@ export default class floresta extends Phaser.Scene {
 
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
-      frameHeight: 68
+      frameHeight: 72
     })
     this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
       frameWidth: 64,
-      frameHeight: 64
+      frameHeight: 68
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
       frameWidth: 64,
@@ -42,13 +42,17 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
-    this.fundo = this.add.image(225, 400, 'fundo')
+    // Criação de objetos //
 
-    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+    this.fundo = this.add.image(225, -160, 'fundo')
+
+    this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
 
     this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
 
-    this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
+    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+      .setSize(52, 40)
+      .setOffset(12, 24)
 
     this.cima = this.add.sprite(64, 700, 'botao-cima')
       .setInteractive()
@@ -84,6 +88,7 @@ export default class floresta extends Phaser.Scene {
         this.direita.setFrame(1)
         this.personagem.setVelocityX(100)
         this.personagem.setFlipX(true)
+        this.personagem.setOffset(0, 24)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
@@ -99,6 +104,7 @@ export default class floresta extends Phaser.Scene {
         this.esquerda.setFrame(1)
         this.personagem.setVelocityX(-100)
         this.personagem.setFlipX(false)
+        this.personagem.setOffset(12, 24)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
@@ -122,6 +128,8 @@ export default class floresta extends Phaser.Scene {
       })
       .setScrollFactor(0)
 
+    // Criação de limites //
+
     this.personagem.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 0, 450, 800, true, true, false, true)
     this.cameras.main.setBounds(0, -10000000, 450, 10000800)
@@ -129,6 +137,8 @@ export default class floresta extends Phaser.Scene {
 
     this.physics.add.collider(
       this.personagem)
+
+    // Animação //
 
     this.anims.create({
       key: 'pato-walk',
@@ -149,6 +159,8 @@ export default class floresta extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     })
+
+    // Colisões //
 
     this.physics.add.overlap(
       this.personagem,
