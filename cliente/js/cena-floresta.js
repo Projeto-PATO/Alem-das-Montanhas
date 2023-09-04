@@ -9,6 +9,8 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-gameover', '../assets/telagameover.png')
 
+    this.load.image('tela-vitoria', '../assets/telavitoria.png')
+
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
       frameHeight: 72
@@ -203,8 +205,19 @@ export default class floresta extends Phaser.Scene {
   }
 
   acharcacique (personagem) {
-    this.game.scene.stop('floresta')
-    this.game.scene.start('vitoria')
+    const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
+    const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
+    this.imagem = this.add
+      .image(centrox, centroy, 'tela-vitoria')
+      .setAlpha(0.2)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.game.scene.stop('floresta')
+        this.game.scene.start('menu')
+      })
+    this.personagem.setVelocityX(0)
+    this.personagem.setVelocityY(0)
+    this.personagem.anims.play('pato-idle', true)
   }
 
   morrer (personagem) {
