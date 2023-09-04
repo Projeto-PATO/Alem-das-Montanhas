@@ -4,7 +4,6 @@ import abertura from './cena-abertura.js'
 import sala from './cena-sala.js'
 import menu from './cena-menu.js'
 import floresta from './cena-floresta.js'
-import gameover from './cena-gameover.js'
 import vitoria from './cena-vitoria.js'
 class Game extends Phaser.Game {
   constructor () {
@@ -14,7 +13,6 @@ class Game extends Phaser.Game {
     this.scene.add('sala', sala)
     this.scene.add('menu', menu)
     this.scene.add('floresta', floresta)
-    this.scene.add('gameover', gameover)
     this.scene.add('vitoria', vitoria)
 
     this.scene.start('abertura')

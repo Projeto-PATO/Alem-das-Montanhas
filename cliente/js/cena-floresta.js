@@ -7,6 +7,8 @@ export default class floresta extends Phaser.Scene {
   preload () {
     this.load.image('fundo', '../assets/cenarios/mapa-floresta.png')
 
+    this.load.image('tela-gameover', '../assets/telagameover.png')
+
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 64,
       frameHeight: 72
@@ -206,7 +208,18 @@ export default class floresta extends Phaser.Scene {
   }
 
   morrer (personagem) {
-    this.game.scene.stop('floresta')
-    this.game.scene.start('gameover')
+    const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
+    const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
+    this.imagem = this.add
+      .image(centrox, centroy, 'tela-gameover')
+      .setAlpha(0.5)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.game.scene.stop('floresta')
+        this.game.scene.start('menu')
+      })
+    this.personagem.setVelocityX(0)
+    this.personagem.setVelocityY(0)
+    this.personagem.anims.play('pato-idle', true)
   }
 }
