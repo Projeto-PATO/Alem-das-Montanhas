@@ -2,6 +2,7 @@
 import config from './config.js'
 import abertura from './cena-abertura.js'
 import sala from './cena-sala.js'
+import menu from './cena-menu.js'
 import floresta from './cena-floresta.js'
 class Game extends Phaser.Game {
   constructor () {
@@ -9,6 +10,7 @@ class Game extends Phaser.Game {
 
     this.scene.add('abertura', abertura)
     this.scene.add('sala', sala)
+    this.scene.add('menu', menu)
     this.scene.add('floresta', floresta)
 
     this.scene.start('abertura')
