@@ -17,7 +17,7 @@ export default class floresta extends Phaser.Scene {
     })
     this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
       frameWidth: 64,
-      frameHeight: 68
+      frameHeight: 72
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
       frameWidth: 64,
@@ -225,7 +225,7 @@ export default class floresta extends Phaser.Scene {
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add
       .image(centrox, centroy, 'tela-gameover')
-      .setAlpha(0.5)
+      .setAlpha(0.3)
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
