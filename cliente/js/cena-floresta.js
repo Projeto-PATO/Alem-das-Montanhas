@@ -12,11 +12,11 @@ export default class floresta extends Phaser.Scene {
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
 
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
-      frameWidth: 64,
+      frameWidth: 76,
       frameHeight: 72
     })
     this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
-      frameWidth: 64,
+      frameWidth: 76,
       frameHeight: 72
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
@@ -98,7 +98,6 @@ export default class floresta extends Phaser.Scene {
         this.direita.setFrame(1)
         this.personagem.setVelocityX(100)
         this.personagem.setFlipX(true)
-        this.personagem.setOffset(0, 20)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
@@ -114,7 +113,6 @@ export default class floresta extends Phaser.Scene {
         this.esquerda.setFrame(1)
         this.personagem.setVelocityX(-100)
         this.personagem.setFlipX(false)
-        this.personagem.setOffset(12, 24)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
@@ -125,7 +123,7 @@ export default class floresta extends Phaser.Scene {
       .setScrollFactor(0, 0)
 
     this.tela_cheia = this.add
-      .sprite(396, 40, 'tela-cheia', 0)
+      .sprite(406, 40, 'tela-cheia', 0)
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scale.isFullscreen) {
@@ -209,7 +207,7 @@ export default class floresta extends Phaser.Scene {
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add
       .image(centrox, centroy, 'tela-vitoria')
-      .setAlpha(0.2)
+      .setAlpha(0.1)
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
@@ -225,7 +223,7 @@ export default class floresta extends Phaser.Scene {
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add
       .image(centrox, centroy, 'tela-gameover')
-      .setAlpha(0.3)
+      .setAlpha(0.1)
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
