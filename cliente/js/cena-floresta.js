@@ -5,7 +5,9 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('fundo', '../assets/cenarios/mapa-floresta.png')
+    this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapateste.json')
+
+    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta-v1.png')
 
     this.load.image('tela-gameover', '../assets/telagameover.png')
 
@@ -52,7 +54,17 @@ export default class floresta extends Phaser.Scene {
   create () {
     // Criação de objetos //
 
-    this.fundo = this.add.image(225, -160, 'fundo')
+    this.tilemapFloresta = this.make.tilemap({
+      key: 'mapa-floresta'
+    })
+
+    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('floresta')
+
+    this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
+    this.layerSombra = this.tilemapFloresta.createLayer('sombra', [this.tilesetFloresta])
+    this.layerTronco = this.tilemapFloresta.createLayer('tronco', [this.tilesetFloresta])
+    this.layerObstaculo1 = this.tilemapFloresta.createLayer('obstaculo1', [this.tilesetFloresta])
+    this.layerObstaculo2 = this.tilemapFloresta.createLayer('obstaculo2', [this.tilesetFloresta])
 
     this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
 

@@ -54,11 +54,11 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"..\/Downloads\/pixil-frame-0.png",
+         "image":"tileset-floresta-v1.png",
          "imageheight":384,
          "imagewidth":256,
          "margin":0,
-         "name":"pixil-frame-0",
+         "name":"mapa-floresta",
          "spacing":0,
          "tilecount":24,
          "tileheight":64,
