@@ -7,7 +7,9 @@ export default class floresta extends Phaser.Scene {
   preload () {
     this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapateste.json')
 
-    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta-v1.png')
+    this.load.image('tileset-floresta', '../assets/mapa/floresta.png')
+
+    this.load.image('fundo-preto', '../assets/fundopreto.png')
 
     this.load.image('tela-gameover', '../assets/telagameover.png')
 
@@ -58,15 +60,13 @@ export default class floresta extends Phaser.Scene {
       key: 'mapa-floresta'
     })
 
-    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('floresta')
+    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('tileset-floresta')
 
     this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
-    this.layerSombra = this.tilemapFloresta.createLayer('sombra', [this.tilesetFloresta])
-    this.layerTronco = this.tilemapFloresta.createLayer('tronco', [this.tilesetFloresta])
-    this.layerObstaculo1 = this.tilemapFloresta.createLayer('obstaculo1', [this.tilesetFloresta])
-    this.layerObstaculo2 = this.tilemapFloresta.createLayer('obstaculo2', [this.tilesetFloresta])
+    this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
+    this.layerObstaculo = this.tilemapFloresta.createLayer('obstaculo', [this.tilesetFloresta])
 
-    this.obstaculo = this.physics.add.sprite(225, 100, 'botao-baixo')
+    this.inimigo = this.physics.add.sprite(225, 100, 'botao-baixo')
 
     this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
 
@@ -201,7 +201,7 @@ export default class floresta extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.personagem,
-      this.obstaculo,
+      this.inimigo,
       this.morrer,
       null,
       this
@@ -218,8 +218,11 @@ export default class floresta extends Phaser.Scene {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add
+      .image(centrox, centroy, 'fundo-preto')
+      .setAlpha(0.04)
+
+    this.imagem = this.add
       .image(centrox, centroy, 'tela-vitoria')
-      .setAlpha(0.1)
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
@@ -234,8 +237,11 @@ export default class floresta extends Phaser.Scene {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add
+      .image(centrox, centroy, 'fundo-preto')
+      .setAlpha(0.04)
+
+    this.imagem = this.add
       .image(centrox, centroy, 'tela-gameover')
-      .setAlpha(0.1)
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
