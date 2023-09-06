@@ -12,11 +12,11 @@ export default class floresta extends Phaser.Scene {
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
 
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
-      frameWidth: 64,
+      frameWidth: 76,
       frameHeight: 72
     })
     this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
-      frameWidth: 64,
+      frameWidth: 76,
       frameHeight: 72
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
@@ -98,7 +98,6 @@ export default class floresta extends Phaser.Scene {
         this.direita.setFrame(1)
         this.personagem.setVelocityX(100)
         this.personagem.setFlipX(true)
-        this.personagem.setOffset(0, 20)
         this.personagem.anims.play('pato-walk', true)
       })
       .on('pointerup', () => {
