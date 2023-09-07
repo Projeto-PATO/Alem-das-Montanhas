@@ -239,8 +239,6 @@ export default class floresta extends Phaser.Scene {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
-      .setAlpha(0.04)
-
     this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
       .setInteractive()
       .on('pointerdown', () => {
@@ -256,8 +254,6 @@ export default class floresta extends Phaser.Scene {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
-      .setAlpha(0.04)
-
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
