@@ -15,11 +15,14 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
 
+<<<<<<< HEAD
     this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
       frameWidth: 64,
       frameHeight: 60
     })
 
+=======
+>>>>>>> main
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 76,
       frameHeight: 72
