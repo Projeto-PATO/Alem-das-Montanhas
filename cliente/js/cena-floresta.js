@@ -15,6 +15,11 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
 
+    this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
+      frameWidth: 64,
+      frameHeight: 60
+    })
+
     this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
       frameWidth: 76,
       frameHeight: 72
@@ -54,7 +59,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
-    // Criação de objetos //
+    // Criação de mapa //
 
     this.tilemapFloresta = this.make.tilemap({
       key: 'mapa-floresta'
@@ -66,7 +71,9 @@ export default class floresta extends Phaser.Scene {
     this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
     this.layerObstaculo = this.tilemapFloresta.createLayer('obstaculo', [this.tilesetFloresta])
 
-    this.inimigo = this.physics.add.sprite(225, 100, 'botao-baixo')
+    // Criação de personagens //
+
+    this.cobra = this.physics.add.sprite(225, 100, 'cobra')
 
     this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
 
@@ -75,6 +82,55 @@ export default class floresta extends Phaser.Scene {
     this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
       .setSize(52, 40)
       .setOffset(12, 24)
+
+    // Animações //
+
+    this.anims.create({
+      key: 'pato-walk',
+      frames: this.anims.generateFrameNumbers('thiaguinho-walk', {
+        start: 0,
+        end: 21
+      }),
+      frameRate: 32,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'pato-idle',
+      frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
+        start: 0,
+        end: 15
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'mamae-pato',
+      frames: this.anims.generateFrameNumbers('mamae-pato', {
+        start: 0,
+        end: 15
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'cobra',
+      frames: this.anims.generateFrameNumbers('cobra', {
+        start: 0,
+        end: 14
+      }),
+      frameRate: 8,
+      repeat: -1
+    })
+
+    // Animações automáticas //
+    this.mamae.anims.play('mamae-pato', true)
+
+    this.cobra.anims.play('cobra', true)
+
+    // Botões //
 
     this.cima = this.add.sprite(64, 700, 'botao-cima')
       .setInteractive()
@@ -134,8 +190,7 @@ export default class floresta extends Phaser.Scene {
       })
       .setScrollFactor(0, 0)
 
-    this.tela_cheia = this.add
-      .sprite(406, 40, 'tela-cheia', 0)
+    this.tela_cheia = this.add.sprite(406, 40, 'tela-cheia', 0)
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scale.isFullscreen) {
@@ -155,40 +210,6 @@ export default class floresta extends Phaser.Scene {
     this.cameras.main.setBounds(0, -10000000, 450, 10000800)
     this.cameras.main.startFollow(this.personagem)
 
-    this.physics.add.collider(this.personagem)
-
-    // Animações //
-
-    this.anims.create({
-      key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers('thiaguinho-walk', {
-        start: 0,
-        end: 21
-      }),
-      frameRate: 32,
-      repeat: -1
-    })
-
-    this.anims.create({
-      key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
-        start: 0,
-        end: 15
-      }),
-      frameRate: 10,
-      repeat: -1
-    })
-
-    this.anims.create({
-      key: 'mamae-pato',
-      frames: this.anims.generateFrameNumbers('mamae-pato', {
-        start: 0,
-        end: 15
-      }),
-      frameRate: 10,
-      repeat: -1
-    })
-
     // Colisões //
 
     this.physics.add.overlap(
@@ -201,14 +222,11 @@ export default class floresta extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.personagem,
-      this.inimigo,
+      this.cobra,
       this.morrer,
       null,
       this
     )
-
-    // Animações automáticas
-    this.mamae.anims.play('mamae-pato', true)
   }
 
   update () {
@@ -217,12 +235,10 @@ export default class floresta extends Phaser.Scene {
   acharcacique (personagem) {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
-    this.imagem = this.add
-      .image(centrox, centroy, 'fundo-preto')
+    this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
       .setAlpha(0.04)
 
-    this.imagem = this.add
-      .image(centrox, centroy, 'tela-vitoria')
+    this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
@@ -236,12 +252,10 @@ export default class floresta extends Phaser.Scene {
   morrer (personagem) {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
-    this.imagem = this.add
-      .image(centrox, centroy, 'fundo-preto')
+    this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
       .setAlpha(0.04)
 
-    this.imagem = this.add
-      .image(centrox, centroy, 'tela-gameover')
+    this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
