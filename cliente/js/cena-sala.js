@@ -6,11 +6,11 @@ export default class sala extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('tela-abertura', '../assets/telaabertura.png')
+    this.load.image('fundo-preto', '../assets/fundopreto.png')
   }
 
   create () {
-    this.imagem = this.add.image(225, 400, 'tela-abertura').setTint(0x000000)
+    this.imagem = this.add.image(225, 400, 'fundo-preto')
     this.mensagem = this.add.text(85, 100, 'Escolha uma sala para entrar:', {
       fontFamily: 'monospace',
       font: '16px Courier',

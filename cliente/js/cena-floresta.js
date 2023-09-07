@@ -73,15 +73,17 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de personagens //
 
+    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+      .setSize(52, 40)
+      .setOffset(12, 24)
+
     this.cobra = this.physics.add.sprite(225, 100, 'cobra')
+      .setSize(54, 30)
+      .setOffset(10, 30)
 
     this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
 
     this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
-
-    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
-      .setSize(52, 40)
-      .setOffset(12, 24)
 
     // Animações //
 
@@ -129,6 +131,7 @@ export default class floresta extends Phaser.Scene {
     this.mamae.anims.play('mamae-pato', true)
 
     this.cobra.anims.play('cobra', true)
+    this.cobra.setVelocityY(100)
 
     // Botões //
 
@@ -264,5 +267,6 @@ export default class floresta extends Phaser.Scene {
     this.personagem.setVelocityX(0)
     this.personagem.setVelocityY(0)
     this.personagem.anims.play('pato-idle', true)
+    this.cobra.setVelocityY(0)
   }
 }
