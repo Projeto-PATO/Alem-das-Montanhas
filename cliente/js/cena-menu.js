@@ -24,19 +24,19 @@ export default class menu extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
-        this.game.scene.start('floresta')
+        this.game.scene.start('floresta', { id: 0, spriteidle: '/thiaguinho/thiaguinho-default-idle.png', spritewalking: '/thiaguinho/thiaguinho-default-walking.png' })
       })
     this.direita = this.add.sprite(386, 764, 'botao-direita')
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
-        this.game.scene.start('vitoria')
+        this.game.scene.start('floresta', { id: 1, spriteidle: '/isa/isa-default-idle.png', spritewalking: '/isa/isa-default-walking.png' })
       })
     this.esquerda = this.add.sprite(322, 764, 'botao-esquerda')
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
-        this.game.scene.start('gameover')
+        this.game.scene.start('floresta', { id: 2, spriteidle: '/pam/pam-default-idle.png', spritewalking: '/pam/pam-default-walking.png' })
       })
   }
 

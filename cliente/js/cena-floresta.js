@@ -4,6 +4,14 @@ export default class floresta extends Phaser.Scene {
     super('floresta')
   }
 
+  init (data) {
+    console.log('init', data)
+
+    this.spriteid = data.id
+    this.spriteidle = data.spriteidle
+    this.spritewalking = data.spritewalking
+  }
+
   preload () {
     this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapateste.json')
 
@@ -19,11 +27,12 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 60
     })
-    this.load.spritesheet('thiaguinho-walk', '../assets/patos/thiaguinho/thiaguinho-default-walking.png', {
+    // eslint-disable-next-line no-template-curly-in-string
+    this.load.spritesheet(`walking${this.spriteid}`, `../assets/patos/${this.spritewalking}`, {
       frameWidth: 76,
       frameHeight: 72
     })
-    this.load.spritesheet('thiaguinho-idle', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
+    this.load.spritesheet(`idle${this.spriteid}`, `../assets/patos/${this.spriteidle}`, {
       frameWidth: 76,
       frameHeight: 72
     })
@@ -72,7 +81,7 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de personagens //
 
-    this.personagem = this.physics.add.sprite(225, 400, 'thiaguinho-idle')
+    this.personagem = this.physics.add.sprite(225, 400, `idle${this.spriteid}`)
       .setSize(52, 40)
       .setOffset(12, 24)
 
@@ -88,7 +97,7 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers('thiaguinho-walk', {
+      frames: this.anims.generateFrameNumbers(`walking${this.spriteid}`, {
         start: 0,
         end: 21
       }),
@@ -98,7 +107,7 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers('thiaguinho-idle', {
+      frames: this.anims.generateFrameNumbers(`idle${this.spriteid}`, {
         start: 0,
         end: 15
       }),
