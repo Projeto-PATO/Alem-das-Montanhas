@@ -3,6 +3,7 @@
 
 export default {
   type: Phaser.AUTO,
+  pixelArt: true,
   width: 448,
   height: 800,
   parent: 'game-container',

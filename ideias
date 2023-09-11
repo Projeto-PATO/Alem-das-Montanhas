@@ -4,7 +4,7 @@ https://medium.com/@alizah.lalani/collecting-objects-in-phaser-3-platformer-game
 ### Regras do jogo
 Runner vertical;
 Se mexendo para os lados; 
-Vidas (perdidas ao bater em obstáculos e tomar dano de inimigos;
+Vidas (perdidas ao bater em obstáculos e tomar dano de inimigos);
 Pato dispara projétil que é apenas efetivo em inimigos (porém pode colidir com obstáculos);
 Quando bate no obstáculo, fica invulnerável por alguns instantes;
 Medidor de distância no topo da tela;

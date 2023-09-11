@@ -10,6 +10,10 @@ export default class floresta extends Phaser.Scene {
     this.spriteid = data.id
     this.spriteidle = data.spriteidle
     this.spritewalking = data.spritewalking
+    this.frameendidle = data.frameendidle
+    this.frameendwalking = data.frameendwalking
+    this.framerateidle = data.framerateidle
+    this.frameratewalking = data.frameratewalking
   }
 
   preload () {
@@ -28,11 +32,11 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 60
     })
     // eslint-disable-next-line no-template-curly-in-string
-    this.load.spritesheet(`walking${this.spriteid}`, `../assets/patos/${this.spritewalking}`, {
+    this.load.spritesheet(`spritewalking${this.spriteid}`, `../assets/patos/${this.spritewalking}`, {
       frameWidth: 76,
       frameHeight: 72
     })
-    this.load.spritesheet(`idle${this.spriteid}`, `../assets/patos/${this.spriteidle}`, {
+    this.load.spritesheet(`spriteidle${this.spriteid}`, `../assets/patos/${this.spriteidle}`, {
       frameWidth: 76,
       frameHeight: 72
     })
@@ -81,7 +85,7 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de personagens //
 
-    this.personagem = this.physics.add.sprite(225, 400, `idle${this.spriteid}`)
+    this.personagem = this.physics.add.sprite(225, 400, `spriteidle${this.spriteid}`)
       .setSize(52, 40)
       .setOffset(12, 24)
 
@@ -97,21 +101,21 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers(`walking${this.spriteid}`, {
+      frames: this.anims.generateFrameNumbers(`spritewalking${this.spriteid}`, {
         start: 0,
-        end: 21
+        end: (`framewalking${this.spriteid}`, `${this.frameendwalking}`)
       }),
-      frameRate: 32,
+      frameRate: (`framerate-w${this.spriteid}`, `${this.frameratewalking}`),
       repeat: -1
     })
 
     this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(`idle${this.spriteid}`, {
+      frames: this.anims.generateFrameNumbers(`spriteidle${this.spriteid}`, {
         start: 0,
-        end: 15
+        end: (`frameidle${this.spriteid}`, `${this.frameendidle}`)
       }),
-      frameRate: 10,
+      frameRate: (`framerate-i${this.spriteid}`, `${this.framerateidle}`),
       repeat: -1
     })
 
