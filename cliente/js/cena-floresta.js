@@ -20,7 +20,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapateste.json')
+    this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapa-floresta.json')
 
     this.load.image('tileset-floresta', '../assets/mapa/floresta.png')
 
@@ -29,6 +29,11 @@ export default class floresta extends Phaser.Scene {
     this.load.image('tela-gameover', '../assets/telagameover.png')
 
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
+
+    this.load.spritesheet('migalha', '../assets/moeda.png', {
+      frameWidth: 32,
+      frameHeight: 32
+    })
 
     this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
       frameWidth: 64,
@@ -84,23 +89,33 @@ export default class floresta extends Phaser.Scene {
 
     this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
     this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
-    this.layerObstaculo = this.tilemapFloresta.createLayer('obstaculo', [this.tilesetFloresta])
-
-    // Criação de personagens //
-
-    this.personagem = this.physics.add.sprite(225, 400, `spriteidle${this.spriteid}`)
-      .setSize(52, 40)
-      .setOffset(12, 24)
-
-    this.cobra = this.physics.add.sprite(225, 100, 'cobra')
+    this.layerTronco = this.tilemapFloresta.createLayer('tronco', [this.tilesetFloresta])
+    this.cobra = this.physics.add.sprite(224, 100, 'cobra')
       .setSize(54, 30)
       .setOffset(10, 30)
+
+    this.personagem = this.physics.add.sprite(224, 2918, `spriteidle${this.spriteid}`)
+      .setSize(52, 40)
+      .setOffset(12, 24)
+    this.layerCopa = this.tilemapFloresta.createLayer('copa', [this.tilesetFloresta])
+
+    this.migalha = this.physics.add.sprite(224, 100, 'migalha')
 
     this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
 
     this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
 
     // Animações //
+
+    this.anims.create({
+      key: 'migalha-girando',
+      frames: this.anims.generateFrameNumbers('migalha', {
+        start: 0,
+        end: 4
+      }),
+      frameRate: 15,
+      repeat: -1
+    })
 
     this.anims.create({
       key: 'pato-walk',
@@ -143,6 +158,8 @@ export default class floresta extends Phaser.Scene {
     })
 
     // Animações automáticas //
+    this.migalha.anims.play('migalha-girando', true)
+
     this.mamae.anims.play('mamae-pato', true)
 
     this.cobra.anims.play('cobra', true)
@@ -224,8 +241,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites //
 
     this.personagem.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 0, 450, 800, true, true, false, true)
-    this.cameras.main.setBounds(0, -10000000, 450, 10000800)
+    this.physics.world.setBounds(0, 0, 448, 3171, true, true, false, false)
+    this.cameras.main.setBounds(0, 0, 448, 3171)
     this.cameras.main.startFollow(this.personagem)
 
     // Colisões //
@@ -245,6 +262,16 @@ export default class floresta extends Phaser.Scene {
       null,
       this
     )
+
+    this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerPedra.setCollisionByProperty({ canCollide: true })
+    this.layerTronco.setCollisionByProperty({ canCollide: true })
+    this.layerCopa.setCollisionByProperty({ canCollide: true })
+
+    this.physics.add.collider(this.personagem, this.layerChao)
+    this.physics.add.collider(this.personagem, this.layerPedra)
+    this.physics.add.collider(this.personagem, this.layerTronco)
+    this.physics.add.collider(this.personagem, this.layerCopa)
   }
 
   update () {
