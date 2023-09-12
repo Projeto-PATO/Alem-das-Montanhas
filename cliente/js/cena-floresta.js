@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+// eslint-disable-next-line no-template-curly-in-string
 export default class floresta extends Phaser.Scene {
   constructor () {
     super('floresta')
@@ -8,6 +9,8 @@ export default class floresta extends Phaser.Scene {
     console.log('init', data)
 
     this.spriteid = data.id
+    this.framewidth = data.framewidth
+    this.frameheight = data.frameheight
     this.spriteidle = data.spriteidle
     this.spritewalking = data.spritewalking
     this.frameendidle = data.frameendidle
@@ -31,7 +34,7 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 60
     })
-    // eslint-disable-next-line no-template-curly-in-string
+
     this.load.spritesheet(`spritewalking${this.spriteid}`, `../assets/patos/${this.spritewalking}`, {
       frameWidth: 76,
       frameHeight: 72
