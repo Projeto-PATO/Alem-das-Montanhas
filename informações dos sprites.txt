@@ -1,0 +1,62 @@
+// thiaguinho
+
+idle: 16 framerate 10
+walking: 22 framerate 40
+
+thiaguinho default: 76x72
+thiaguinho oculos: 76x72
+thiaguinho palha: 76x80
+thiaguinho cocar: 76x84
+thiaguinho mago: 76x88
+
+// cacique
+
+idle: 12 framerate 10
+walking: 22 framerate 40
+
+cacique default: 76x72
+cacique oculos: 76x72
+cacique palha: 76x80
+cacique cocar: 76x84
+cacique mago: 76x88
+
+// isa
+
+idle: 12 framerate 10
+walking: 22 framerate 40
+
+isa default: 76x72
+isa oculos: 76x72
+isa palha: 76x80
+isa cocar: 76x84
+isa mago: 76x88
+
+//pam
+
+idle: 22 framerate 40
+walking: 22 framerate 40
+
+pam default: 76x72
+pam oculos: 76x72
+pam palha: 76x80
+pam cocar: 76x84
+pam mago: 76x88
+
+//tucano
+
+idle: 16 framerate 10
+walking: 22 framerate 40
+
+tucano default: 92x92
+tucano oculos: 92x92
+tucano palha: 92x100
+tucano cocar: 92x104
+tucano mago: 92x104
+
+//mamae pato
+
+idle: 16
+
+//cobra
+
+walking: 15

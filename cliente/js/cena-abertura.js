@@ -10,7 +10,7 @@ export default class abertura extends Phaser.Scene {
 
   create () {
     this.imagem = this.add
-      .image(225, 400, 'tela-aberturav3')
+      .image(224, 400, 'tela-aberturav3')
       .setInteractive()
       .on('pointerdown', () => {
         this.imagem.destroy()
