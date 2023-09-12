@@ -34,12 +34,10 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     })
-
     this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
       frameWidth: 64,
       frameHeight: 60
     })
-
     this.load.spritesheet(`spritewalking${this.spriteid}`, `../assets/patos/${this.spritewalking}`, {
       frameWidth: 76,
       frameHeight: 72
@@ -79,7 +77,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
-    // Criação de mapa //
+    // Criação de mapa e objetos //
 
     this.tilemapFloresta = this.make.tilemap({
       key: 'mapa-floresta'
@@ -90,20 +88,26 @@ export default class floresta extends Phaser.Scene {
     this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
     this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
     this.layerTronco = this.tilemapFloresta.createLayer('tronco', [this.tilesetFloresta])
-    this.cobra = this.physics.add.sprite(224, 100, 'cobra')
+
+    this.migalha = this.physics.add.sprite(224, 2700, 'migalha')
+      .setImmovable()
+
+    this.cobra = this.physics.add.sprite(224, 2200, 'cobra')
       .setSize(54, 30)
       .setOffset(10, 30)
+      .setBounce(0)
 
     this.personagem = this.physics.add.sprite(224, 2918, `spriteidle${this.spriteid}`)
       .setSize(52, 40)
-      .setOffset(12, 24)
+      .setOffset(12, 30)
+
+    this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
+      .setImmovable()
+      .setBounce(0)
+
     this.layerCopa = this.tilemapFloresta.createLayer('copa', [this.tilesetFloresta])
 
-    this.migalha = this.physics.add.sprite(224, 100, 'migalha')
-
-    this.mamae = this.physics.add.sprite(225, 700, 'mamae-pato')
-
-    this.cacique = this.physics.add.sprite(225, 0, 'cacique-idle')
+    this.mamae = this.physics.add.sprite(225, 3100, 'mamae-pato')
 
     // Animações //
 
@@ -238,7 +242,7 @@ export default class floresta extends Phaser.Scene {
       })
       .setScrollFactor(0)
 
-    // Criação de limites //
+    // Criação de limites e câmera //
 
     this.personagem.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 0, 448, 3171, true, true, false, false)
@@ -246,22 +250,6 @@ export default class floresta extends Phaser.Scene {
     this.cameras.main.startFollow(this.personagem)
 
     // Colisões //
-
-    this.physics.add.overlap(
-      this.personagem,
-      this.cacique,
-      this.acharcacique,
-      null,
-      this
-    )
-
-    this.physics.add.overlap(
-      this.personagem,
-      this.cobra,
-      this.morrer,
-      null,
-      this
-    )
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
@@ -272,6 +260,17 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.personagem, this.layerPedra)
     this.physics.add.collider(this.personagem, this.layerTronco)
     this.physics.add.collider(this.personagem, this.layerCopa)
+
+    this.physics.add.collider(this.cobra, this.layerChao)
+    this.physics.add.collider(this.cobra, this.layerPedra)
+    this.physics.add.collider(this.cobra, this.layerTronco)
+    this.physics.add.collider(this.cobra, this.layerCopa)
+
+    this.physics.add.collider(this.personagem, this.cacique, this.acharcacique, null, this)
+
+    this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
+
+    this.physics.add.overlap(this.personagem, this.migalha, this.coletarmigalha, null, this)
   }
 
   update () {
@@ -289,6 +288,7 @@ export default class floresta extends Phaser.Scene {
       })
     this.personagem.setVelocityX(0)
     this.personagem.setVelocityY(0)
+    this.personagem.setImmovable()
     this.personagem.anims.play('pato-idle', true)
   }
 
@@ -302,9 +302,14 @@ export default class floresta extends Phaser.Scene {
         this.game.scene.stop('floresta')
         this.game.scene.start('menu')
       })
+    this.personagem.setImmovable()
     this.personagem.setVelocityX(0)
     this.personagem.setVelocityY(0)
     this.personagem.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
+  }
+
+  coletarmigalha (personagem) {
+    this.migalha.disableBody(true, true)
   }
 }
