@@ -8,6 +8,8 @@ class Game extends Phaser.Game {
   constructor () {
     super(config)
 
+    this.estadoPersonagem = {}
+
     this.scene.add('abertura', abertura)
     this.scene.add('sala', sala)
     this.scene.add('menu', menu)
