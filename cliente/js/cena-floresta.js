@@ -30,9 +30,9 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-vitoria', '../assets/telavitoria.png')
 
-    this.load.spritesheet('migalha', '../assets/moeda.png', {
-      frameWidth: 32,
-      frameHeight: 32
+    this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
+      frameWidth: 26,
+      frameHeight: 24
     })
     this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
       frameWidth: 64,
@@ -71,8 +71,8 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 68
     })
     this.load.spritesheet('tela-cheia', '../assets/botoes/tela-cheia.png', {
-      frameWidth: 64,
-      frameHeight: 64
+      frameWidth: 56,
+      frameHeight: 56
     })
   }
 
@@ -115,9 +115,9 @@ export default class floresta extends Phaser.Scene {
       key: 'migalha-girando',
       frames: this.anims.generateFrameNumbers('migalha', {
         start: 0,
-        end: 4
+        end: 3
       }),
-      frameRate: 15,
+      frameRate: 5,
       repeat: -1
     })
 
