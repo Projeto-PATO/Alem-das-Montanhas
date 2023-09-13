@@ -89,11 +89,12 @@ export default class floresta extends Phaser.Scene {
     this.cobra = this.physics.add.sprite(224, 2200, 'cobra')
       .setSize(54, 30)
       .setOffset(10, 30)
-      .setBounce(0)
+      .setImmovable()
 
     this.personagem = this.physics.add.sprite(224, 2918, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
       .setSize(52, 40)
       .setOffset(12, 30)
+      .setImmovable()
 
     this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
       .setImmovable()
