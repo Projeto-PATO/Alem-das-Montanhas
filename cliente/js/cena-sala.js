@@ -90,8 +90,8 @@ export default class sala extends Phaser.Scene {
         .on('pointerdown', () => {
           this.salas.forEach((item) => {
             item.botao.destroy()
-          this.game.scene.stop('sala')
-          this.game.scene.start('menu')
+            this.game.scene.stop('sala')
+            this.game.scene.start('menu')
           })
         })
     })
