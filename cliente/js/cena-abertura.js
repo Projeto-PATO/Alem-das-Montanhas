@@ -5,7 +5,7 @@ export default class abertura extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('tela-aberturav3', '../assets/telaaberturav3.png')
+    this.load.image('tela-aberturav3', '../assets/tela-abertura-v3.png')
   }
 
   create () {

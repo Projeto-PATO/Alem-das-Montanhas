@@ -33,15 +33,15 @@ export default class menu extends Phaser.Scene {
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
-          spriteid: 0,
-          spriteidle: '/thiaguinho/thiaguinho-default-idle.png',
-          spritewalking: '/thiaguinho/thiaguinho-default-walking.png',
-          framewidth: 76,
-          frameheight: 72,
-          frameendidle: 15,
-          frameendwalking: 21,
-          framerateidle: 10,
-          frameratewalking: 40
+          spriteId: 0,
+          spriteIdle: '/thiaguinho/thiaguinho-default-idle.png',
+          spriteWalking: '/thiaguinho/thiaguinho-default-walking.png',
+          frameWidth: 76,
+          frameHeight: 72,
+          frameEndIdle: 15,
+          frameEndWalking: 21,
+          frameRateIdle: 10,
+          frameRateWalking: 40
         }
         this.game.scene.start('floresta')
       })
@@ -51,15 +51,15 @@ export default class menu extends Phaser.Scene {
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
-          spriteid: 1,
-          framewidth: 76,
-          frameheight: 72,
-          spriteidle: '/cacique/cacique-default-idle.png',
-          spritewalking: '/cacique/cacique-default-walking.png',
-          frameendidle: 11,
-          frameendwalking: 21,
-          framerateidle: 10,
-          frameratewalking: 40
+          spriteId: 1,
+          frameWidth: 76,
+          frameHeight: 72,
+          spriteIdle: '/cacique/cacique-default-idle.png',
+          spriteWalking: '/cacique/cacique-default-walking.png',
+          frameEndIdle: 11,
+          frameEndWalking: 21,
+          frameRateIdle: 10,
+          frameRateWalking: 40
         }
         this.game.scene.start('floresta')
       })
@@ -68,15 +68,15 @@ export default class menu extends Phaser.Scene {
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
-          spriteid: 2,
-          spriteidle: '/isa/isa-default-idle.png',
-          spritewalking: '/isa/isa-default-walking.png',
-          framewidth: 76,
-          frameheight: 72,
-          frameendidle: 11,
-          frameendwalking: 21,
-          framerateidle: 10,
-          frameratewalking: 40
+          spriteId: 2,
+          spriteIdle: '/isa/isa-default-idle.png',
+          spriteWalking: '/isa/isa-default-walking.png',
+          frameWidth: 76,
+          frameHeight: 72,
+          frameEndIdle: 11,
+          frameEndWalking: 21,
+          frameRateIdle: 10,
+          frameRateWalking: 40
         }
         this.game.scene.start('floresta')
       })
@@ -85,15 +85,15 @@ export default class menu extends Phaser.Scene {
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
-          spriteid: 3,
-          spriteidle: '/pam/pam-default-idle.png',
-          spritewalking: '/pam/pam-default-walking.png',
-          framewidth: 76,
-          frameheight: 72,
-          frameendidle: 21,
-          frameendwalking: 21,
-          framerateidle: 40,
-          frameratewalking: 40
+          spriteId: 3,
+          spriteIdle: '/pam/pam-default-idle.png',
+          spriteWalking: '/pam/pam-default-walking.png',
+          frameWidth: 76,
+          frameHeight: 72,
+          frameEndIdle: 21,
+          frameEndWalking: 21,
+          frameRateIdle: 40,
+          frameRateWalking: 40
         }
         this.game.scene.start('floresta')
       })
@@ -103,15 +103,15 @@ export default class menu extends Phaser.Scene {
       .on('pointerdown', () => {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
-          spriteid: 4,
-          spriteidle: '/tucano/tucano-default-idle.png',
-          spritewalking: '/tucano/tucano-default-walking.png',
-          framewidth: 92,
-          frameheight: 92,
-          frameendidle: 15,
-          frameendwalking: 21,
-          framerateidle: 10,
-          frameratewalking: 40
+          spriteId: 4,
+          spriteIdle: '/tucano/tucano-default-idle.png',
+          spriteWalking: '/tucano/tucano-default-walking.png',
+          frameWidth: 92,
+          frameHeight: 92,
+          frameEndIdle: 15,
+          frameEndWalking: 21,
+          frameRateIdle: 10,
+          frameRateWalking: 40
         }
         this.game.scene.start('floresta')
       })

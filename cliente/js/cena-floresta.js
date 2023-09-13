@@ -10,11 +10,11 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tileset-floresta', '../assets/mapa/floresta.png')
 
-    this.load.image('fundo-preto', '../assets/fundopreto.png')
+    this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
-    this.load.image('tela-gameover', '../assets/telagameover.png')
+    this.load.image('tela-gameover', '../assets/tela-gameover.png')
 
-    this.load.image('tela-vitoria', '../assets/telavitoria.png')
+    this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
 
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
@@ -24,11 +24,11 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 60
     })
-    this.load.spritesheet(`spritewalking${this.game.estadoPersonagem.spriteid}`, `../assets/patos/${this.game.estadoPersonagem.spritewalking}`, {
+    this.load.spritesheet(`sprite-walking${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteWalking}`, {
       frameWidth: 76,
       frameHeight: 72
     })
-    this.load.spritesheet(`spriteidle${this.game.estadoPersonagem.spriteid}`, `../assets/patos/${this.game.estadoPersonagem.spriteidle}`, {
+    this.load.spritesheet(`sprite-idle${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteIdle}`, {
       frameWidth: 76,
       frameHeight: 72
     })
@@ -36,7 +36,7 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 80
     })
-    this.load.spritesheet('mamae-pato', '../assets/patos/mamae-pato/mamaepato.png', {
+    this.load.spritesheet('mamae-pato', '../assets/patos/mamae-pato/mamae-pato.png', {
       frameWidth: 76,
       frameHeight: 76
     })
@@ -91,7 +91,7 @@ export default class floresta extends Phaser.Scene {
       .setOffset(10, 30)
       .setBounce(0)
 
-    this.personagem = this.physics.add.sprite(224, 2918, `spriteidle${this.game.estadoPersonagem.spriteid}`)
+    this.personagem = this.physics.add.sprite(224, 2918, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
       .setSize(52, 40)
       .setOffset(12, 30)
 
@@ -117,21 +117,21 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers(`spritewalking${this.game.estadoPersonagem.spriteid}`, {
+      frames: this.anims.generateFrameNumbers(`sprite-walking${this.game.estadoPersonagem.spriteId}`, {
         start: 0,
-        end: (`framewalking${this.game.estadoPersonagem.spriteid}`, `${this.game.estadoPersonagem.frameendwalking}`)
+        end: (`frame-walking${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndWalking}`)
       }),
-      frameRate: (`framerate-w${this.game.estadoPersonagem.spriteid}`, `${this.game.estadoPersonagem.frameratewalking}`),
+      frameRate: (`frame-rate-w${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateWalking}`),
       repeat: -1
     })
 
     this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(`spriteidle${this.game.estadoPersonagem.spriteid}`, {
+      frames: this.anims.generateFrameNumbers(`sprite-idle${this.game.estadoPersonagem.spriteId}`, {
         start: 0,
-        end: (`frameidle${this.game.estadoPersonagem.spriteid}`, `${this.game.estadoPersonagem.frameendidle}`)
+        end: (`frame-idle${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndIdle}`)
       }),
-      frameRate: (`framerate-i${this.game.estadoPersonagem.spriteid}`, `${this.game.estadoPersonagem.framerateidle}`),
+      frameRate: (`frame-rate-i${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateIdle}`),
       repeat: -1
     })
 
