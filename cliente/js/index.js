@@ -10,6 +10,9 @@ class Game extends Phaser.Game {
 
     this.estadoPersonagem = {}
 
+    this.scoreMigalha = {
+      score: 0
+    }
     this.scene.add('abertura', abertura)
     this.scene.add('sala', sala)
     this.scene.add('menu', menu)

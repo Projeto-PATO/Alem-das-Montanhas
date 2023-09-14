@@ -97,12 +97,20 @@ export default class floresta extends Phaser.Scene {
       .setImmovable()
 
     this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
+      .setSize(52, 40)
+      .setOffset(12, 42)
       .setImmovable()
       .setBounce(0)
 
     this.layerCopa = this.tilemapFloresta.createLayer('copa', [this.tilesetFloresta])
 
     this.mamae = this.physics.add.sprite(225, 3100, 'mamae-pato')
+
+    this.texto = this.add.text(20, 30, `Migalhas: ${this.game.scoreMigalha.score}`, {
+      fontSize: '20px',
+      fill: '#ffffff'
+    })
+    this.texto.setScrollFactor(0)
 
     // Animações //
 
@@ -240,7 +248,7 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagem.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 0, 448, 3171, true, true, false, false)
+    this.physics.world.setBounds(0, 0, 448, 3171, true, true, true, false)
     this.cameras.main.setBounds(0, 0, 448, 3171)
     this.cameras.main.startFollow(this.personagem)
 
@@ -285,6 +293,8 @@ export default class floresta extends Phaser.Scene {
     this.personagem.setVelocityY(0)
     this.personagem.setImmovable()
     this.personagem.anims.play('pato-idle', true)
+    this.game.scoreMigalha.score = 0
+    this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
   }
 
   morrer (personagem) {
@@ -302,9 +312,14 @@ export default class floresta extends Phaser.Scene {
     this.personagem.setVelocityY(0)
     this.personagem.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
+    this.game.scoreMigalha.score = 0
+    this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
   }
 
   coletarmigalha (personagem) {
     this.migalha.disableBody(true, true)
+    this.game.scoreMigalha.score++
+    this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
+    return false
   }
 }
