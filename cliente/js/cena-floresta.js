@@ -16,6 +16,10 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
 
+    this.load.script(
+      'webfont',
+      'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
+
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
       frameHeight: 24
@@ -25,12 +29,12 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 60
     })
     this.load.spritesheet(`sprite-walking${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteWalking}`, {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet(`sprite-idle${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteIdle}`, {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
       frameWidth: 64,
@@ -93,7 +97,7 @@ export default class floresta extends Phaser.Scene {
 
     this.personagem = this.physics.add.sprite(224, 2918, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
       .setSize(52, 40)
-      .setOffset(12, 30)
+      .setOffset(20, 64)
       .setImmovable()
 
     this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
@@ -106,8 +110,15 @@ export default class floresta extends Phaser.Scene {
 
     this.mamae = this.physics.add.sprite(225, 3100, 'mamae-pato')
 
+    WebFont.load({
+      custom: {
+        families: ['Silkscreen'],
+        urls: ['../style.css']
+      }
+    })
+
     this.texto = this.add.text(20, 30, `Migalhas: ${this.game.scoreMigalha.score}`, {
-      fontSize: '20px',
+      fontSize: '25px',
       fill: '#ffffff'
     })
     this.texto.setScrollFactor(0)

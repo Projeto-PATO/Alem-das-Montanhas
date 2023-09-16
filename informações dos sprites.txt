@@ -1,54 +1,54 @@
 // thiaguinho //
 
-thiaguinho default: 76x72
-thiaguinho oculos: 76x72
-thiaguinho palha: 76x80
-thiaguinho cocar: 76x84
-thiaguinho mago: 76x88
+thiaguinho default: 92x108
+thiaguinho oculos: 92x108
+thiaguinho palha: 92x108
+thiaguinho cocar: 92x108
+thiaguinho mago: 92x108
 
 idle: 16 framerate: 10
 walking: 22 framerate: 40
 
 // cacique //
 
-cacique default: 76x72
-cacique oculos: 76x72
-cacique palha: 76x80
-cacique cocar: 76x84
-cacique mago: 76x88
+cacique default: 92x108
+cacique oculos: 92x108
+cacique palha: 92x108
+cacique cocar: 92x108
+cacique mago: 92x108
 
 idle: 12 framerate: 10
 walking: 22 framerate: 40
 
 // isa //
 
-isa default: 76x72
-isa oculos: 76x72
-isa palha: 76x80
-isa cocar: 76x84
-isa mago: 76x88
+isa default: 92x108
+isa oculos: 92x108
+isa palha: 92x108
+isa cocar: 92x108
+isa mago: 92x108
 
 idle: 12 framerate: 10
 walking: 22 framerate: 40
 
 // pam //
 
-pam default: 76x72
-pam oculos: 76x72
-pam palha: 76x80
-pam cocar: 76x84
-pam mago: 76x88
+pam default: 92x108
+pam oculos: 92x108
+pam palha: 92x108
+pam cocar: 92x108
+pam mago: 92x108
 
 idle: 22 framerate: 40
 walking: 22 framerate: 40
 
 // tucano //
 
-tucano default: 92x92
-tucano oculos: 92x92
-tucano palha: 92x100
-tucano cocar: 92x104
-tucano mago: 92x104
+tucano default: 92x108
+tucano oculos: 92x108
+tucano palha: 92x108
+tucano cocar: 92x108
+tucano mago: 92x108
 
 idle: 16 framerate: 10
 walking: 22 framerate: 40

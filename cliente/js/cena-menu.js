@@ -6,24 +6,24 @@ export default class menu extends Phaser.Scene {
 
   preload () {
     this.load.spritesheet('thiaguinho', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('cacique', '../assets/patos/cacique/cacique-default-idle.png', {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('isa', '../assets/patos/isa/isa-default-idle.png', {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('pam', '../assets/patos/pam/pam-default-idle.png', {
-      frameWidth: 76,
-      frameHeight: 72
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('tucano', '../assets/patos/tucano/tucano-default-idle.png', {
       frameWidth: 92,
-      frameHeight: 92
+      frameHeight: 108
     })
   }
 
@@ -36,8 +36,6 @@ export default class menu extends Phaser.Scene {
           spriteId: 0,
           spriteIdle: '/thiaguinho/thiaguinho-default-idle.png',
           spriteWalking: '/thiaguinho/thiaguinho-default-walking.png',
-          frameWidth: 76,
-          frameHeight: 72,
           frameEndIdle: 15,
           frameEndWalking: 21,
           frameRateIdle: 10,
@@ -52,8 +50,6 @@ export default class menu extends Phaser.Scene {
         this.game.scene.stop('menu')
         this.game.estadoPersonagem = {
           spriteId: 1,
-          frameWidth: 76,
-          frameHeight: 72,
           spriteIdle: '/cacique/cacique-default-idle.png',
           spriteWalking: '/cacique/cacique-default-walking.png',
           frameEndIdle: 11,
@@ -71,8 +67,6 @@ export default class menu extends Phaser.Scene {
           spriteId: 2,
           spriteIdle: '/isa/isa-default-idle.png',
           spriteWalking: '/isa/isa-default-walking.png',
-          frameWidth: 76,
-          frameHeight: 72,
           frameEndIdle: 11,
           frameEndWalking: 21,
           frameRateIdle: 10,
@@ -88,8 +82,6 @@ export default class menu extends Phaser.Scene {
           spriteId: 3,
           spriteIdle: '/pam/pam-default-idle.png',
           spriteWalking: '/pam/pam-default-walking.png',
-          frameWidth: 76,
-          frameHeight: 72,
           frameEndIdle: 21,
           frameEndWalking: 21,
           frameRateIdle: 40,
@@ -106,8 +98,6 @@ export default class menu extends Phaser.Scene {
           spriteId: 4,
           spriteIdle: '/tucano/tucano-default-idle.png',
           spriteWalking: '/tucano/tucano-default-walking.png',
-          frameWidth: 92,
-          frameHeight: 92,
           frameEndIdle: 15,
           frameEndWalking: 21,
           frameRateIdle: 10,
