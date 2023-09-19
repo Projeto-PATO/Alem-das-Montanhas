@@ -64,6 +64,11 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 56,
       frameHeight: 56
     })
+    this.load.audio('trilha-floresta', '../assets/audios/trilha-floresta.mp3')
+
+    this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
+
+    this.load.audio('audio-gameover', './assets/audios/gameover.mp3')
   }
 
   create () {
@@ -74,6 +79,13 @@ export default class floresta extends Phaser.Scene {
     } catch (err) {
       console.log(err)
     }
+
+    this.trilhaFloresta = this.sound.add('trilha-floresta')
+    this.trilhaFloresta.loop = true
+    this.trilhaFloresta.play()
+
+    this.audioMigalha = this.sound.add('audio-migalha')
+    this.audioGameover = this.sound.add('audio-gameover')
 
     // Criação de mapa e objetos //
 
@@ -102,7 +114,7 @@ export default class floresta extends Phaser.Scene {
 
     this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
       .setSize(52, 40)
-      .setOffset(12, 42)
+      .setOffset(20, 64)
       .setImmovable()
       .setBounce(0)
 
@@ -306,6 +318,7 @@ export default class floresta extends Phaser.Scene {
     this.personagem.anims.play('pato-idle', true)
     this.game.scoreMigalha.score = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
+    this.trilhaFloresta.stop()
   }
 
   morrer (personagem) {
@@ -323,14 +336,18 @@ export default class floresta extends Phaser.Scene {
     this.personagem.setVelocityY(0)
     this.personagem.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
+    this.cobra.disableBody(true, false)
     this.game.scoreMigalha.score = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
+    this.trilhaFloresta.stop()
+    this.audioGameover.play()
   }
 
   coletarmigalha (personagem) {
     this.migalha.disableBody(true, true)
     this.game.scoreMigalha.score++
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
+    this.audioMigalha.play()
     return false
   }
 }

@@ -25,9 +25,15 @@ export default class menu extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+
+    this.load.audio('trilha-menu', '../assets/audios/trilha-menu.mp3')
   }
 
   create () {
+    this.trilhaMenu = this.sound.add('trilha-menu')
+    this.trilhaMenu.loop = true
+    this.trilhaMenu.play()
+
     this.thiaguinho = this.add.sprite(64, 700, 'thiaguinho')
       .setInteractive()
       .on('pointerdown', () => {
@@ -42,6 +48,7 @@ export default class menu extends Phaser.Scene {
           frameRateWalking: 40
         }
         this.game.scene.start('floresta')
+        this.trilhaMenu.stop()
       })
 
     this.cacique = this.add.sprite(128, 700, 'cacique')
@@ -57,6 +64,7 @@ export default class menu extends Phaser.Scene {
           frameRateIdle: 10,
           frameRateWalking: 40
         }
+        this.trilhaMenu.stop()
         this.game.scene.start('floresta')
       })
     this.isa = this.add.sprite(192, 700, 'isa')
@@ -72,6 +80,7 @@ export default class menu extends Phaser.Scene {
           frameRateIdle: 10,
           frameRateWalking: 40
         }
+        this.trilhaMenu.stop()
         this.game.scene.start('floresta')
       })
     this.pam = this.add.sprite(256, 700, 'pam')
@@ -87,6 +96,7 @@ export default class menu extends Phaser.Scene {
           frameRateIdle: 40,
           frameRateWalking: 40
         }
+        this.trilhaMenu.stop()
         this.game.scene.start('floresta')
       })
 
@@ -103,6 +113,7 @@ export default class menu extends Phaser.Scene {
           frameRateIdle: 10,
           frameRateWalking: 40
         }
+        this.trilhaMenu.stop()
         this.game.scene.start('floresta')
       })
   }
