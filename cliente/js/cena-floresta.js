@@ -6,7 +6,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa-floresta', '../assets/mapa/mapa-floresta.json')
+    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-fm.json')
 
     this.load.image('tileset-floresta', '../assets/mapa/floresta.png')
 
@@ -89,15 +89,15 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de mapa e objetos //
 
-    this.tilemapFloresta = this.make.tilemap({
-      key: 'mapa-floresta'
+    this.tilemapMapa = this.make.tilemap({
+      key: 'mapa'
     })
 
-    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('tileset-floresta')
+    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
 
-    this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
-    this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
-    this.layerTronco = this.tilemapFloresta.createLayer('tronco', [this.tilesetFloresta])
+    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
+    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
+    this.layerTronco = this.tilemapMapa.createLayer('tronco', [this.tilesetFloresta])
 
     // animação migalha
     this.anims.create({
@@ -110,55 +110,21 @@ export default class floresta extends Phaser.Scene {
       repeat: -1
     })
 
-    this.cobra = this.physics.add.sprite(224, 2200, 'cobra')
-      .setSize(54, 30)
-      .setOffset(10, 30)
-      .setImmovable()
-
-    this.personagem = this.physics.add.sprite(224, 2918, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
-      .setSize(52, 40)
-      .setOffset(20, 64)
-      .setImmovable()
-
-    this.cacique = this.physics.add.sprite(225, 150, 'cacique-idle')
-      .setSize(52, 40)
-      .setOffset(20, 64)
-      .setImmovable()
-      .setBounce(0)
-
-    this.layerCopa = this.tilemapFloresta.createLayer('copa', [this.tilesetFloresta])
-
-    this.mamae = this.physics.add.sprite(225, 3100, 'mamae-pato')
-
     // Colisões //
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerTronco.setCollisionByProperty({ canCollide: true })
-    this.layerCopa.setCollisionByProperty({ canCollide: true })
-
-    this.physics.add.collider(this.personagem, this.layerChao)
-    this.physics.add.collider(this.personagem, this.layerPedra)
-    this.physics.add.collider(this.personagem, this.layerTronco)
-
-    this.physics.add.collider(this.cobra, this.layerChao)
-    this.physics.add.collider(this.cobra, this.layerPedra)
-    this.physics.add.collider(this.cobra, this.layerTronco)
-    this.physics.add.collider(this.cobra, this.layerCopa)
-
-    this.physics.add.collider(this.personagem, this.cacique, this.acharcacique, null, this)
-
-    this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
 
     // migalha
     this.migalhas = [
       {
         x: 224,
-        y: 2700
+        y: 5832
       },
       {
         x: 224,
-        y: 2500
+        y: 5632
       },
       {
         x: 320,
@@ -191,6 +157,47 @@ export default class floresta extends Phaser.Scene {
       migalha.objeto = this.physics.add.sprite(migalha.x, migalha.y, 'migalha')
         .setImmovable()
       migalha.objeto.anims.play('migalha-girando', true)
+    })
+
+    this.personagem = this.physics.add.sprite(224, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+      .setSize(52, 40)
+      .setOffset(20, 64)
+      .setImmovable()
+
+    this.cobra = this.physics.add.sprite(224, 5332, 'cobra')
+      .setSize(54, 30)
+      .setOffset(10, 30)
+      .setImmovable()
+
+    this.cacique = this.physics.add.sprite(360, 3400, 'cacique-idle')
+      .setSize(52, 40)
+      .setOffset(20, 64)
+      .setImmovable()
+      .setBounce(0)
+
+    this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
+
+    this.layerCopa.setCollisionByProperty({ canCollide: true })
+
+    this.mamae = this.physics.add.sprite(225, 6295, 'mamae-pato')
+
+    this.physics.add.collider(this.personagem, this.layerChao)
+    this.physics.add.collider(this.personagem, this.layerPedra)
+    this.physics.add.collider(this.personagem, this.layerTronco)
+
+    this.physics.add.collider(this.cobra, this.layerChao)
+    this.physics.add.collider(this.cobra, this.layerPedra)
+    this.physics.add.collider(this.cobra, this.layerTronco)
+
+    this.physics.add.collider(this.cacique, this.layerChao)
+    this.physics.add.collider(this.cacique, this.layerPedra)
+    this.physics.add.collider(this.cacique, this.layerTronco)
+
+    this.physics.add.collider(this.personagem, this.cacique, this.acharcacique, null, this)
+
+    this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
+
+    this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
       this.physics.add.collider(migalha.objeto, this.layerPedra)
       this.physics.add.collider(migalha.objeto, this.layerTronco)
@@ -335,8 +342,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagem.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 0, 448, 3171, true, true, true, false)
-    this.cameras.main.setBounds(0, 0, 448, 3171)
+    this.physics.world.setBounds(0, 0, 448, 6400, true, true, true, false)
+    this.cameras.main.setBounds(0, 0, 448, 6400)
     this.cameras.main.startFollow(this.personagem)
   }
 
