@@ -37,8 +37,8 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 108
     })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
-      frameWidth: 64,
-      frameHeight: 80
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('mamae-pato', '../assets/patos/mamae-pato/mamae-pato.png', {
       frameWidth: 76,
@@ -63,6 +63,11 @@ export default class floresta extends Phaser.Scene {
     this.load.spritesheet('tela-cheia', '../assets/botoes/tela-cheia.png', {
       frameWidth: 56,
       frameHeight: 56
+    })
+
+    this.load.spritesheet('caldeirao', '../assets/caldeirao.png', {
+      frameWidth: 64,
+      frameHeight: 64
     })
     this.load.audio('trilha-floresta', '../assets/audios/trilha-floresta.mp3')
 
@@ -164,16 +169,18 @@ export default class floresta extends Phaser.Scene {
       .setOffset(10, 30)
       .setImmovable()
 
-    this.personagem = this.physics.add.sprite(224, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
-      .setSize(52, 40)
-      .setOffset(20, 64)
-      .setImmovable()
+    this.caldeirao = this.physics.add.sprite(224, 3280, 'caldeirao')
 
     this.cacique = this.physics.add.sprite(360, 3480, 'cacique-idle')
       .setSize(52, 40)
       .setOffset(20, 64)
       .setImmovable()
       .setBounce(0)
+
+    this.personagem = this.physics.add.sprite(224, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+      .setSize(52, 40)
+      .setOffset(20, 64)
+      .setImmovable()
 
     this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
 
@@ -193,7 +200,7 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.cacique, this.layerPedra)
     this.physics.add.collider(this.cacique, this.layerTronco)
 
-    this.physics.add.collider(this.personagem, this.cacique, this.acharcacique, null, this)
+    this.physics.add.collider(this.personagem, this.caldeirao, this.acharcacique, null, this)
 
     this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
 
@@ -250,6 +257,16 @@ export default class floresta extends Phaser.Scene {
     })
 
     this.anims.create({
+      key: 'cacique-idle',
+      frames: this.anims.generateFrameNumbers('cacique-idle', {
+        start: 0,
+        end: 11
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
+
+    this.anims.create({
       key: 'cobra',
       frames: this.anims.generateFrameNumbers('cobra', {
         start: 0,
@@ -262,6 +279,8 @@ export default class floresta extends Phaser.Scene {
     // Animações automáticas /
 
     this.mamae.anims.play('mamae-pato', true)
+
+    this.cacique.anims.play('cacique-idle', true)
 
     this.cobra.anims.play('cobra', true)
     this.cobra.setVelocityY(100)

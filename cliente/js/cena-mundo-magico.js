@@ -33,8 +33,8 @@ export default class mundoMagico extends Phaser.Scene {
       frameHeight: 108
     })
     this.load.spritesheet('isa-idle', '../assets/patos/isa/isa-mago-idle.png', {
-      frameWidth: 64,
-      frameHeight: 80
+      frameWidth: 92,
+      frameHeight: 108
     })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 64,

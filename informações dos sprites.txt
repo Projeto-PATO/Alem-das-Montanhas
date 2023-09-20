@@ -82,3 +82,7 @@ press: 2
 tela cheia default: 56x56
 
 press: 2
+
+// caldeirão //
+
+64x64
