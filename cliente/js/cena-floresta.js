@@ -289,12 +289,12 @@ export default class floresta extends Phaser.Scene {
 
     this.cima = this.add.sprite(64, 700, 'botao-cima')
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         this.cima.setFrame(1)
         this.personagem.setVelocityY(-100)
         this.personagem.anims.play('pato-walk', true)
       })
-      .on('pointerup', () => {
+      .on('pointerout', () => {
         this.cima.setFrame(0)
         this.personagem.setVelocityY(0)
         this.personagem.anims.play('pato-idle', true)
@@ -303,12 +303,12 @@ export default class floresta extends Phaser.Scene {
 
     this.baixo = this.add.sprite(64, 764, 'botao-baixo')
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         this.baixo.setFrame(1)
         this.personagem.setVelocityY(100)
         this.personagem.anims.play('pato-walk', true)
       })
-      .on('pointerup', () => {
+      .on('pointerout', () => {
         this.baixo.setFrame(0)
         this.personagem.setVelocityY(0)
         this.personagem.anims.play('pato-idle', true)
@@ -317,13 +317,13 @@ export default class floresta extends Phaser.Scene {
 
     this.direita = this.add.sprite(386, 764, 'botao-direita')
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         this.direita.setFrame(1)
         this.personagem.setVelocityX(100)
         this.personagem.setFlipX(true)
         this.personagem.anims.play('pato-walk', true)
       })
-      .on('pointerup', () => {
+      .on('pointerout', () => {
         this.direita.setFrame(0)
         this.personagem.setVelocityX(0)
         this.personagem.anims.play('pato-idle', true)
@@ -332,13 +332,13 @@ export default class floresta extends Phaser.Scene {
 
     this.esquerda = this.add.sprite(322, 764, 'botao-esquerda')
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         this.esquerda.setFrame(1)
         this.personagem.setVelocityX(-100)
         this.personagem.setFlipX(false)
         this.personagem.anims.play('pato-walk', true)
       })
-      .on('pointerup', () => {
+      .on('pointerout', () => {
         this.esquerda.setFrame(0)
         this.personagem.setVelocityX(0)
         this.personagem.anims.play('pato-idle', true)
@@ -347,7 +347,7 @@ export default class floresta extends Phaser.Scene {
 
     this.tela_cheia = this.add.sprite(406, 40, 'tela-cheia', 0)
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         if (this.scale.isFullscreen) {
           this.tela_cheia.setFrame(0)
           this.scale.stopFullscreen()
@@ -385,7 +385,7 @@ export default class floresta extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
-      .on('pointerdown', () => {
+      .on('pointerover', () => {
         this.game.scene.stop('floresta')
         this.game.scene.start('menu')
       })

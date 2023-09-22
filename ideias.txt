@@ -1,6 +1,9 @@
 ## Botar as ideias aqui
 https://medium.com/@alizah.lalani/collecting-objects-in-phaser-3-platformer-games-using-tiled-4e9298cbfc85
 
+## Comandos úteis
+this.game.scene.getScene('floresta').personagem.x
+
 ### Regras do jogo
 Runner vertical;
 Se mexendo para os lados; 
