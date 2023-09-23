@@ -45,20 +45,20 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 76
     })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
-      frameWidth: 64,
-      frameHeight: 68
+      frameWidth: 96,
+      frameHeight: 102
     })
     this.load.spritesheet('botao-baixo', '../assets/botoes/baixo.png', {
-      frameWidth: 64,
-      frameHeight: 68
+      frameWidth: 96,
+      frameHeight: 102
     })
     this.load.spritesheet('botao-direita', '../assets/botoes/direita.png', {
-      frameWidth: 64,
-      frameHeight: 68
+      frameWidth: 96,
+      frameHeight: 102
     })
     this.load.spritesheet('botao-esquerda', '../assets/botoes/esquerda.png', {
-      frameWidth: 64,
-      frameHeight: 68
+      frameWidth: 96,
+      frameHeight: 102
     })
     this.load.spritesheet('tela-cheia', '../assets/botoes/tela-cheia.png', {
       frameWidth: 56,
@@ -287,7 +287,7 @@ export default class floresta extends Phaser.Scene {
 
     // Botões //
 
-    this.cima = this.add.sprite(64, 700, 'botao-cima')
+    this.cima = this.add.sprite(64, 642, 'botao-cima')
       .setInteractive()
       .on('pointerover', () => {
         this.cima.setFrame(1)
@@ -296,12 +296,14 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.cima.setFrame(0)
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+          this.personagem.anims.play('pato-idle', true)
+        }
         this.personagem.setVelocityY(0)
-        this.personagem.anims.play('pato-idle', true)
       })
       .setScrollFactor(0, 0)
 
-    this.baixo = this.add.sprite(64, 764, 'botao-baixo')
+    this.baixo = this.add.sprite(64, 746, 'botao-baixo')
       .setInteractive()
       .on('pointerover', () => {
         this.baixo.setFrame(1)
@@ -310,12 +312,14 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.baixo.setFrame(0)
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+          this.personagem.anims.play('pato-idle', true)
+        }
         this.personagem.setVelocityY(0)
-        this.personagem.anims.play('pato-idle', true)
       })
       .setScrollFactor(0, 0)
 
-    this.direita = this.add.sprite(386, 764, 'botao-direita')
+    this.direita = this.add.sprite(386, 746, 'botao-direita')
       .setInteractive()
       .on('pointerover', () => {
         this.direita.setFrame(1)
@@ -325,12 +329,14 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.direita.setFrame(0)
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+          this.personagem.anims.play('pato-idle', true)
+        }
         this.personagem.setVelocityX(0)
-        this.personagem.anims.play('pato-idle', true)
       })
       .setScrollFactor(0, 0)
 
-    this.esquerda = this.add.sprite(322, 764, 'botao-esquerda')
+    this.esquerda = this.add.sprite(288, 746, 'botao-esquerda')
       .setInteractive()
       .on('pointerover', () => {
         this.esquerda.setFrame(1)
@@ -340,8 +346,10 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.esquerda.setFrame(0)
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+          this.personagem.anims.play('pato-idle', true)
+        }
         this.personagem.setVelocityX(0)
-        this.personagem.anims.play('pato-idle', true)
       })
       .setScrollFactor(0, 0)
 
@@ -385,7 +393,7 @@ export default class floresta extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
-      .on('pointerover', () => {
+      .on('pointerdown', () => {
         this.game.scene.stop('floresta')
         this.game.scene.start('menu')
       })
