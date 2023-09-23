@@ -16,10 +16,6 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
 
-    this.load.script(
-      'webfont',
-      'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
-
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
       frameHeight: 24
@@ -85,6 +81,8 @@ export default class floresta extends Phaser.Scene {
       console.log(err)
     }
 
+    // Áudio //
+
     this.trilhaFloresta = this.sound.add('trilha-floresta')
     this.trilhaFloresta.loop = true
     this.trilhaFloresta.play()
@@ -104,7 +102,7 @@ export default class floresta extends Phaser.Scene {
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
     this.layerTronco = this.tilemapMapa.createLayer('tronco', [this.tilesetFloresta])
 
-    // animação migalha
+    // Animação nigalha //
     this.anims.create({
       key: 'migalha-girando',
       frames: this.anims.generateFrameNumbers('migalha', {
@@ -121,7 +119,7 @@ export default class floresta extends Phaser.Scene {
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerTronco.setCollisionByProperty({ canCollide: true })
 
-    // migalha
+    // Migalha //
     this.migalhas = [
       {
         x: 224,
@@ -164,18 +162,26 @@ export default class floresta extends Phaser.Scene {
       migalha.objeto.anims.play('migalha-girando', true)
     })
 
+    // Cobra //
+
     this.cobra = this.physics.add.sprite(224, 5332, 'cobra')
       .setSize(54, 30)
       .setOffset(10, 30)
       .setImmovable()
 
+    // Caldeirão //
+
     this.caldeirao = this.physics.add.sprite(224, 3280, 'caldeirao')
+
+    // Cacique //
 
     this.cacique = this.physics.add.sprite(360, 3480, 'cacique-idle')
       .setSize(52, 40)
       .setOffset(20, 64)
       .setImmovable()
       .setBounce(0)
+
+    // Personagem //
 
     this.personagem = this.physics.add.sprite(224, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
       .setSize(52, 40)
@@ -187,6 +193,8 @@ export default class floresta extends Phaser.Scene {
     this.layerCopa.setCollisionByProperty({ canCollide: true })
 
     this.mamae = this.physics.add.sprite(225, 6295, 'mamae-pato')
+
+    // Collider //
 
     this.physics.add.collider(this.personagem, this.layerChao)
     this.physics.add.collider(this.personagem, this.layerPedra)
@@ -211,15 +219,13 @@ export default class floresta extends Phaser.Scene {
       this.physics.add.overlap(this.personagem, migalha.objeto, this.coletarmigalha, null, this)
     })
 
-    WebFont.load({
-      custom: {
-        families: ['Silkscreen'],
-        urls: ['../style.css']
-      }
-    })
+    // Score //
 
     this.texto = this.add.text(20, 30, `Migalhas: ${this.game.scoreMigalha.score}`, {
+      fontFamily: 'Silkscreen',
       fontSize: '25px',
+      stroke: '#000000',
+      strokeThickness: 4,
       fill: '#ffffff'
     })
     this.texto.setScrollFactor(0)

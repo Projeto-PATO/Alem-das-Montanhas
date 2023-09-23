@@ -73,7 +73,7 @@ idle: 4 framerate: 5
 
 // botões direcionais //
 
-botão default: 64x68
+botão default: 96x102
 
 press: 2
 
