@@ -21,8 +21,8 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 24
     })
     this.load.spritesheet('cobra', '../assets/inimigos/cobra.png', {
-      frameWidth: 64,
-      frameHeight: 60
+      frameWidth: 96,
+      frameHeight: 90
     })
     this.load.spritesheet(`sprite-walking${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteWalking}`, {
       frameWidth: 92,
@@ -165,8 +165,8 @@ export default class floresta extends Phaser.Scene {
     // Cobra //
 
     this.cobra = this.physics.add.sprite(224, 5332, 'cobra')
-      .setSize(54, 30)
-      .setOffset(10, 30)
+      .setSize(72, 33)
+      .setOffset(21, 54)
       .setImmovable()
 
     // Caldeirão //

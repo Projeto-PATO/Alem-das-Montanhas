@@ -61,7 +61,7 @@ idle: 16 framerate: 10
 
 // cobra //
 
-cobra default: 64x60
+cobra default: 96x90
 
 walking: 15 framerate: 8
 
