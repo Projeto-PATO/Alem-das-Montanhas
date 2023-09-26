@@ -50,7 +50,7 @@ tucano palha: 92x108
 tucano cocar: 92x108
 tucano mago: 92x108
 
-idle: 16 framerate: 10
+idle: 16 framerate: 12
 walking: 22 framerate: 40
 
 // mamae pato //

@@ -208,7 +208,9 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.cacique, this.layerPedra)
     this.physics.add.collider(this.cacique, this.layerTronco)
 
-    this.physics.add.collider(this.personagem, this.caldeirao, this.acharcacique, null, this)
+    this.physics.add.collider(this.personagem, this.cacique)
+
+    this.physics.add.collider(this.personagem, this.caldeirao, this.entrarCaldeirao, null, this)
 
     this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
 
@@ -216,7 +218,7 @@ export default class floresta extends Phaser.Scene {
       this.physics.add.collider(migalha.objeto, this.layerChao)
       this.physics.add.collider(migalha.objeto, this.layerPedra)
       this.physics.add.collider(migalha.objeto, this.layerTronco)
-      this.physics.add.overlap(this.personagem, migalha.objeto, this.coletarmigalha, null, this)
+      this.physics.add.overlap(this.personagem, migalha.objeto, this.coletarMigalha, null, this)
     })
 
     // Score //
@@ -383,7 +385,7 @@ export default class floresta extends Phaser.Scene {
   update () {
   }
 
-  acharcacique (personagem) {
+  entrarCaldeirao (personagem) {
     this.personagem.setVelocityX(0)
     this.personagem.setVelocityY(0)
     this.personagem.setImmovable()
@@ -415,7 +417,7 @@ export default class floresta extends Phaser.Scene {
     this.audioGameover.play()
   }
 
-  coletarmigalha (personagem, migalha) {
+  coletarMigalha (personagem, migalha) {
     migalha.disableBody(true, true)
     this.game.scoreMigalha.score++
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)

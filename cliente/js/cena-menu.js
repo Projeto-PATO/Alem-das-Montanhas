@@ -169,7 +169,7 @@ export default class menu extends Phaser.Scene {
         spriteId: 4,
         frameEndIdle: 15,
         frameEndWalking: 21,
-        frameRateIdle: 10,
+        frameRateIdle: 12,
         frameRateWalking: 40
       }
     ]
@@ -259,5 +259,17 @@ export default class menu extends Phaser.Scene {
         this.game.scene.stop('menu')
         this.game.scene.start('floresta')
       })
+    if (this.idle) { this.idle.destroy() }
+    this.idle = this.anims.create({
+      key: 'pato-idle',
+      frames: this.anims.generateFrameNumbers(this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido], {
+        start: 0,
+        end: this.game.estadoPersonagem.frameEndIdle
+      }),
+      frameRate: this.game.estadoPersonagem.frameRateIdle,
+      repeat: -1
+    })
+
+    this.personagemFinal.anims.play('pato-idle', true)
   }
 }
