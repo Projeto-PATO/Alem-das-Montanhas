@@ -110,6 +110,19 @@ export default class menu extends Phaser.Scene {
       frameHeight: 108
     })
 
+    this.load.spritesheet('botao-direita', '../assets/botoes/direita.png', {
+      frameWidth: 96,
+      frameHeight: 102
+    })
+    this.load.spritesheet('botao-esquerda', '../assets/botoes/esquerda.png', {
+      frameWidth: 96,
+      frameHeight: 102
+    })
+    this.load.spritesheet('botao-iniciar', '../assets/botoes/baixo.png', {
+      frameWidth: 96,
+      frameHeight: 102
+    })
+
     this.load.audio('trilha-menu', '../assets/audios/trilha-menu.mp3')
   }
 
@@ -119,6 +132,14 @@ export default class menu extends Phaser.Scene {
     this.trilhaMenu.play()
 
     this.personagens = [
+      {
+        id: 'thiaguinho',
+        spriteId: 0,
+        frameEndIdle: 15,
+        frameEndWalking: 21,
+        frameRateIdle: 10,
+        frameRateWalking: 40
+      },
       {
         id: 'cacique',
         spriteId: 1,
@@ -144,14 +165,6 @@ export default class menu extends Phaser.Scene {
         frameRateWalking: 40
       },
       {
-        id: 'thiaguinho',
-        spriteId: 0,
-        frameEndIdle: 15,
-        frameEndWalking: 21,
-        frameRateIdle: 10,
-        frameRateWalking: 40
-      },
-      {
         id: 'tucano',
         spriteId: 4,
         frameEndIdle: 15,
@@ -161,7 +174,16 @@ export default class menu extends Phaser.Scene {
       }
     ]
     this.personagemEscolhido = 0
-    this.personagem = this.add.text(50, 50, this.personagens[this.personagemEscolhido].id)
+
+    this.textoPersonagem = this.add.text(108, 564, this.personagens[this.personagemEscolhido].id, {
+      fontFamily: 'Silkscreen',
+      fontSize: '32px',
+      stroke: '#000000',
+      strokeThickness: 4,
+      fill: '#ffffff'
+    })
+
+    this.personagem = this.add.sprite(364, 464, 'botao-direita')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.personagemEscolhido === this.personagens.length - 1) {
@@ -169,10 +191,15 @@ export default class menu extends Phaser.Scene {
         } else {
           this.personagemEscolhido += 1
         }
-        this.personagem.setText(this.personagens[this.personagemEscolhido].id)
+        this.personagem.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
+
+        this.textoPersonagem.setText(this.personagens[this.personagemEscolhido].id)
+      })
+      .on('pointerup', () => {
+        this.personagem.setFrame(0)
       })
 
     this.acessorios = [
@@ -183,7 +210,10 @@ export default class menu extends Phaser.Scene {
       'palha'
     ]
     this.acessorioEscolhido = 0
-    this.acessorio = this.add.text(50, 100, this.acessorios[this.acessorioEscolhido])
+
+    this.textoAcessorio = this.add.text(172, 582, this.acessorios[this.acessorioEscolhido].id)
+
+    this.acessorio = this.add.sprite(364, 372, 'botao-direita')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.acessorioEscolhido === this.acessorios.length - 1) {
@@ -191,12 +221,15 @@ export default class menu extends Phaser.Scene {
         } else {
           this.acessorioEscolhido += 1
         }
-        this.acessorio.setText(this.acessorios[this.acessorioEscolhido])
+
+        this.acessorio.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
       })
-
+      .on('pointerup', () => {
+        this.acessorio.setFrame(0)
+      })
     /* Mostrar o primeiro personagem na tela */
     this.atualizarPersonagem()
   }
@@ -217,7 +250,9 @@ export default class menu extends Phaser.Scene {
       frameRateIdle: this.personagens[this.personagemEscolhido].frameRateIdle,
       frameRateWalking: this.personagens[this.personagemEscolhido].frameRateWalking
     }
-    this.personagemFinal = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido])
+    this.personagemFinal = this.add.sprite(228, this.game.config.height / 2, this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido])
+
+    this.iniciar = this.add.sprite(224, 700, 'botao-iniciar')
       .setInteractive()
       .on('pointerdown', () => {
         this.trilhaMenu.stop()
