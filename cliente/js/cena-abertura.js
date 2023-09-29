@@ -7,8 +7,8 @@ export default class abertura extends Phaser.Scene {
   preload () {
     this.load.image('tela-aberturav3', '../assets/tela-abertura-v3.png')
 
-    this.load.spritesheet('menu', '../assets/botoes/menu.png', {
-      frameWidth: 108,
+    this.load.spritesheet('sala', '../assets/botoes/sala.png', {
+      frameWidth: 104,
       frameHeight: 56
     })
 
@@ -21,11 +21,21 @@ export default class abertura extends Phaser.Scene {
   create () {
     this.fundo = this.add.image(224, 400, 'tela-aberturav3')
 
-    this.menu = this.add.sprite(224, 546, 'menu')
+    this.timer = 2
+
+    this.sala = this.add.sprite(224, 546, 'sala')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.scene.stop('abertura')
-        this.game.scene.start('sala')
+        this.sala.setFrame(1)
+        this.time.addEvent({
+          delay: 100,
+          callback: this.contagem,
+          callbackScope: this,
+          loop: true
+        })
+      })
+      .on('pointerup', () => {
+        this.sala.setFrame(0)
       })
 
     this.telaCheia = this.add.sprite(406, 40, 'tela-cheia', 0)
@@ -39,6 +49,14 @@ export default class abertura extends Phaser.Scene {
           this.scale.startFullscreen()
         }
       })
+  }
+
+  contagem () {
+    this.timer -= 1
+    if (this.timer <= 0) {
+      this.game.scene.stop('abertura')
+      this.game.scene.start('sala')
+    }
   }
 
   update () { }

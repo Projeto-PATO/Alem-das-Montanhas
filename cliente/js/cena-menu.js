@@ -117,8 +117,8 @@ export default class menu extends Phaser.Scene {
       frameHeight: 102
     })
     this.load.spritesheet('botao-config', '../assets/botoes/config.png', {
-      frameWidth: 48,
-      frameHeight: 51
+      frameWidth: 96,
+      frameHeight: 102
     })
     this.load.spritesheet('botao-selecionar', '../assets/botoes/selecionar.png', {
       frameWidth: 35,
@@ -166,7 +166,7 @@ export default class menu extends Phaser.Scene {
       })
 
     this.botaoConfig = this.add.sprite(390, 62, 'botao-config')
-      .setScale(1.75)
+      .setScale(0.85)
       .setInteractive()
       .on('pointerdown', () => {
         this.botaoConfig.setFrame(0)
@@ -189,7 +189,7 @@ export default class menu extends Phaser.Scene {
         this.setaBarraCima.setFrame(0)
       })
 
-    this.setaBarraBaixo = this.physics.add.sprite(411, 651, 'seta-barra')
+    this.setaBarraBaixo = this.physics.add.sprite(411, 652, 'seta-barra')
       .setScale(0.6)
       .setFlipY(true)
       .setImmovable()
@@ -246,7 +246,7 @@ export default class menu extends Phaser.Scene {
     ]
     this.personagemEscolhido = 0
 
-    this.textoPersonagem = this.add.text(108, 564, this.personagens[this.personagemEscolhido].id, {
+    this.textoPersonagem = this.add.text(108, 452, this.personagens[this.personagemEscolhido].id, {
       fontFamily: 'Silkscreen',
       fontSize: '32px',
       stroke: '#000000',
