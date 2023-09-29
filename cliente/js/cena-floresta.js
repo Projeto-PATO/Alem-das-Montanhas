@@ -361,14 +361,14 @@ export default class floresta extends Phaser.Scene {
       })
       .setScrollFactor(0, 0)
 
-    this.tela_cheia = this.add.sprite(406, 40, 'tela-cheia', 0)
+    this.telaCheia = this.add.sprite(406, 40, 'tela-cheia', 0)
       .setInteractive()
       .on('pointerover', () => {
         if (this.scale.isFullscreen) {
-          this.tela_cheia.setFrame(0)
+          this.telaCheia.setFrame(0)
           this.scale.stopFullscreen()
         } else {
-          this.tela_cheia.setFrame(1)
+          this.telaCheia.setFrame(1)
           this.scale.startFullscreen()
         }
       })

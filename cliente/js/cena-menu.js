@@ -5,6 +5,8 @@ export default class menu extends Phaser.Scene {
   }
 
   preload () {
+    this.load.image('fundo', '../assets/menu-selecao.png')
+
     this.load.spritesheet('thiaguinho-cocar', '../assets/patos/thiaguinho/thiaguinho-cocar-idle.png', {
       frameWidth: 92,
       frameHeight: 108
@@ -110,17 +112,29 @@ export default class menu extends Phaser.Scene {
       frameHeight: 108
     })
 
-    this.load.spritesheet('botao-direita', '../assets/botoes/direita.png', {
+    this.load.spritesheet('botao-voltar', '../assets/botoes/esquerda.png', {
       frameWidth: 96,
       frameHeight: 102
     })
-    this.load.spritesheet('botao-esquerda', '../assets/botoes/esquerda.png', {
-      frameWidth: 96,
-      frameHeight: 102
+    this.load.spritesheet('botao-config', '../assets/botoes/config.png', {
+      frameWidth: 48,
+      frameHeight: 51
     })
-    this.load.spritesheet('botao-iniciar', '../assets/botoes/baixo.png', {
-      frameWidth: 96,
-      frameHeight: 102
+    this.load.spritesheet('botao-selecionar', '../assets/botoes/selecionar.png', {
+      frameWidth: 35,
+      frameHeight: 50
+    })
+    this.load.spritesheet('botao-iniciar', '../assets/botoes/iniciar.png', {
+      frameWidth: 155,
+      frameHeight: 60
+    })
+    this.load.spritesheet('seta-barra', '../assets/botoes/seta-barra.png', {
+      frameWidth: 25,
+      frameHeight: 25
+    })
+    this.load.spritesheet('barra', '../assets/botoes/barra.png', {
+      frameWidth: 15,
+      frameHeight: 50
     })
 
     this.load.audio('trilha-menu', '../assets/audios/trilha-menu.mp3')
@@ -130,6 +144,63 @@ export default class menu extends Phaser.Scene {
     this.trilhaMenu = this.sound.add('trilha-menu')
     this.trilhaMenu.loop = true
     this.trilhaMenu.play()
+
+    this.fundo = this.add.image(224, 400, 'fundo')
+
+    this.timer = 2
+
+    this.voltar = this.add.sprite(58, 62, 'botao-voltar')
+      .setScale(0.85)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.voltar.setFrame(1)
+        this.time.addEvent({
+          delay: 100,
+          callback: this.contagem,
+          callbackScope: this,
+          loop: true
+        })
+      })
+      .on('pointerup', () => {
+        this.voltar.setFrame(0)
+      })
+
+    this.botaoConfig = this.add.sprite(390, 62, 'botao-config')
+      .setScale(1.75)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.botaoConfig.setFrame(0)
+      })
+      .on('pointerup', () => {
+        this.botaoConfig.setFrame(0)
+      })
+
+    this.barra = this.add.sprite(411, 520, 'barra')
+
+    this.setaBarraCima = this.physics.add.sprite(411, 502, 'seta-barra')
+      .setScale(0.6)
+      .setImmovable()
+      .setInteractive()
+      .on('pointerover', () => {
+        this.setaBarraCima.setFrame(0)
+        this.barra.setY(520)
+      })
+      .on('pointerout', () => {
+        this.setaBarraCima.setFrame(0)
+      })
+
+    this.setaBarraBaixo = this.physics.add.sprite(411, 651, 'seta-barra')
+      .setScale(0.6)
+      .setFlipY(true)
+      .setImmovable()
+      .setInteractive()
+      .on('pointerover', () => {
+        this.setaBarraBaixo.setFrame(0)
+        this.barra.setY(635)
+      })
+      .on('pointerout', () => {
+        this.setaBarraBaixo.setFrame(0)
+      })
 
     this.personagens = [
       {
@@ -183,7 +254,7 @@ export default class menu extends Phaser.Scene {
       fill: '#ffffff'
     })
 
-    this.personagem = this.add.sprite(364, 464, 'botao-direita')
+    this.personagem = this.add.sprite(331, 395, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.personagemEscolhido === this.personagens.length - 1) {
@@ -213,7 +284,7 @@ export default class menu extends Phaser.Scene {
 
     this.textoAcessorio = this.add.text(172, 582, this.acessorios[this.acessorioEscolhido].id)
 
-    this.acessorio = this.add.sprite(364, 372, 'botao-direita')
+    this.acessorio = this.add.sprite(331, 305, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.acessorioEscolhido === this.acessorios.length - 1) {
@@ -250,9 +321,10 @@ export default class menu extends Phaser.Scene {
       frameRateIdle: this.personagens[this.personagemEscolhido].frameRateIdle,
       frameRateWalking: this.personagens[this.personagemEscolhido].frameRateWalking
     }
-    this.personagemFinal = this.add.sprite(228, this.game.config.height / 2, this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido])
+    this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido])
+      .setScale(2.5)
 
-    this.iniciar = this.add.sprite(224, 700, 'botao-iniciar')
+    this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
       .setInteractive()
       .on('pointerdown', () => {
         this.trilhaMenu.stop()
@@ -271,5 +343,13 @@ export default class menu extends Phaser.Scene {
     })
 
     this.personagemFinal.anims.play('pato-idle', true)
+  }
+
+  contagem () {
+    this.timer -= 1
+    if (this.timer <= 0) {
+      this.game.scene.stop('menu')
+      this.game.scene.start('abertura')
+    }
   }
 }

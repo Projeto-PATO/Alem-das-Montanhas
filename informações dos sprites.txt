@@ -86,3 +86,37 @@ press: 2
 // caldeirão //
 
 64x64
+
+// botões barra //
+
+25x25
+
+press: 1
+
+// barra // 
+
+15x50
+
+// botão config //
+
+48x51
+
+press: 1
+
+// botão iniciar // 
+
+155x60
+
+press: 1
+
+// botão selecionar // 
+
+35x50
+
+press: 1 
+
+// botão menu //
+
+108x56
+
+press: 1
