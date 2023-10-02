@@ -304,7 +304,7 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.cima.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
           this.personagem.anims.play('pato-idle', true)
         }
         this.personagem.setVelocityY(0)
@@ -320,7 +320,7 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.baixo.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
           this.personagem.anims.play('pato-idle', true)
         }
         this.personagem.setVelocityY(0)
@@ -337,7 +337,7 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.direita.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
           this.personagem.anims.play('pato-idle', true)
         }
         this.personagem.setVelocityX(0)
@@ -354,7 +354,7 @@ export default class floresta extends Phaser.Scene {
       })
       .on('pointerout', () => {
         this.esquerda.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0) {
+        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
           this.personagem.anims.play('pato-idle', true)
         }
         this.personagem.setVelocityX(0)
