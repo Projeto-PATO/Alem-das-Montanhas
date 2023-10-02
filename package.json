@@ -13,5 +13,8 @@
   "description": "jogo do pato",
   "version": "0.1.0",
   "author": "projeto-PATO <davi.m12@aluno.ifsc.edu.br>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^4.7.2"
+  }
 }

@@ -9,6 +9,8 @@ class Game extends Phaser.Game {
   constructor () {
     super(config)
 
+    this.socket = io()
+
     this.estadoPersonagem = {}
 
     this.scoreMigalha = {
