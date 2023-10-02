@@ -254,7 +254,7 @@ export default class menu extends Phaser.Scene {
       fill: '#ffffff'
     })
 
-    this.personagem = this.add.sprite(331, 395, 'botao-selecionar')
+    this.personagemDireita = this.add.sprite(331, 395, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.personagemEscolhido === this.personagens.length - 1) {
@@ -262,7 +262,7 @@ export default class menu extends Phaser.Scene {
         } else {
           this.personagemEscolhido += 1
         }
-        this.personagem.setFrame(1)
+        this.personagemDireita.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
@@ -270,21 +270,41 @@ export default class menu extends Phaser.Scene {
         this.textoPersonagem.setText(this.personagens[this.personagemEscolhido].id)
       })
       .on('pointerup', () => {
-        this.personagem.setFrame(0)
+        this.personagemDireita.setFrame(0)
+      })
+
+    this.personagemEsquerda = this.add.sprite(116, 395, 'botao-selecionar')
+      .setFlipX(true)
+      .setInteractive()
+      .on('pointerdown', () => {
+        if (this.personagemEscolhido === 0) {
+          this.personagemEscolhido = 4
+        } else {
+          this.personagemEscolhido -= 1
+        }
+        this.personagemEsquerda.setFrame(1)
+
+        /* Atualizar o personagem */
+        this.atualizarPersonagem()
+
+        this.textoPersonagem.setText(this.personagens[this.personagemEscolhido].id)
+      })
+      .on('pointerup', () => {
+        this.personagemEsquerda.setFrame(0)
       })
 
     this.acessorios = [
       'default',
       'cocar',
       'mago',
-      'oculos',
-      'palha'
+      'palha',
+      'oculos'
     ]
     this.acessorioEscolhido = 0
 
     this.textoAcessorio = this.add.text(172, 582, this.acessorios[this.acessorioEscolhido].id)
 
-    this.acessorio = this.add.sprite(331, 305, 'botao-selecionar')
+    this.acessorioDireita = this.add.sprite(331, 305, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
         if (this.acessorioEscolhido === this.acessorios.length - 1) {
@@ -293,13 +313,32 @@ export default class menu extends Phaser.Scene {
           this.acessorioEscolhido += 1
         }
 
-        this.acessorio.setFrame(1)
+        this.acessorioDireita.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
       })
       .on('pointerup', () => {
-        this.acessorio.setFrame(0)
+        this.acessorioDireita.setFrame(0)
+      })
+
+    this.acessorioEsquerda = this.add.sprite(116, 305, 'botao-selecionar')
+      .setFlipX(true)
+      .setInteractive()
+      .on('pointerdown', () => {
+        if (this.acessorioEscolhido === 0) {
+          this.acessorioEscolhido = 4
+        } else {
+          this.acessorioEscolhido -= 1
+        }
+
+        this.acessorioEsquerda.setFrame(1)
+
+        /* Atualizar o personagem */
+        this.atualizarPersonagem()
+      })
+      .on('pointerup', () => {
+        this.acessorioEsquerda.setFrame(0)
       })
     /* Mostrar o primeiro personagem na tela */
     this.atualizarPersonagem()
