@@ -12,6 +12,11 @@ class Game extends Phaser.Game {
     this.socket = io()
     this.socket.on('connect', () => {
       console.log('Conectado ao Servidor')
+      this.socket.emit('entrar-na-sala', 1)
+
+      this.socket.on('jogadores', (jogadores) => {
+        console.log(jogadores)
+      })
     })
 
     this.estadoPersonagem = {}
