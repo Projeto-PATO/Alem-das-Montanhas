@@ -370,7 +370,7 @@ export default class menu extends Phaser.Scene {
         this.game.scene.stop('menu')
         this.game.scene.start('floresta')
       })
-    if (this.idle) { this.idle.destroy() }
+    if (this.idle.destroy) { this.idle.destroy() }
     this.idle = this.anims.create({
       key: 'pato-idle',
       frames: this.anims.generateFrameNumbers(this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido], {

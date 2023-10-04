@@ -58,62 +58,62 @@ export default class sala extends Phaser.Scene {
     this.salas = [
       {
         numero: '0',
-        x: 75,
-        y: 150,
+        x: 108,
+        y: 240,
         botao: undefined
       },
       {
         numero: '1',
-        x: 75,
-        y: 200,
+        x: 108,
+        y: 335,
         botao: undefined
       },
       {
         numero: '2',
-        x: 75,
-        y: 250,
+        x: 108,
+        y: 430,
         botao: undefined
       },
       {
         numero: '3',
-        x: 75,
-        y: 300,
+        x: 108,
+        y: 525,
         botao: undefined
       },
       {
         numero: '4',
-        x: 75,
-        y: 350,
+        x: 108,
+        y: 620,
         botao: undefined
       },
       {
         numero: '5',
-        x: 300,
-        y: 150,
+        x: 342,
+        y: 240,
         botao: undefined
       },
       {
         numero: '6',
-        x: 300,
-        y: 200,
+        x: 342,
+        y: 335,
         botao: undefined
       },
       {
         numero: '7',
-        x: 300,
-        y: 250,
+        x: 342,
+        y: 430,
         botao: undefined
       },
       {
         numero: '8',
-        x: 300,
-        y: 300,
+        x: 342,
+        y: 525,
         botao: undefined
       },
       {
         numero: '9',
-        x: 300,
-        y: 350,
+        x: 342,
+        y: 620,
         botao: undefined
       }
     ]
@@ -141,8 +141,12 @@ export default class sala extends Phaser.Scene {
   contagem () {
     this.timer -= 1
     if (this.timer <= 0) {
-      this.game.scene.stop('sala')
-      this.game.scene.start('menu')
+      this.game.socket.emit('entrar-na-sala', this.game.sala)
+      this.game.socket.on('jogadores', (jogadores) => {
+        this.game.jogadores = jogadores
+        this.game.scene.stop('sala')
+        this.game.scene.start('menu')
+      })
     }
   }
 }
