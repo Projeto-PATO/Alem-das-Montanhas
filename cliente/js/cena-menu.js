@@ -387,6 +387,7 @@ export default class menu extends Phaser.Scene {
   contagem () {
     this.timer -= 1
     if (this.timer <= 0) {
+      this.trilhaMenu.stop()
       this.game.scene.stop('menu')
       this.game.scene.start('abertura')
     }
