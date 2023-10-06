@@ -141,12 +141,12 @@ export default class sala extends Phaser.Scene {
   contagem () {
     this.timer -= 1
     if (this.timer <= 0) {
-      this.game.socket.emit('entrar-na-sala', this.game.sala)
       this.game.socket.on('jogadores', (jogadores) => {
         this.game.jogadores = jogadores
         this.game.scene.stop('sala')
         this.game.scene.start('menu')
       })
+      this.game.socket.emit('entrar-na-sala', this.game.sala)
     }
   }
 }

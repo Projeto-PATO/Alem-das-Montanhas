@@ -86,6 +86,18 @@ export default class floresta extends Phaser.Scene {
       console.log(err)
     }
 
+    if (this.game.jogadores.primeiro === this.game.socket.id) {
+      this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+        .setSize(52, 40)
+        .setOffset(20, 64)
+        .setImmovable()
+    } else if (this.game.jogadores.segundo === this.game.socket.id) {
+      this.personagem = this.physics.add.sprite(324, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+        .setSize(52, 40)
+        .setOffset(20, 64)
+        .setImmovable()
+    }
+
     // Áudio //
 
     this.trilhaFloresta = this.sound.add('trilha-floresta')
@@ -187,11 +199,6 @@ export default class floresta extends Phaser.Scene {
       .setBounce(0)
 
     // Personagem //
-
-    this.personagem = this.physics.add.sprite(224, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
-      .setSize(52, 40)
-      .setOffset(20, 64)
-      .setImmovable()
 
     this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
 
