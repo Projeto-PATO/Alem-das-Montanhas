@@ -13,6 +13,10 @@ class Game extends Phaser.Game {
 
     this.estadoPersonagem = {}
 
+    this.vida = {
+      frameCoracoes: 0
+    }
+
     this.scoreMigalha = {
       score: 0
     }

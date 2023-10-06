@@ -61,6 +61,11 @@ export default class floresta extends Phaser.Scene {
       frameHeight: 56
     })
 
+    this.load.spritesheet('coracoes', '../assets/hud/vida.png', {
+      frameWidth: 115,
+      frameHeight: 40
+    })
+
     this.load.spritesheet('caldeirao', '../assets/caldeirao.png', {
       frameWidth: 64,
       frameHeight: 64
@@ -212,7 +217,7 @@ export default class floresta extends Phaser.Scene {
 
     this.physics.add.collider(this.personagem, this.caldeirao, this.entrarCaldeirao, null, this)
 
-    this.physics.add.collider(this.personagem, this.cobra, this.morrer, null, this)
+    this.physics.add.collider(this.personagem, this.cobra, this.danoCobra, null, this)
 
     this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
@@ -223,9 +228,9 @@ export default class floresta extends Phaser.Scene {
 
     // Score //
 
-    this.texto = this.add.text(20, 30, `Migalhas: ${this.game.scoreMigalha.score}`, {
+    this.texto = this.add.text(26, 68, `Migalhas: ${this.game.scoreMigalha.score}`, {
       fontFamily: 'Silkscreen',
-      fontSize: '25px',
+      fontSize: '20px',
       stroke: '#000000',
       strokeThickness: 4,
       fill: '#ffffff'
@@ -292,6 +297,10 @@ export default class floresta extends Phaser.Scene {
 
     this.cobra.anims.play('cobra', true)
     this.cobra.setVelocityY(100)
+
+    this.coracoes = this.add.sprite(100, 42, 'coracoes')
+      .setScale(1.5)
+      .setScrollFactor(0, 0)
 
     // Botões //
 
@@ -412,6 +421,7 @@ export default class floresta extends Phaser.Scene {
     this.cobra.setVelocityY(0)
     this.cobra.disableBody(true, false)
     this.game.scoreMigalha.score = 0
+    this.game.vida.frameCoracoes = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
     this.trilhaFloresta.stop()
     this.audioGameover.play()
@@ -423,5 +433,19 @@ export default class floresta extends Phaser.Scene {
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
     this.audioMigalha.play()
     return false
+  }
+
+  danoCobra (coracoes) {
+    this.cobra
+      .setSize(1, 1)
+      .setOffset(1000000, 10000000000000)
+    this.game.vida.frameCoracoes += 6
+    this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoCenario (coracoes) {
   }
 }

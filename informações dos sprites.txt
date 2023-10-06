@@ -126,3 +126,9 @@ press: 1
 155x60
 
 press: 1
+
+// corações //
+
+115x40
+
+frames: 7
