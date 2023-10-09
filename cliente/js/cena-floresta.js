@@ -87,15 +87,25 @@ export default class floresta extends Phaser.Scene {
     }
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
-      this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
+      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
-      this.personagem = this.physics.add.sprite(324, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
+      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
     }
 
     // Áudio //
@@ -200,11 +210,7 @@ export default class floresta extends Phaser.Scene {
 
     // Personagem //
 
-    this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
-      .setSize(52, 40)
-      .setOffset(20, 64)
-      .setImmovable()
-
+    // this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`).setSize(52, 40).setOffset(20, 64).setImmovable() //
     this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
 
     this.layerCopa.setCollisionByProperty({ canCollide: true })
@@ -213,9 +219,9 @@ export default class floresta extends Phaser.Scene {
 
     // Collider //
 
-    this.physics.add.collider(this.personagem, this.layerChao)
-    this.physics.add.collider(this.personagem, this.layerPedra, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagem, this.layerTronco, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.layerChao)
+    this.physics.add.collider(this.personagemLocal, this.layerPedra, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.layerTronco, this.danoCenario, null, this)
 
     this.physics.add.collider(this.cobra, this.layerChao)
     this.physics.add.collider(this.cobra, this.layerPedra)
@@ -225,17 +231,17 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.cacique, this.layerPedra)
     this.physics.add.collider(this.cacique, this.layerTronco)
 
-    this.physics.add.collider(this.personagem, this.cacique)
+    this.physics.add.collider(this.personagemLocal, this.cacique)
 
-    this.physics.add.collider(this.personagem, this.caldeirao, this.entrarCaldeirao, null, this)
+    this.physics.add.collider(this.personagemLocal, this.caldeirao, this.entrarCaldeirao, null, this)
 
-    this.physics.add.collider(this.personagem, this.cobra, this.danoCobra, null, this)
+    this.physics.add.collider(this.personagemLocal, this.cobra, this.danoCobra, null, this)
 
     this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
       this.physics.add.collider(migalha.objeto, this.layerPedra)
       this.physics.add.collider(migalha.objeto, this.layerTronco)
-      this.physics.add.overlap(this.personagem, migalha.objeto, this.coletarMigalha, null, this)
+      this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
     })
 
     // Score //
@@ -253,7 +259,7 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers(`sprite-walking${this.game.estadoPersonagem.spriteId}`, {
+      frames: this.anims.generateFrameNumbers(this.localWalking, {
         start: 0,
         end: (`frame-walking${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndWalking}`)
       }),
@@ -263,7 +269,7 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(`sprite-idle${this.game.estadoPersonagem.spriteId}`, {
+      frames: this.anims.generateFrameNumbers(this.localIdle, {
         start: 0,
         end: (`frame-idle${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndIdle}`)
       }),
@@ -320,15 +326,15 @@ export default class floresta extends Phaser.Scene {
       .setInteractive()
       .on('pointerover', () => {
         this.cima.setFrame(1)
-        this.personagem.setVelocityY(-100)
-        this.personagem.anims.play('pato-walk', true)
+        this.personagemLocal.setVelocityY(-100)
+        this.personagemLocal.anims.play('pato-walk', true)
       })
       .on('pointerout', () => {
         this.cima.setFrame(0)
         if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagem.anims.play('pato-idle', true)
+          this.personagemLocal.anims.play('pato-idle', true)
         }
-        this.personagem.setVelocityY(0)
+        this.personagemLocal.setVelocityY(0)
       })
       .setScrollFactor(0, 0)
 
@@ -336,15 +342,15 @@ export default class floresta extends Phaser.Scene {
       .setInteractive()
       .on('pointerover', () => {
         this.baixo.setFrame(1)
-        this.personagem.setVelocityY(100)
-        this.personagem.anims.play('pato-walk', true)
+        this.personagemLocal.setVelocityY(100)
+        this.personagemLocal.anims.play('pato-walk', true)
       })
       .on('pointerout', () => {
         this.baixo.setFrame(0)
         if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagem.anims.play('pato-idle', true)
+          this.personagemLocal.anims.play('pato-idle', true)
         }
-        this.personagem.setVelocityY(0)
+        this.personagemLocal.setVelocityY(0)
       })
       .setScrollFactor(0, 0)
 
@@ -352,16 +358,16 @@ export default class floresta extends Phaser.Scene {
       .setInteractive()
       .on('pointerover', () => {
         this.direita.setFrame(1)
-        this.personagem.setVelocityX(100)
-        this.personagem.setFlipX(true)
-        this.personagem.anims.play('pato-walk', true)
+        this.personagemLocal.setVelocityX(100)
+        this.personagemLocal.setFlipX(true)
+        this.personagemLocal.anims.play('pato-walk', true)
       })
       .on('pointerout', () => {
         this.direita.setFrame(0)
         if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagem.anims.play('pato-idle', true)
+          this.personagemLocal.anims.play('pato-idle', true)
         }
-        this.personagem.setVelocityX(0)
+        this.personagemLocal.setVelocityX(0)
       })
       .setScrollFactor(0, 0)
 
@@ -369,16 +375,16 @@ export default class floresta extends Phaser.Scene {
       .setInteractive()
       .on('pointerover', () => {
         this.esquerda.setFrame(1)
-        this.personagem.setVelocityX(-100)
-        this.personagem.setFlipX(false)
-        this.personagem.anims.play('pato-walk', true)
+        this.personagemLocal.setVelocityX(-100)
+        this.personagemLocal.setFlipX(false)
+        this.personagemLocal.anims.play('pato-walk', true)
       })
       .on('pointerout', () => {
         this.esquerda.setFrame(0)
         if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagem.anims.play('pato-idle', true)
+          this.personagemLocal.anims.play('pato-idle', true)
         }
-        this.personagem.setVelocityX(0)
+        this.personagemLocal.setVelocityX(0)
       })
       .setScrollFactor(0, 0)
 
@@ -397,26 +403,26 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de limites e câmera //
 
-    this.personagem.setCollideWorldBounds(true)
+    this.personagemLocal.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 3224, 448, 0, true, true, true, false)
     this.cameras.main.setBounds(0, 3200, 448, 3200)
-    this.cameras.main.startFollow(this.personagem)
+    this.cameras.main.startFollow(this.personagemLocal)
   }
 
   update () {
   }
 
-  entrarCaldeirao (personagem) {
-    this.personagem.setVelocityX(0)
-    this.personagem.setVelocityY(0)
-    this.personagem.setImmovable()
-    this.personagem.anims.play('pato-idle', true)
+  entrarCaldeirao (personagemLocal) {
+    this.personagemLocal.setVelocityX(0)
+    this.personagemLocal.setVelocityY(0)
+    this.personagemLocal.setImmovable()
+    this.personagemLocal.anims.play('pato-idle', true)
     this.trilhaFloresta.stop()
     this.game.scene.stop('floresta')
     this.game.scene.start('mundo-magico')
   }
 
-  morrer (personagem) {
+  morrer (personagemLocal) {
     const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
     const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
     this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
@@ -426,10 +432,10 @@ export default class floresta extends Phaser.Scene {
         this.game.scene.stop('floresta')
         this.game.scene.start('menu')
       })
-    this.personagem.setImmovable()
-    this.personagem.setVelocityX(0)
-    this.personagem.setVelocityY(0)
-    this.personagem.anims.play('pato-idle', true)
+    this.personagemLocal.setImmovable()
+    this.personagemLocal.setVelocityX(0)
+    this.personagemLocal.setVelocityY(0)
+    this.personagemLocal.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
     this.cobra.disableBody(true, false)
     this.game.scoreMigalha.score = 0
@@ -439,7 +445,7 @@ export default class floresta extends Phaser.Scene {
     this.audioGameover.play()
   }
 
-  coletarMigalha (personagem, migalha) {
+  coletarMigalha (personagemLocal, migalha) {
     migalha.disableBody(true, true)
     this.game.scoreMigalha.score++
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
@@ -473,5 +479,8 @@ export default class floresta extends Phaser.Scene {
   danoCenario (coracoes) {
     this.game.vida.frameCoracoes += 1
     this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
   }
 }

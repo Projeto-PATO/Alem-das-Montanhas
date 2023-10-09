@@ -143,6 +143,7 @@ export default class sala extends Phaser.Scene {
     if (this.timer <= 0) {
       this.game.socket.on('jogadores', (jogadores) => {
         this.game.jogadores = jogadores
+        console.log(jogadores)
         this.game.scene.stop('sala')
         this.game.scene.start('menu')
       })
