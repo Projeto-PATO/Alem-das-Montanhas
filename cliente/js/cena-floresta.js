@@ -200,6 +200,11 @@ export default class floresta extends Phaser.Scene {
 
     // Personagem //
 
+    this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`)
+      .setSize(52, 40)
+      .setOffset(20, 64)
+      .setImmovable()
+
     this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
 
     this.layerCopa.setCollisionByProperty({ canCollide: true })
