@@ -214,8 +214,8 @@ export default class floresta extends Phaser.Scene {
     // Collider //
 
     this.physics.add.collider(this.personagem, this.layerChao)
-    this.physics.add.collider(this.personagem, this.layerPedra)
-    this.physics.add.collider(this.personagem, this.layerTronco)
+    this.physics.add.collider(this.personagem, this.layerPedra, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagem, this.layerTronco, this.danoCenario, null, this)
 
     this.physics.add.collider(this.cobra, this.layerChao)
     this.physics.add.collider(this.cobra, this.layerPedra)
@@ -447,11 +447,23 @@ export default class floresta extends Phaser.Scene {
     return false
   }
 
+  colisaoCobra () {
+    this.cobra
+      .setSize(72, 33)
+      .setOffset(21, 54)
+  }
+
   danoCobra (coracoes) {
     this.cobra
       .setSize(1, 1)
       .setOffset(1000000, 10000000000000)
-    this.game.vida.frameCoracoes += 6
+    this.time.addEvent({
+      callback: () => { this.colisaoCobra() },
+      delay: 1000,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.vida.frameCoracoes += 2
     this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
     if (this.coracoes.frame.name === 6) {
       this.morrer()
@@ -459,5 +471,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   danoCenario (coracoes) {
+    this.game.vida.frameCoracoes += 1
+    this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
   }
 }

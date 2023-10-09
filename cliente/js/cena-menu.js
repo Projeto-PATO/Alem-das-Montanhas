@@ -153,10 +153,11 @@ export default class menu extends Phaser.Scene {
       .setScale(0.85)
       .setInteractive()
       .on('pointerdown', () => {
+        this.trilhaMenu.stop()
         this.voltar.setFrame(1)
         this.time.addEvent({
           delay: 100,
-          callback: this.contagem,
+          callback: this.contagemVoltar,
           callbackScope: this,
           loop: true
         })
@@ -169,7 +170,7 @@ export default class menu extends Phaser.Scene {
       .setScale(0.85)
       .setInteractive()
       .on('pointerdown', () => {
-        this.botaoConfig.setFrame(0)
+        this.botaoConfig.setFrame(1)
       })
       .on('pointerup', () => {
         this.botaoConfig.setFrame(0)
@@ -367,8 +368,16 @@ export default class menu extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.trilhaMenu.stop()
-        this.game.scene.stop('menu')
-        this.game.scene.start('floresta')
+        this.iniciar.setFrame(1)
+        this.time.addEvent({
+          delay: 100,
+          callback: this.contagemIniciar,
+          callbackScope: this,
+          loop: true
+        })
+      })
+      .on('pointerup', () => {
+        this.iniciar.setFrame(0)
       })
     if (this.idle) { this.idle.destroy() }
     this.idle = this.anims.create({
@@ -384,12 +393,21 @@ export default class menu extends Phaser.Scene {
     this.personagemFinal.anims.play('pato-idle', true)
   }
 
-  contagem () {
+  contagemVoltar () {
     this.timer -= 1
     if (this.timer <= 0) {
       this.trilhaMenu.stop()
       this.game.scene.stop('menu')
       this.game.scene.start('abertura')
+    }
+  }
+
+  contagemIniciar () {
+    this.timer -= 1
+    if (this.timer <= 0) {
+      this.trilhaMenu.stop()
+      this.game.scene.stop('menu')
+      this.game.scene.start('floresta')
     }
   }
 }
