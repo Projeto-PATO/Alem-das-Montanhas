@@ -95,13 +95,13 @@ export default class floresta extends Phaser.Scene {
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
+      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
       this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
       this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
       this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
@@ -407,9 +407,27 @@ export default class floresta extends Phaser.Scene {
     this.physics.world.setBounds(0, 3224, 448, 0, true, true, true, false)
     this.cameras.main.setBounds(0, 3200, 448, 3200)
     this.cameras.main.startFollow(this.personagemLocal)
+
+    // Estado notificar //
+
+    this.game.socket.on('estado-notificar', ({ cena, x, y, frame }) => {
+      this.personagemRemoto.x = x
+      this.personagemRemoto.y = y
+      this.personagemRemoto.setFrame(frame)
+    })
   }
 
   update () {
+    try {
+      this.game.socket.emit('estado-publicar', this.game.sala, {
+        cena: 'floresta',
+        x: this.personagemLocal.x,
+        y: this.personagemLocal.y,
+        frame: this.personagemLocal.frame.name
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   entrarCaldeirao (personagemLocal) {

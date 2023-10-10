@@ -135,6 +135,7 @@ export default class sala extends Phaser.Scene {
         .on('pointerup', () => {
           item.botao.setFrame(0)
         })
+      this.game.sala = item.numero
     })
   }
 
