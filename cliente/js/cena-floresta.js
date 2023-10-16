@@ -78,36 +78,6 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
-    console.log(this.game.estadoPersonagem)
-    try {
-      this.anims.get('pato-idle').destroy()
-      this.anims.get('pato-walk').destroy()
-    } catch (err) {
-      console.log(err)
-    }
-
-    if (this.game.jogadores.primeiro === this.game.socket.id) {
-      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
-        .setSize(52, 40)
-        .setOffset(20, 64)
-        .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
-    } else if (this.game.jogadores.segundo === this.game.socket.id) {
-      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
-        .setSize(52, 40)
-        .setOffset(20, 64)
-        .setImmovable()
-      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
-    }
-
     // Áudio //
 
     this.trilhaFloresta = this.sound.add('trilha-floresta')
@@ -209,6 +179,36 @@ export default class floresta extends Phaser.Scene {
       .setBounce(0)
 
     // Personagem //
+
+    console.log(this.game.estadoPersonagem)
+    try {
+      this.anims.get('pato-idle').destroy()
+      this.anims.get('pato-walk').destroy()
+    } catch (err) {
+      console.log(err)
+    }
+
+    if (this.game.jogadores.primeiro === this.game.socket.id) {
+      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
+        .setSize(52, 40)
+        .setOffset(20, 64)
+        .setImmovable()
+      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
+    } else if (this.game.jogadores.segundo === this.game.socket.id) {
+      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
+      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
+        .setSize(52, 40)
+        .setOffset(20, 64)
+        .setImmovable()
+      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
+    }
 
     // this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`).setSize(52, 40).setOffset(20, 64).setImmovable() //
     this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
@@ -425,6 +425,14 @@ export default class floresta extends Phaser.Scene {
         y: this.personagemLocal.y,
         frame: this.personagemLocal.frame.name
       })
+    } catch (error) {
+      console.error(error)
+    }
+
+    try {
+      if (!this.personagemRemoto) {
+        this.personagem = this.add.sprite(this.personagem.x, this.personagem.y, this.personagem.frame.name)
+      }
     } catch (error) {
       console.error(error)
     }

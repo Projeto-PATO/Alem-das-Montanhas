@@ -343,6 +343,18 @@ export default class menu extends Phaser.Scene {
       })
     /* Mostrar o primeiro personagem na tela */
     this.atualizarPersonagem()
+
+    this.game.socket.on('personagem-notificar', (personagem) => {
+      this.game.estadoPersonagemRemoto = {
+        spriteId: personagem.spriteId,
+        spriteIdle: personagem.spriteIdle,
+        spriteWalking: personagem.spriteWalking,
+        frameEndIdle: personagem.frameEndIdle,
+        frameEndWalking: personagem.frameEndWalking,
+        frameRateIdle: personagem.frameRateIdle,
+        frameRateWalking: personagem.frameRateWalking
+      }
+    })
   }
 
   update () { }
@@ -405,6 +417,7 @@ export default class menu extends Phaser.Scene {
   contagemIniciar () {
     this.timer -= 1
     if (this.timer <= 0) {
+      this.game.socket.emit('personagem-publicar', this.game.sala, this.game.estadoPersonagem)
       this.trilhaMenu.stop()
       this.game.scene.stop('menu')
       this.game.scene.start('floresta')

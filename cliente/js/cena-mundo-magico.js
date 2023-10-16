@@ -317,6 +317,13 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   update () {
+    try {
+      if (!this.personagemRemoto) {
+        this.personagem = this.add.sprite(this.personagem.x, this.personagem.y, this.personagem.frame.name)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   acharisa (personagem) {
