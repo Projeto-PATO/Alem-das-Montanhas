@@ -495,8 +495,13 @@ export default class floresta extends Phaser.Scene {
       callbackScope: this,
       loop: false
     })
-    this.game.vida.frameCoracoes += 2
-    this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    if (this.coracoes.frame.name === 5) {
+      this.coracoes.setFrame(6)
+    }
+    else {
+      this.game.vida.frameCoracoes += 2
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
     if (this.coracoes.frame.name === 6) {
       this.morrer()
     }

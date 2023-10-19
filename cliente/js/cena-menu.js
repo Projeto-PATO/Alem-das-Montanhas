@@ -116,10 +116,6 @@ export default class menu extends Phaser.Scene {
       frameWidth: 96,
       frameHeight: 102
     })
-    this.load.spritesheet('botao-config', '../assets/botoes/config.png', {
-      frameWidth: 96,
-      frameHeight: 102
-    })
     this.load.spritesheet('botao-selecionar', '../assets/botoes/selecionar.png', {
       frameWidth: 35,
       frameHeight: 50
@@ -164,16 +160,6 @@ export default class menu extends Phaser.Scene {
       })
       .on('pointerup', () => {
         this.voltar.setFrame(0)
-      })
-
-    this.botaoConfig = this.add.sprite(390, 62, 'botao-config')
-      .setScale(0.85)
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.botaoConfig.setFrame(1)
-      })
-      .on('pointerup', () => {
-        this.botaoConfig.setFrame(0)
       })
 
     this.barra = this.add.sprite(411, 520, 'barra')
