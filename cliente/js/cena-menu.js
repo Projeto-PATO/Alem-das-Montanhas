@@ -192,7 +192,7 @@ export default class menu extends Phaser.Scene {
     this.personagens = [
       {
         id: 'thiaguinho',
-        spriteId: 0,
+        personagemId: 0,
         frameEndIdle: 15,
         frameEndWalking: 21,
         frameRateIdle: 10,
@@ -200,7 +200,7 @@ export default class menu extends Phaser.Scene {
       },
       {
         id: 'cacique',
-        spriteId: 1,
+        personagemId: 1,
         frameEndIdle: 11,
         frameEndWalking: 21,
         frameRateIdle: 10,
@@ -208,7 +208,7 @@ export default class menu extends Phaser.Scene {
       },
       {
         id: 'isa',
-        spriteId: 2,
+        personagemId: 2,
         frameEndIdle: 11,
         frameEndWalking: 21,
         frameRateIdle: 10,
@@ -216,7 +216,7 @@ export default class menu extends Phaser.Scene {
       },
       {
         id: 'pam',
-        spriteId: 3,
+        personagemId: 3,
         frameEndIdle: 21,
         frameEndWalking: 21,
         frameRateIdle: 40,
@@ -224,37 +224,26 @@ export default class menu extends Phaser.Scene {
       },
       {
         id: 'tucano',
-        spriteId: 4,
+        personagemId: 4,
         frameEndIdle: 15,
         frameEndWalking: 21,
         frameRateIdle: 12,
         frameRateWalking: 40
       }
     ]
-    this.personagemEscolhido = 0
-
-    this.textoPersonagem = this.add.text(108, 452, this.personagens[this.personagemEscolhido].id, {
-      fontFamily: 'Silkscreen',
-      fontSize: '32px',
-      stroke: '#000000',
-      strokeThickness: 4,
-      fill: '#ffffff'
-    })
 
     this.personagemDireita = this.add.sprite(331, 395, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
-        if (this.personagemEscolhido === this.personagens.length - 1) {
-          this.personagemEscolhido = 0
+        if (this.game.personagemEscolhido === this.personagens.length - 1) {
+          this.game.personagemEscolhido = 0
         } else {
-          this.personagemEscolhido += 1
+          this.game.personagemEscolhido += 1
         }
         this.personagemDireita.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-
-        this.textoPersonagem.setText(this.personagens[this.personagemEscolhido].id)
       })
       .on('pointerup', () => {
         this.personagemDireita.setFrame(0)
@@ -264,40 +253,50 @@ export default class menu extends Phaser.Scene {
       .setFlipX(true)
       .setInteractive()
       .on('pointerdown', () => {
-        if (this.personagemEscolhido === 0) {
-          this.personagemEscolhido = 4
+        if (this.game.personagemEscolhido === 0) {
+          this.game.personagemEscolhido = 4
         } else {
-          this.personagemEscolhido -= 1
+          this.game.personagemEscolhido -= 1
         }
         this.personagemEsquerda.setFrame(1)
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-
-        this.textoPersonagem.setText(this.personagens[this.personagemEscolhido].id)
       })
       .on('pointerup', () => {
         this.personagemEsquerda.setFrame(0)
       })
 
     this.acessorios = [
-      'default',
-      'cocar',
-      'mago',
-      'palha',
-      'oculos'
+      {
+        id: 'default',
+        acessorioId: 0
+      },
+      {
+        id: 'cocar',
+        acessorioId: 1
+      },
+      {
+        id:'mago',
+        acessorioId: 2
+      },
+      {
+        id: 'palha',
+        acessorioId: 3
+      },
+      {
+        id: 'oculos',
+        acessorioId: 4
+      }
     ]
-    this.acessorioEscolhido = 0
-
-    this.textoAcessorio = this.add.text(172, 582, this.acessorios[this.acessorioEscolhido].id)
 
     this.acessorioDireita = this.add.sprite(331, 305, 'botao-selecionar')
       .setInteractive()
       .on('pointerdown', () => {
-        if (this.acessorioEscolhido === this.acessorios.length - 1) {
-          this.acessorioEscolhido = 0
+        if (this.game.acessorioEscolhido === this.acessorios.length - 1) {
+          this.game.acessorioEscolhido = 0
         } else {
-          this.acessorioEscolhido += 1
+          this.game.acessorioEscolhido += 1
         }
 
         this.acessorioDireita.setFrame(1)
@@ -313,10 +312,10 @@ export default class menu extends Phaser.Scene {
       .setFlipX(true)
       .setInteractive()
       .on('pointerdown', () => {
-        if (this.acessorioEscolhido === 0) {
-          this.acessorioEscolhido = 4
+        if (this.game.acessorioEscolhido === 0) {
+          this.game.acessorioEscolhido = 4
         } else {
-          this.acessorioEscolhido -= 1
+          this.game.acessorioEscolhido -= 1
         }
 
         this.acessorioEsquerda.setFrame(1)
@@ -332,7 +331,7 @@ export default class menu extends Phaser.Scene {
 
     this.game.socket.on('personagem-notificar', (personagem) => {
       this.game.estadoPersonagemRemoto = {
-        spriteId: personagem.spriteId,
+        spriteId: personagem.personagemId,
         spriteIdle: personagem.spriteIdle,
         spriteWalking: personagem.spriteWalking,
         frameEndIdle: personagem.frameEndIdle,
@@ -350,17 +349,30 @@ export default class menu extends Phaser.Scene {
     if (this.personagemFinal) {
       this.personagemFinal.destroy()
     }
-    this.game.estadoPersonagem = {
-      spriteId: this.personagens[this.personagemEscolhido].spriteId,
-      spriteIdle: '/' + this.personagens[this.personagemEscolhido].id + '/' + this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido] + '-idle.png',
-      spriteWalking: '/' + this.personagens[this.personagemEscolhido].id + '/' + this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido] + '-walking.png',
-      frameEndIdle: this.personagens[this.personagemEscolhido].frameEndIdle,
-      frameEndWalking: this.personagens[this.personagemEscolhido].frameEndWalking,
-      frameRateIdle: this.personagens[this.personagemEscolhido].frameRateIdle,
-      frameRateWalking: this.personagens[this.personagemEscolhido].frameRateWalking
+
+    if (this.textoPersonagem) {
+      this.textoPersonagem.destroy()
     }
-    this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido])
+
+    this.game.estadoPersonagem = {
+      spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
+      spriteIdle: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '-idle.png',
+      spriteWalking: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '-walking.png',
+      frameEndIdle: this.personagens[this.game.personagemEscolhido].frameEndIdle,
+      frameEndWalking: this.personagens[this.game.personagemEscolhido].frameEndWalking,
+      frameRateIdle: this.personagens[this.game.personagemEscolhido].frameRateIdle,
+      frameRateWalking: this.personagens[this.game.personagemEscolhido].frameRateWalking
+    }
+    this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
       .setScale(2.5)
+
+    this.textoPersonagem = this.add.text(108, 452, this.personagens[this.game.personagemEscolhido].id, {
+      fontFamily: 'Silkscreen',
+      fontSize: '32px',
+      stroke: '#000000',
+      strokeThickness: 4,
+      fill: '#ffffff'
+    })
 
     this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
       .setInteractive()
@@ -380,7 +392,7 @@ export default class menu extends Phaser.Scene {
     if (this.idle) { this.idle.destroy() }
     this.idle = this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(this.personagens[this.personagemEscolhido].id + '-' + this.acessorios[this.acessorioEscolhido], {
+      frames: this.anims.generateFrameNumbers(this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id, {
         start: 0,
         end: this.game.estadoPersonagem.frameEndIdle
       }),
@@ -388,6 +400,7 @@ export default class menu extends Phaser.Scene {
       repeat: -1
     })
 
+    this.textoPersonagem.setText(this.personagens[this.game.personagemEscolhido].id)
     this.personagemFinal.anims.play('pato-idle', true)
   }
 

@@ -11,6 +11,8 @@ class Game extends Phaser.Game {
 
     this.socket = io()
 
+    this.personagemEscolhido = 0
+    this.acessorioEscolhido = 0
     this.estadoPersonagem = undefined
     this.estadoPersonagemRemoto = undefined
 
