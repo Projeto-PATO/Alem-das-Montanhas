@@ -193,21 +193,21 @@ export default class floresta extends Phaser.Scene {
       this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
       this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
       this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
+      this.personagemLocal = this.physics.add.sprite(124, 6050, this.localIdle)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
+      this.personagemRemoto = this.add.sprite(324, 6050, this.remotoIdle)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
       this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
       this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
       this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 6050, this.localIdle)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
+      this.personagemRemoto = this.add.sprite(124, 6050, this.remotoIdle)
     }
 
     // this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`).setSize(52, 40).setOffset(20, 64).setImmovable() //
@@ -410,10 +410,11 @@ export default class floresta extends Phaser.Scene {
 
     // Estado notificar //
 
-    this.game.socket.on('estado-notificar', ({ cena, x, y, frame }) => {
+    this.game.socket.on('estado-notificar', ({ cena, x, y, texture, frame }) => {
       this.personagemRemoto.x = x
       this.personagemRemoto.y = y
-      this.personagemRemoto.setFrame(frame)
+      this.personagemRemoto.setTexture(texture, frame)
+     // this.personagemRemoto.setFrame(frame)
     })
   }
 
@@ -423,6 +424,7 @@ export default class floresta extends Phaser.Scene {
         cena: 'floresta',
         x: this.personagemLocal.x,
         y: this.personagemLocal.y,
+        texture: this.personagemLocal.texture.key,
         frame: this.personagemLocal.frame.name
       })
     } catch (error) {
