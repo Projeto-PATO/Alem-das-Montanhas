@@ -143,12 +143,24 @@ export default class sala extends Phaser.Scene {
     this.timer -= 1
     if (this.timer <= 0) {
       this.game.socket.on('jogadores', (jogadores) => {
-        this.game.jogadores = jogadores
         console.log(jogadores)
-        this.game.scene.stop('sala')
-        this.game.scene.start('menu')
+        if (jogadores.segundo) {
+          this.game.jogadores = jogadores
+          this.game.scene.stop('sala')
+          this.game.scene.start('menu')
+        } else if (jogadores.primeiro) {
+          navigator.mediaDevices
+            .getUserMedia({ video: false, audio: true })
+            .then((stream) => {
+              this.game.midias = stream
+            })
+            .catch((error) => console.error(error))
+        }
       })
-      this.game.socket.emit('entrar-na-sala', this.game.sala)
     }
+    this.game.socket.emit('entrar-na-sala', this.game.sala)
+    this.salas.forEach((item) => {
+      item.botao.destroy()
+    })
   }
 }

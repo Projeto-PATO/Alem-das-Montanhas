@@ -33,27 +33,27 @@ io.on('connection', (socket) => {
   })
 
   socket.on('personagem-publicar', (sala, personagem) => {
-    socket.broadcast.to(sala).emit('personagem-notificar', personagem)
+    socket.to(sala).emit('personagem-notificar', personagem)
   })
 
   socket.on('estado-publicar', (sala, estado) => {
-    socket.broadcast.to(sala).emit('estado-notificar', estado)
+    socket.to(sala).emit('estado-notificar', estado)
   })
 
   socket.on('artefatos-publicar', (sala, artefatos) => {
-    socket.broadcast.to(sala).emit('artefatos-notificar', artefatos)
+    socket.to(sala).emit('artefatos-notificar', artefatos)
   })
 
   socket.on('offer', (sala, description) => {
-    socket.broadcast.to(sala).emit('offer', description)
+    socket.to(sala).emit('offer', description)
   })
 
   socket.on('candidate', (sala, candidate) => {
-    socket.broadcast.to(sala).emit('candidate', candidate)
+    socket.to(sala).emit('candidate', candidate)
   })
 
   socket.on('answer', (sala, description) => {
-    socket.broadcast.to(sala).emit('answer', description)
+    socket.to(sala).emit('answer', description)
   })
 
   socket.on('disconnect', () => { })
