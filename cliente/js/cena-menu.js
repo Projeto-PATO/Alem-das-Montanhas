@@ -7,107 +7,107 @@ export default class menu extends Phaser.Scene {
   preload () {
     this.load.image('fundo', '../assets/menu-selecao.png')
 
-    this.load.spritesheet('thiaguinho-cocar', '../assets/patos/thiaguinho/thiaguinho-cocar-idle.png', {
+    this.load.spritesheet('thiaguinho-cocar', '../assets/patos/thiaguinho/thiaguinho-cocar.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('thiaguinho-default', '../assets/patos/thiaguinho/thiaguinho-default-idle.png', {
+    this.load.spritesheet('thiaguinho-default', '../assets/patos/thiaguinho/thiaguinho-default.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('thiaguinho-mago', '../assets/patos/thiaguinho/thiaguinho-mago-idle.png', {
+    this.load.spritesheet('thiaguinho-mago', '../assets/patos/thiaguinho/thiaguinho-mago.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('thiaguinho-oculos', '../assets/patos/thiaguinho/thiaguinho-oculos-idle.png', {
+    this.load.spritesheet('thiaguinho-oculos', '../assets/patos/thiaguinho/thiaguinho-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('thiaguinho-palha', '../assets/patos/thiaguinho/thiaguinho-palha-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-
-    this.load.spritesheet('cacique-cocar', '../assets/patos/cacique/cacique-cocar-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('cacique-default', '../assets/patos/cacique/cacique-default-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('cacique-mago', '../assets/patos/cacique/cacique-mago-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('cacique-oculos', '../assets/patos/cacique/cacique-oculos-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('cacique-palha', '../assets/patos/cacique/cacique-palha-idle.png', {
+    this.load.spritesheet('thiaguinho-palha', '../assets/patos/thiaguinho/thiaguinho-palha.png', {
       frameWidth: 92,
       frameHeight: 108
     })
 
-    this.load.spritesheet('isa-cocar', '../assets/patos/isa/isa-cocar-idle.png', {
+    this.load.spritesheet('cacique-cocar', '../assets/patos/cacique/cacique-cocar.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('isa-default', '../assets/patos/isa/isa-default-idle.png', {
+    this.load.spritesheet('cacique-default', '../assets/patos/cacique/cacique-default.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('isa-mago', '../assets/patos/isa/isa-mago-idle.png', {
+    this.load.spritesheet('cacique-mago', '../assets/patos/cacique/cacique-mago.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('isa-oculos', '../assets/patos/isa/isa-oculos-idle.png', {
+    this.load.spritesheet('cacique-oculos', '../assets/patos/cacique/cacique-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('isa-palha', '../assets/patos/isa/isa-palha-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-
-    this.load.spritesheet('pam-cocar', '../assets/patos/pam/pam-cocar-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('pam-default', '../assets/patos/pam/pam-default-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('pam-mago', '../assets/patos/pam/pam-mago-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('pam-oculos', '../assets/patos/pam/pam-oculos-idle.png', {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('pam-palha', '../assets/patos/pam/pam-palha-idle.png', {
+    this.load.spritesheet('cacique-palha', '../assets/patos/cacique/cacique-palha.png', {
       frameWidth: 92,
       frameHeight: 108
     })
 
-    this.load.spritesheet('tucano-cocar', '../assets/patos/tucano/tucano-cocar-idle.png', {
+    this.load.spritesheet('isa-cocar', '../assets/patos/isa/isa-cocar.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('tucano-default', '../assets/patos/tucano/tucano-default-idle.png', {
+    this.load.spritesheet('isa-default', '../assets/patos/isa/isa-default.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('tucano-mago', '../assets/patos/tucano/tucano-mago-idle.png', {
+    this.load.spritesheet('isa-mago', '../assets/patos/isa/isa-mago.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('tucano-oculos', '../assets/patos/tucano/tucano-oculos-idle.png', {
+    this.load.spritesheet('isa-oculos', '../assets/patos/isa/isa-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('tucano-palha', '../assets/patos/tucano/tucano-palha-idle.png', {
+    this.load.spritesheet('isa-palha', '../assets/patos/isa/isa-palha.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+
+    this.load.spritesheet('pam-cocar', '../assets/patos/pam/pam-cocar.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('pam-default', '../assets/patos/pam/pam-default.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('pam-mago', '../assets/patos/pam/pam-mago.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('pam-oculos', '../assets/patos/pam/pam-oculos.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('pam-palha', '../assets/patos/pam/pam-palha.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+
+    this.load.spritesheet('tucano-cocar', '../assets/patos/tucano/tucano-cocar.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('tucano-default', '../assets/patos/tucano/tucano-default.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('tucano-mago', '../assets/patos/tucano/tucano-mago.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('tucano-oculos', '../assets/patos/tucano/tucano-oculos.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('tucano-palha', '../assets/patos/tucano/tucano-palha.png', {
       frameWidth: 92,
       frameHeight: 108
     })
@@ -193,40 +193,30 @@ export default class menu extends Phaser.Scene {
       {
         id: 'thiaguinho',
         personagemId: 0,
-        frameEndIdle: 15,
-        frameEndWalking: 21,
         frameRateIdle: 10,
         frameRateWalking: 40
       },
       {
         id: 'cacique',
         personagemId: 1,
-        frameEndIdle: 11,
-        frameEndWalking: 21,
         frameRateIdle: 10,
         frameRateWalking: 40
       },
       {
         id: 'isa',
         personagemId: 2,
-        frameEndIdle: 11,
-        frameEndWalking: 21,
         frameRateIdle: 10,
         frameRateWalking: 40
       },
       {
         id: 'pam',
         personagemId: 3,
-        frameEndIdle: 21,
-        frameEndWalking: 21,
         frameRateIdle: 40,
         frameRateWalking: 40
       },
       {
         id: 'tucano',
         personagemId: 4,
-        frameEndIdle: 15,
-        frameEndWalking: 21,
         frameRateIdle: 12,
         frameRateWalking: 40
       }
@@ -277,7 +267,7 @@ export default class menu extends Phaser.Scene {
         acessorioId: 1
       },
       {
-        id:'mago',
+        id: 'mago',
         acessorioId: 2
       },
       {
@@ -332,10 +322,7 @@ export default class menu extends Phaser.Scene {
     this.game.socket.on('personagem-notificar', (personagem) => {
       this.game.estadoPersonagemRemoto = {
         spriteId: personagem.personagemId,
-        spriteIdle: personagem.spriteIdle,
-        spriteWalking: personagem.spriteWalking,
-        frameEndIdle: personagem.frameEndIdle,
-        frameEndWalking: personagem.frameEndWalking,
+        spritePato: personagem.spritePato,
         frameRateIdle: personagem.frameRateIdle,
         frameRateWalking: personagem.frameRateWalking
       }
@@ -353,16 +340,13 @@ export default class menu extends Phaser.Scene {
     if (this.textoPersonagem) {
       this.textoPersonagem.destroy()
     }
-
     this.game.estadoPersonagem = {
       spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
-      spriteIdle: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '-idle.png',
-      spriteWalking: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '-walking.png',
-      frameEndIdle: this.personagens[this.game.personagemEscolhido].frameEndIdle,
-      frameEndWalking: this.personagens[this.game.personagemEscolhido].frameEndWalking,
+      spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png',
       frameRateIdle: this.personagens[this.game.personagemEscolhido].frameRateIdle,
       frameRateWalking: this.personagens[this.game.personagemEscolhido].frameRateWalking
     }
+
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
       .setScale(2.5)
 
@@ -394,12 +378,11 @@ export default class menu extends Phaser.Scene {
       key: 'pato-idle',
       frames: this.anims.generateFrameNumbers(this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id, {
         start: 0,
-        end: this.game.estadoPersonagem.frameEndIdle
+        end: 43
       }),
       frameRate: this.game.estadoPersonagem.frameRateIdle,
       repeat: -1
     })
-
     this.textoPersonagem.setText(this.personagens[this.game.personagemEscolhido].id)
     this.personagemFinal.anims.play('pato-idle', true)
   }

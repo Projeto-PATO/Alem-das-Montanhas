@@ -24,15 +24,11 @@ export default class mundoMagico extends Phaser.Scene {
       frameWidth: 26,
       frameHeight: 24
     })
-    this.load.spritesheet(`sprite-walking${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteWalking}`, {
+    this.load.spritesheet(`sprite-${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spritePato}`, {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet(`sprite-idle${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteIdle}`, {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('isa-idle', '../assets/patos/isa/isa-mago-idle.png', {
+    this.load.spritesheet('isa-idle', '../assets/patos/isa/isa-mago.png', {
       frameWidth: 92,
       frameHeight: 108
     })

@@ -24,15 +24,11 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 96,
       frameHeight: 90
     })
-    this.load.spritesheet(`sprite-walking${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteWalking}`, {
+    this.load.spritesheet(`sprite-${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spritePato}`, {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet(`sprite-idle${this.game.estadoPersonagem.spriteId}`, `../assets/patos/${this.game.estadoPersonagem.spriteIdle}`, {
-      frameWidth: 92,
-      frameHeight: 108
-    })
-    this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar-idle.png', {
+    this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar.png', {
       frameWidth: 92,
       frameHeight: 108
     })
@@ -189,25 +185,21 @@ export default class floresta extends Phaser.Scene {
     }
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
-      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(124, 6050, this.localIdle)
+      this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.remoto = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 6050, this.remotoIdle)
+      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
-      this.localIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.remotoIdle = `sprite-idle${this.game.estadoPersonagem.spriteId}`
-      this.localWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.remotoWalking = `sprite-walking${this.game.estadoPersonagem.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 6050, this.localIdle)
+      this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.remoto = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(124, 6050, this.remotoIdle)
+      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
     }
 
     // this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`).setSize(52, 40).setOffset(20, 64).setImmovable() //
@@ -259,9 +251,9 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers(this.localWalking, {
-        start: 0,
-        end: (`frame-walking${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndWalking}`)
+      frames: this.anims.generateFrameNumbers(this.local, {
+        start: 44,
+        end: 65
       }),
       frameRate: (`frame-rate-w${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateWalking}`),
       repeat: -1
@@ -269,9 +261,9 @@ export default class floresta extends Phaser.Scene {
 
     this.anims.create({
       key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(this.localIdle, {
+      frames: this.anims.generateFrameNumbers(this.local, {
         start: 0,
-        end: (`frame-idle${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameEndIdle}`)
+        end: 43
       }),
       frameRate: (`frame-rate-i${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateIdle}`),
       repeat: -1
@@ -410,11 +402,10 @@ export default class floresta extends Phaser.Scene {
 
     // Estado notificar //
 
-    this.game.socket.on('estado-notificar', ({ cena, x, y, texture, frame }) => {
+    this.game.socket.on('estado-notificar', ({ cena, x, y, frame }) => {
       this.personagemRemoto.x = x
       this.personagemRemoto.y = y
-      this.personagemRemoto.setTexture(texture, frame)
-     // this.personagemRemoto.setFrame(frame)
+      this.personagemRemoto.setFrame(frame)
     })
   }
 
@@ -424,7 +415,6 @@ export default class floresta extends Phaser.Scene {
         cena: 'floresta',
         x: this.personagemLocal.x,
         y: this.personagemLocal.y,
-        texture: this.personagemLocal.texture.key,
         frame: this.personagemLocal.frame.name
       })
     } catch (error) {
@@ -473,7 +463,7 @@ export default class floresta extends Phaser.Scene {
     this.audioGameover.play()
   }
 
-  coletarMigalha (personagemLocal, migalha) {
+  coletarMigalha (migalha) {
     migalha.disableBody(true, true)
     this.game.scoreMigalha.score++
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
@@ -499,8 +489,7 @@ export default class floresta extends Phaser.Scene {
     })
     if (this.coracoes.frame.name === 5) {
       this.coracoes.setFrame(6)
-    }
-    else {
+    } else {
       this.game.vida.frameCoracoes += 2
       this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
     }
