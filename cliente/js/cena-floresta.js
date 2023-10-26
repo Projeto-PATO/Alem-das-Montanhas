@@ -304,7 +304,7 @@ export default class floresta extends Phaser.Scene {
         start: 44,
         end: 65
       }),
-      frameRate: (`frame-rate-w${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateWalking}`),
+      frameRate: 40,
       repeat: -1
     })
 
@@ -314,7 +314,7 @@ export default class floresta extends Phaser.Scene {
         start: 0,
         end: 43
       }),
-      frameRate: (`frame-rate-i${this.game.estadoPersonagem.spriteId}`, `${this.game.estadoPersonagem.frameRateIdle}`),
+      frameRate: 40,
       repeat: -1
     })
 

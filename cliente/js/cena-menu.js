@@ -322,9 +322,7 @@ export default class menu extends Phaser.Scene {
     this.game.socket.on('personagem-notificar', (personagem) => {
       this.game.estadoPersonagemRemoto = {
         spriteId: personagem.personagemId,
-        spritePato: personagem.spritePato,
-        frameRateIdle: personagem.frameRateIdle,
-        frameRateWalking: personagem.frameRateWalking
+        spritePato: personagem.spritePato
       }
     })
   }
@@ -342,9 +340,7 @@ export default class menu extends Phaser.Scene {
     }
     this.game.estadoPersonagem = {
       spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
-      spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png',
-      frameRateIdle: this.personagens[this.game.personagemEscolhido].frameRateIdle,
-      frameRateWalking: this.personagens[this.game.personagemEscolhido].frameRateWalking
+      spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png'
     }
 
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
@@ -380,7 +376,7 @@ export default class menu extends Phaser.Scene {
         start: 0,
         end: 43
       }),
-      frameRate: this.game.estadoPersonagem.frameRateIdle,
+      frameRate: 40,
       repeat: -1
     })
     this.textoPersonagem.setText(this.personagens[this.game.personagemEscolhido].id)
