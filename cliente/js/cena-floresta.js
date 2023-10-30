@@ -7,9 +7,9 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-fm.json')
+    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
 
-    this.load.image('tileset-floresta', '../assets/mapa/floresta.png')
+    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
 
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
@@ -95,6 +95,9 @@ export default class floresta extends Phaser.Scene {
     })
 
     this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
+    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundo-magico')
+    this.tilesetCampo = this.tilemapMapa.addTilesetImage('tileset-campo')
+    this.tilesetPraia = this.tilemapMapa.addTilesetImage('tileset-praia')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
@@ -450,7 +453,7 @@ export default class floresta extends Phaser.Scene {
 
     this.personagemLocal.setCollideWorldBounds(true)
     this.physics.world.setBounds(0, 3224, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 3200, 448, 3200)
+    // this.cameras.main.setBounds(0, 3200, 448, 3200)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
