@@ -316,8 +316,6 @@ export default class menu extends Phaser.Scene {
       .on('pointerup', () => {
         this.acessorioEsquerda.setFrame(0)
       })
-    /* Mostrar o primeiro personagem na tela */
-    this.atualizarPersonagem()
 
     this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
       .setInteractive()
@@ -325,7 +323,7 @@ export default class menu extends Phaser.Scene {
         this.trilhaMenu.stop()
         this.iniciar.setFrame(1)
         this.time.addEvent({
-          delay: 100,
+          delay: 5000,
           callback: this.contagemIniciar,
           callbackScope: this,
           loop: true
@@ -338,6 +336,9 @@ export default class menu extends Phaser.Scene {
     this.game.socket.on('escolha-notificar', (personagem) => {
       this.game.estadoPersonagemRemoto = personagem
     })
+
+    /* Mostrar o primeiro personagem na tela */
+    this.atualizarPersonagem()
   }
 
   update () { }

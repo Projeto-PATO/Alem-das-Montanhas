@@ -455,10 +455,11 @@ export default class floresta extends Phaser.Scene {
 
     // Estado notificar //
 
-    this.game.socket.on('estado-notificar', ({ cena, x, y, frame }) => {
+    this.game.socket.on('estado-notificar', ({ cena, x, y, frame, flipx }) => {
       this.personagemRemoto.x = x
       this.personagemRemoto.y = y
       this.personagemRemoto.setFrame(frame)
+      this.personagemRemoto.setFlipX(flipx)
     })
   }
 
@@ -468,7 +469,8 @@ export default class floresta extends Phaser.Scene {
         cena: 'floresta',
         x: this.personagemLocal.x,
         y: this.personagemLocal.y,
-        frame: this.personagemLocal.frame.name
+        frame: this.personagemLocal.frame.name,
+        flipx: this.personagemLocal.flipX
       })
     } catch (error) {
       console.error(error)
