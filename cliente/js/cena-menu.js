@@ -319,11 +319,24 @@ export default class menu extends Phaser.Scene {
     /* Mostrar o primeiro personagem na tela */
     this.atualizarPersonagem()
 
-    this.game.socket.on('personagem-notificar', (personagem) => {
-      this.game.estadoPersonagemRemoto = {
-        spriteId: personagem.personagemId,
-        spritePato: personagem.spritePato
-      }
+    this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.trilhaMenu.stop()
+        this.iniciar.setFrame(1)
+        this.time.addEvent({
+          delay: 100,
+          callback: this.contagemIniciar,
+          callbackScope: this,
+          loop: true
+        })
+      })
+      .on('pointerup', () => {
+        this.iniciar.setFrame(0)
+      })
+
+    this.game.socket.on('escolha-notificar', (personagem) => {
+      this.game.estadoPersonagemRemoto = personagem
     })
   }
 
@@ -342,6 +355,7 @@ export default class menu extends Phaser.Scene {
       spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
       spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png'
     }
+    this.game.socket.emit('escolha-publicar', this.game.sala, this.game.estadoPersonagem)
 
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
       .setScale(2.5)
@@ -354,21 +368,6 @@ export default class menu extends Phaser.Scene {
       fill: '#ffffff'
     })
 
-    this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.trilhaMenu.stop()
-        this.iniciar.setFrame(1)
-        this.time.addEvent({
-          delay: 100,
-          callback: this.contagemIniciar,
-          callbackScope: this,
-          loop: true
-        })
-      })
-      .on('pointerup', () => {
-        this.iniciar.setFrame(0)
-      })
     if (this.idle) { this.idle.destroy() }
     this.idle = this.anims.create({
       key: 'pato-idle',
@@ -395,7 +394,6 @@ export default class menu extends Phaser.Scene {
   contagemIniciar () {
     this.timer -= 1
     if (this.timer <= 0) {
-      this.game.socket.emit('personagem-publicar', this.game.sala, this.game.estadoPersonagem)
       this.trilhaMenu.stop()
       this.game.scene.stop('menu')
       this.game.scene.start('floresta')

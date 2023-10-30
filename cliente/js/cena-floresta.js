@@ -29,6 +29,10 @@ export default class floresta extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet(`sprite-${this.game.estadoPersonagemRemoto.spriteId}`, `../assets/patos/${this.game.estadoPersonagemRemoto.spritePato}`, {
+      frameWidth: 92,
+      frameHeight: 108
+    })
     this.load.spritesheet('cacique-idle', '../assets/patos/cacique/cacique-cocar.png', {
       frameWidth: 92,
       frameHeight: 108
@@ -187,7 +191,7 @@ export default class floresta extends Phaser.Scene {
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
-      this.remoto = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
       this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
@@ -195,7 +199,7 @@ export default class floresta extends Phaser.Scene {
       this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
-      this.remoto = `sprite-${this.game.estadoPersonagem.spriteId}`
+      this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
       this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)

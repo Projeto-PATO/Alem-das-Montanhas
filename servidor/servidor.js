@@ -32,6 +32,10 @@ io.on('connection', (socket) => {
     io.to(sala).emit('jogadores', jogadores)
   })
 
+  socket.on('escolha-publicar', (sala, personagem) => {
+    socket.to(sala).emit('escolha-notificar', personagem)
+  })
+
   socket.on('personagem-publicar', (sala, personagem) => {
     socket.to(sala).emit('personagem-notificar', personagem)
   })
