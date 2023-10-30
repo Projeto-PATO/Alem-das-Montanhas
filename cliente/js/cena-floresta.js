@@ -11,6 +11,12 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
 
+    this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
+
+    this.load.image('tileset-campo', '../assets/mapa/tileset-campo.png')
+
+    this.load.image('tileset-praia', '../assets/mapa/tileset-praia.png')
+
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
     this.load.image('tela-gameover', '../assets/tela-gameover.png')
@@ -95,15 +101,16 @@ export default class floresta extends Phaser.Scene {
     })
 
     this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundo-magico')
+    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
     this.tilesetCampo = this.tilemapMapa.addTilesetImage('tileset-campo')
     this.tilesetPraia = this.tilemapMapa.addTilesetImage('tileset-praia')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
+    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetFloresta])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
-    this.layerTronco = this.tilemapMapa.createLayer('tronco', [this.tilesetFloresta])
+    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetFloresta])
 
-    // Animação nigalha //
+    // Animação migalha //
     this.anims.create({
       key: 'migalha-girando',
       frames: this.anims.generateFrameNumbers('migalha', {
@@ -117,8 +124,9 @@ export default class floresta extends Phaser.Scene {
     // Colisões //
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerTronco01.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
-    this.layerTronco.setCollisionByProperty({ canCollide: true })
+    this.layerNaFrente03.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
     this.migalhas = [
@@ -195,7 +203,7 @@ export default class floresta extends Phaser.Scene {
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(124, 6050, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 25300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
@@ -203,7 +211,7 @@ export default class floresta extends Phaser.Scene {
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 6050, this.local)
+      this.personagemLocal = this.physics.add.sprite(308, 25300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
@@ -258,10 +266,13 @@ export default class floresta extends Phaser.Scene {
       conn.addIceCandidate(new RTCIceCandidate(candidate))
     })
 
-    // this.personagem = this.physics.add.sprite(124, 6050, `sprite-idle${this.game.estadoPersonagem.spriteId}`).setSize(52, 40).setOffset(20, 64).setImmovable() //
-    this.layerCopa = this.tilemapMapa.createLayer('copa', [this.tilesetFloresta])
+    this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
+    this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
+    this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
 
-    this.layerCopa.setCollisionByProperty({ canCollide: true })
+    this.layerAtras03.setCollisionByProperty({ canCollide: true })
+    this.layerCopaT01.setCollisionByProperty({ canCollide: true })
+    this.layerCopaF01.setCollisionByProperty({ canCollide: true })
 
     this.mamae = this.physics.add.sprite(225, 6295, 'mamae-pato')
 
