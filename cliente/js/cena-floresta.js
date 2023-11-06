@@ -94,7 +94,7 @@ export default class floresta extends Phaser.Scene {
     this.audioMigalha = this.sound.add('audio-migalha')
     this.audioGameover = this.sound.add('audio-gameover')
 
-    // Criação de mapa e objetos //
+    // Criação de mapa e de camadas de fundo //
 
     this.tilemapMapa = this.make.tilemap({
       key: 'mapa'
@@ -180,11 +180,11 @@ export default class floresta extends Phaser.Scene {
 
     // Caldeirão //
 
-    this.caldeirao = this.physics.add.sprite(224, 3280, 'caldeirao')
+    this.caldeirao = this.physics.add.sprite(224, 19130, 'caldeirao')
 
     // Cacique //
 
-    this.cacique = this.physics.add.sprite(360, 3480, 'cacique-idle')
+    this.cacique = this.physics.add.sprite(403, 19285, 'cacique-idle')
       .setSize(52, 40)
       .setOffset(20, 64)
       .setImmovable()
@@ -266,6 +266,8 @@ export default class floresta extends Phaser.Scene {
       conn.addIceCandidate(new RTCIceCandidate(candidate))
     })
 
+    // Camadas de frente //
+
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
@@ -274,21 +276,24 @@ export default class floresta extends Phaser.Scene {
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
     this.layerCopaF01.setCollisionByProperty({ canCollide: true })
 
-    this.mamae = this.physics.add.sprite(225, 6295, 'mamae-pato')
+    this.mamae = this.physics.add.sprite(225, 25480, 'mamae-pato')
 
     // Collider //
 
     this.physics.add.collider(this.personagemLocal, this.layerChao)
     this.physics.add.collider(this.personagemLocal, this.layerPedra, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagemLocal, this.layerTronco, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.layerTronco01, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.layerNaFrente03, this.danoCenario, null, this)
 
     this.physics.add.collider(this.cobra, this.layerChao)
     this.physics.add.collider(this.cobra, this.layerPedra)
-    this.physics.add.collider(this.cobra, this.layerTronco)
+    this.physics.add.collider(this.cobra, this.layerTronco01)
+    this.physics.add.collider(this.cobra, this.layerNaFrente03)
 
     this.physics.add.collider(this.cacique, this.layerChao)
     this.physics.add.collider(this.cacique, this.layerPedra)
-    this.physics.add.collider(this.cacique, this.layerTronco)
+    this.physics.add.collider(this.cacique, this.layerTronco01)
+    this.physics.add.collider(this.cacique, this.layerNaFrente03)
 
     this.physics.add.collider(this.personagemLocal, this.cacique)
 
@@ -299,7 +304,8 @@ export default class floresta extends Phaser.Scene {
     this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
       this.physics.add.collider(migalha.objeto, this.layerPedra)
-      this.physics.add.collider(migalha.objeto, this.layerTronco)
+      this.physics.add.collider(migalha.objeto, this.layerTronco01)
+      this.physics.add.collider(migalha.objeto, this.layerNaFrente03)
       this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
     })
 
@@ -374,6 +380,8 @@ export default class floresta extends Phaser.Scene {
 
     this.cobra.anims.play('cobra', true)
     this.cobra.setVelocityY(100)
+
+    // Corações //
 
     this.coracoes = this.add.sprite(100, 42, 'coracoes')
       .setScale(1.5)
@@ -463,8 +471,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 3224, 448, 0, true, true, true, false)
-    // this.cameras.main.setBounds(0, 3200, 448, 3200)
+    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 19074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
