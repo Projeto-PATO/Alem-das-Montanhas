@@ -96,19 +96,19 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de mapa e de camadas de fundo //
 
-    this.tilemapMapa = this.make.tilemap({
+    this.tilemapFloresta = this.make.tilemap({
       key: 'mapa'
     })
 
-    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
-    this.tilesetCampo = this.tilemapMapa.addTilesetImage('tileset-campo')
-    this.tilesetPraia = this.tilemapMapa.addTilesetImage('tileset-praia')
+    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('tileset-floresta')
+    this.tilesetMundoMagico = this.tilemapFloresta.addTilesetImage('tileset-mundomagico')
+    this.tilesetCampo = this.tilemapFloresta.addTilesetImage('tileset-campo')
+    this.tilesetPraia = this.tilemapFloresta.addTilesetImage('tileset-praia')
 
-    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
-    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetFloresta])
-    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
-    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetFloresta])
+    this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
+    this.layerTronco01 = this.tilemapFloresta.createLayer('tronco-01', [this.tilesetFloresta])
+    this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
+    this.layerNaFrente03 = this.tilemapFloresta.createLayer('naFrente-03', [this.tilesetFloresta])
 
     // Animação migalha //
     this.anims.create({
@@ -268,9 +268,9 @@ export default class floresta extends Phaser.Scene {
 
     // Camadas de frente //
 
-    this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
-    this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
-    this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
+    this.layerAtras03 = this.tilemapFloresta.createLayer('atras-03', [this.tilesetFloresta])
+    this.layerCopaT01 = this.tilemapFloresta.createLayer('copaT-01', [this.tilesetFloresta])
+    this.layerCopaF01 = this.tilemapFloresta.createLayer('copaF-01', [this.tilesetFloresta])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })

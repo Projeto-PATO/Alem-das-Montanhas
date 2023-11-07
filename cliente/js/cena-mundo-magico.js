@@ -79,19 +79,19 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Criação de mapa e objetos //
 
-    this.tilemapMapa = this.make.tilemap({
+    this.tilemapMundoMagico = this.make.tilemap({
       key: 'mapa'
     })
 
-    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
-    this.tilesetCampo = this.tilemapMapa.addTilesetImage('tileset-campo')
-    this.tilesetPraia = this.tilemapMapa.addTilesetImage('tileset-praia')
+    this.tilesetFloresta = this.tilemapMundoMagico.addTilesetImage('tileset-floresta')
+    this.tilesetMundoMagico = this.tilemapMundoMagico.addTilesetImage('tileset-mundomagico')
+    this.tilesetCampo = this.tilemapMundoMagico.addTilesetImage('tileset-campo')
+    this.tilesetPraia = this.tilemapMundoMagico.addTilesetImage('tileset-praia')
 
-    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetMundoMagico])
-    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetMundoMagico])
-    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetMundoMagico])
-    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetMundoMagico])
+    this.layerChao = this.tilemapMundoMagico.createLayer('chao', [this.tilesetMundoMagico])
+    this.layerLapideF04 = this.tilemapMundoMagico.createLayer('lapideF-04', [this.tilesetMundoMagico])
+    this.layerOssos1 = this.tilemapMundoMagico.createLayer('ossos1', [this.tilesetMundoMagico])
+    this.layerOssos2 = this.tilemapMundoMagico.createLayer('ossos2', [this.tilesetMundoMagico])
 
     // Animação migalha //
     this.anims.create({
@@ -175,19 +175,19 @@ export default class mundoMagico extends Phaser.Scene {
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(140, 18000, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 18800, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
+      this.personagemRemoto = this.add.sprite(324, 18960, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(308, 18000, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 18800, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
+      this.personagemRemoto = this.add.sprite(140, 18960, this.remoto)
 
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then((stream) => {
@@ -238,7 +238,7 @@ export default class mundoMagico extends Phaser.Scene {
       conn.addIceCandidate(new RTCIceCandidate(candidate))
     })
 
-    this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetMundoMagico])
+    this.layerLapideT04 = this.tilemapMundoMagico.createLayer('lapideT-04', [this.tilesetMundoMagico])
 
     this.layerLapideT04.setCollisionByProperty({ canCollide: true })
 
