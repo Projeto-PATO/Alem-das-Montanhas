@@ -1,9 +1,9 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-template-curly-in-string
-export default class floresta extends Phaser.Scene {
+export default class mundoMagico extends Phaser.Scene {
   constructor () {
-    super('floresta')
+    super('mundo-magico')
   }
 
   preload () {
@@ -175,7 +175,7 @@ export default class floresta extends Phaser.Scene {
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(140, 25300, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 18000, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
@@ -183,7 +183,7 @@ export default class floresta extends Phaser.Scene {
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(308, 25300, this.local)
+      this.personagemLocal = this.physics.add.sprite(308, 18000, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
@@ -382,8 +382,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 19074, 448, 6530)
+    // this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
+    // this.cameras.main.setBounds(0, 19074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
