@@ -143,7 +143,9 @@ export default class menu extends Phaser.Scene {
 
     this.fundo = this.add.image(224, 400, 'fundo')
 
-    this.timer = 2
+    this.timer = 1
+
+    this.timerNotificacao = 1
 
     this.voltar = this.add.sprite(58, 62, 'botao-voltar')
       .setScale(0.85)
@@ -356,7 +358,10 @@ export default class menu extends Phaser.Scene {
       spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
       spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png'
     }
-    this.game.socket.emit('escolha-publicar', this.game.sala, this.game.estadoPersonagem)
+
+    this.game.socket.emit('escolha-publicar', this.game.sala, this.game.estadoPersonagem, {
+      escolha: this.escolhas.escolhasFeitas
+    })
 
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
       .setScale(2.5)

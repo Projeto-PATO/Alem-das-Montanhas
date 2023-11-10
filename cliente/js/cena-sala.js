@@ -6,7 +6,10 @@ export default class sala extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('fundo-sala', '../assets/menu-sala.png')
+    this.load.spritesheet('fundo-sala', '../assets/menu-sala.png', {
+      frameWidth: 450,
+      frameHeight: 800
+    })
 
     this.load.spritesheet('0', '../assets/botoes/sala0.png', {
       frameWidth: 155,
@@ -51,7 +54,7 @@ export default class sala extends Phaser.Scene {
   }
 
   create () {
-    this.fundo = this.add.image(224, 400, 'fundo-sala')
+    this.fundo = this.add.sprite(224, 400, 'fundo-sala')
 
     this.timer = 2
 
@@ -158,6 +161,7 @@ export default class sala extends Phaser.Scene {
         }
       })
       this.game.socket.emit('entrar-na-sala', this.game.sala)
+      this.fundo.setFrame(1)
       this.salas.forEach((item) => {
         item.botao.destroy()
       })
