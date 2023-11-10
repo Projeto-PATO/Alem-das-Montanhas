@@ -7,7 +7,7 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
+    this.load.tilemapTiledJSON('mapa2', '../assets/mapa/mapa-full.json')
 
     this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
 
@@ -80,18 +80,15 @@ export default class mundoMagico extends Phaser.Scene {
     // Criação de mapa e objetos //
 
     this.tilemapMundoMagico = this.make.tilemap({
-      key: 'mapa'
+      key: 'mapa2'
     })
 
-    this.tilesetFloresta = this.tilemapMundoMagico.addTilesetImage('tileset-floresta')
     this.tilesetMundoMagico = this.tilemapMundoMagico.addTilesetImage('tileset-mundomagico')
-    this.tilesetCampo = this.tilemapMundoMagico.addTilesetImage('tileset-campo')
-    this.tilesetPraia = this.tilemapMundoMagico.addTilesetImage('tileset-praia')
 
     this.layerChao = this.tilemapMundoMagico.createLayer('chao', [this.tilesetMundoMagico])
-    this.layerLapideF04 = this.tilemapMundoMagico.createLayer('lapideF-04', [this.tilesetMundoMagico])
-    this.layerOssos1 = this.tilemapMundoMagico.createLayer('ossos1', [this.tilesetMundoMagico])
-    this.layerOssos2 = this.tilemapMundoMagico.createLayer('ossos2', [this.tilesetMundoMagico])
+    // this.layerLapideF04 = this.tilemapMundoMagico.createLayer('lapideF-04', [this.tilesetMundoMagico])
+    // this.layerOssos1 = this.tilemapMundoMagico.createLayer('ossos1', [this.tilesetMundoMagico])
+    // this.layerOssos2 = this.tilemapMundoMagico.createLayer('ossos2', [this.tilesetMundoMagico])
 
     // Animação migalha //
     this.anims.create({
@@ -106,10 +103,11 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Colisões //
 
-    this.layerChao.setCollisionByProperty({ canCollide: true })
+    /*  this.layerChao.setCollisionByProperty({ canCollide: true })
     this.layerLapideF04.setCollisionByProperty({ canCollide: true })
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
     this.layerOssos2.setCollisionByProperty({ canCollide: true })
+*/
 
     // Migalha //
     this.migalhas = [
@@ -164,14 +162,6 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Personagem //
 
-    console.log(this.game.estadoPersonagem)
-    try {
-      this.anims.get('pato-idle').destroy()
-      this.anims.get('pato-walk').destroy()
-    } catch (err) {
-      console.log(err)
-    }
-
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
@@ -189,230 +179,173 @@ export default class mundoMagico extends Phaser.Scene {
         .setImmovable()
       this.personagemRemoto = this.add.sprite(140, 18960, this.remoto)
 
-      navigator.mediaDevices.getUserMedia({ video: false, audio: true })
-        .then((stream) => {
-          this.game.localConnection = new RTCPeerConnection(this.game.ice_servers)
+      // this.layerLapideT04 = this.tilemapMundoMagico.createLayer('lapideT-04', [this.tilesetMundoMagico])
 
-          this.game.localConnection.onicecandidate = ({ candidate }) =>
-            candidate && this.game.socket.emit('candidate', this.game.sala, candidate)
+      //  this.layerLapideT04.setCollisionByProperty({ canCollide: true })
 
-          this.game.localConnection.ontrack = ({ streams: [stream] }) =>
-            this.game.audio.srcObject = stream
+      // Collider //
 
-          stream.getTracks()
-            .forEach((track) => this.game.localConnection.addTrack(track, stream))
+      /* this.physics.add.collider(this.personagemLocal, this.layerChao)
+      this.physics.add.collider(this.personagemLocal, this.layerLapideF04, this.danoCenario, null, this)
+      this.physics.add.collider(this.personagemLocal, this.layerOssos1, this.danoCenario, null, this)
+      this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
 
-          this.game.localConnection.createOffer()
-            .then((offer) => this.game.localConnection.setLocalDescription(offer))
-            .then(() => this.game.socket.emit('offer', this.game.sala, this.game.localConnection.localDescription))
+      this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
+*/
+      this.migalhas.forEach((migalha) => {
+        this.physics.add.collider(migalha.objeto, this.layerChao)
+        this.physics.add.collider(migalha.objeto, this.layerLapideF04)
+        this.physics.add.collider(migalha.objeto, this.layerOssos1)
+        this.physics.add.collider(migalha.objeto, this.layerOssos2)
+        this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
+      })
 
-          this.game.midias = stream
+      // Score //
+
+      this.texto = this.add.text(26, 68, `Migalhas: ${this.game.scoreMigalha.score}`, {
+        fontFamily: 'Silkscreen',
+        fontSize: '20px',
+        stroke: '#000000',
+        strokeThickness: 4,
+        fill: '#ffffff'
+      })
+      this.texto.setScrollFactor(0)
+
+      // Animações //
+
+      this.anims.create({
+        key: 'pato-walk',
+        frames: this.anims.generateFrameNumbers(this.local, {
+          start: 44,
+          end: 65
+        }),
+        frameRate: 40,
+        repeat: -1
+      })
+
+      this.anims.create({
+        key: 'pato-idle',
+        frames: this.anims.generateFrameNumbers(this.local, {
+          start: 0,
+          end: 43
+        }),
+        frameRate: 40,
+        repeat: -1
+      })
+
+      // Animações automáticas //
+
+      this.coracoes = this.add.sprite(100, 42, 'coracoes')
+        .setScale(1.5)
+        .setScrollFactor(0, 0)
+
+      // Botões //
+
+      this.cima = this.add.sprite(64, 632, 'botao-cima')
+        .setInteractive()
+        .on('pointerover', () => {
+          this.cima.setFrame(1)
+          this.personagemLocal.setVelocityY(-100)
+          this.personagemLocal.anims.play('pato-walk', true)
         })
-        .catch((error) => console.error(error))
+        .on('pointerout', () => {
+          this.cima.setFrame(0)
+          if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
+            this.personagemLocal.anims.play('pato-idle', true)
+          }
+          this.personagemLocal.setVelocityY(0)
+        })
+        .setScrollFactor(0, 0)
+
+      this.baixo = this.add.sprite(64, 736, 'botao-baixo')
+        .setInteractive()
+        .on('pointerover', () => {
+          this.baixo.setFrame(1)
+          this.personagemLocal.setVelocityY(100)
+          this.personagemLocal.anims.play('pato-walk', true)
+        })
+        .on('pointerout', () => {
+          this.baixo.setFrame(0)
+          if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
+            this.personagemLocal.anims.play('pato-idle', true)
+          }
+          this.personagemLocal.setVelocityY(0)
+        })
+        .setScrollFactor(0, 0)
+
+      this.direita = this.add.sprite(384, 736, 'botao-direita')
+        .setInteractive()
+        .on('pointerover', () => {
+          this.direita.setFrame(1)
+          this.personagemLocal.setVelocityX(100)
+          this.personagemLocal.setFlipX(true)
+          this.personagemLocal.anims.play('pato-walk', true)
+        })
+        .on('pointerout', () => {
+          this.direita.setFrame(0)
+          if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
+            this.personagemLocal.anims.play('pato-idle', true)
+          }
+          this.personagemLocal.setVelocityX(0)
+        })
+        .setScrollFactor(0, 0)
+
+      this.esquerda = this.add.sprite(284, 736, 'botao-esquerda')
+        .setInteractive()
+        .on('pointerover', () => {
+          this.esquerda.setFrame(1)
+          this.personagemLocal.setVelocityX(-100)
+          this.personagemLocal.setFlipX(false)
+          this.personagemLocal.anims.play('pato-walk', true)
+        })
+        .on('pointerout', () => {
+          this.esquerda.setFrame(0)
+          if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
+            this.personagemLocal.anims.play('pato-idle', true)
+          }
+          this.personagemLocal.setVelocityX(0)
+        })
+        .setScrollFactor(0, 0)
+
+      this.telaCheia = this.add.sprite(406, 40, 'tela-cheia', 0)
+        .setInteractive()
+        .on('pointerover', () => {
+          if (this.scale.isFullscreen) {
+            this.telaCheia.setFrame(0)
+            this.scale.stopFullscreen()
+          } else {
+            this.telaCheia.setFrame(1)
+            this.scale.startFullscreen()
+          }
+        })
+        .setScrollFactor(0)
+
+      // Criação de limites e câmera //
+
+      this.personagemLocal.setCollideWorldBounds(true)
+      // this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
+      // this.cameras.main.setBounds(0, 19074, 448, 6530)
+      this.cameras.main.startFollow(this.personagemLocal)
+
+      // Estado notificar //
+
+      this.game.socket.on('estado-notificar', ({ cena, x, y, frame, flipx }) => {
+        this.personagemRemoto.x = x
+        this.personagemRemoto.y = y
+        this.personagemRemoto.setFrame(frame)
+        this.personagemRemoto.setFlipX(flipx)
+      })
     }
-
-    this.game.socket.on('offer', (description) => {
-      this.game.remoteConnection = new RTCPeerConnection(this.game.ice_servers)
-
-      this.game.remoteConnection.onicecandidate = ({ candidate }) =>
-        candidate && this.game.socket.emit('candidate', this.game.sala, candidate)
-
-      this.game.remoteConnection.ontrack = ({ streams: [midia] }) =>
-        this.game.audio.srcObject = midia
-
-      this.game.midias.getTracks()
-        .forEach((track) => this.game.remoteConnection.addTrack(track, this.game.midias))
-
-      this.game.remoteConnection.setRemoteDescription(description)
-        .then(() => this.game.remoteConnection.createAnswer())
-        .then((answer) => this.game.remoteConnection.setLocalDescription(answer))
-        .then(() => this.game.socket.emit('answer', this.game.sala, this.game.remoteConnection.localDescription))
-    })
-
-    this.game.socket.on('answer', (description) =>
-      this.game.localConnection.setRemoteDescription(description)
-    )
-
-    this.game.socket.on('candidate', (candidate) => {
-      const conn = this.game.localConnection || this.game.remoteConnection
-      conn.addIceCandidate(new RTCIceCandidate(candidate))
-    })
-
-    this.layerLapideT04 = this.tilemapMundoMagico.createLayer('lapideT-04', [this.tilesetMundoMagico])
-
-    this.layerLapideT04.setCollisionByProperty({ canCollide: true })
-
-    // Collider //
-
-    this.physics.add.collider(this.personagemLocal, this.layerChao)
-    this.physics.add.collider(this.personagemLocal, this.layerLapideF04, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagemLocal, this.layerOssos1, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
-
-    this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
-
-    this.migalhas.forEach((migalha) => {
-      this.physics.add.collider(migalha.objeto, this.layerChao)
-      this.physics.add.collider(migalha.objeto, this.layerLapideF04)
-      this.physics.add.collider(migalha.objeto, this.layerOssos1)
-      this.physics.add.collider(migalha.objeto, this.layerOssos2)
-      this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
-    })
-
-    // Score //
-
-    this.texto = this.add.text(26, 68, `Migalhas: ${this.game.scoreMigalha.score}`, {
-      fontFamily: 'Silkscreen',
-      fontSize: '20px',
-      stroke: '#000000',
-      strokeThickness: 4,
-      fill: '#ffffff'
-    })
-    this.texto.setScrollFactor(0)
-
-    // Animações //
-
-    this.anims.create({
-      key: 'pato-walk',
-      frames: this.anims.generateFrameNumbers(this.local, {
-        start: 44,
-        end: 65
-      }),
-      frameRate: 40,
-      repeat: -1
-    })
-
-    this.anims.create({
-      key: 'pato-idle',
-      frames: this.anims.generateFrameNumbers(this.local, {
-        start: 0,
-        end: 43
-      }),
-      frameRate: 40,
-      repeat: -1
-    })
-
-    // Animações automáticas //
-
-    this.coracoes = this.add.sprite(100, 42, 'coracoes')
-      .setScale(1.5)
-      .setScrollFactor(0, 0)
-
-    // Botões //
-
-    this.cima = this.add.sprite(64, 632, 'botao-cima')
-      .setInteractive()
-      .on('pointerover', () => {
-        this.cima.setFrame(1)
-        this.personagemLocal.setVelocityY(-100)
-        this.personagemLocal.anims.play('pato-walk', true)
-      })
-      .on('pointerout', () => {
-        this.cima.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagemLocal.anims.play('pato-idle', true)
-        }
-        this.personagemLocal.setVelocityY(0)
-      })
-      .setScrollFactor(0, 0)
-
-    this.baixo = this.add.sprite(64, 736, 'botao-baixo')
-      .setInteractive()
-      .on('pointerover', () => {
-        this.baixo.setFrame(1)
-        this.personagemLocal.setVelocityY(100)
-        this.personagemLocal.anims.play('pato-walk', true)
-      })
-      .on('pointerout', () => {
-        this.baixo.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagemLocal.anims.play('pato-idle', true)
-        }
-        this.personagemLocal.setVelocityY(0)
-      })
-      .setScrollFactor(0, 0)
-
-    this.direita = this.add.sprite(384, 736, 'botao-direita')
-      .setInteractive()
-      .on('pointerover', () => {
-        this.direita.setFrame(1)
-        this.personagemLocal.setVelocityX(100)
-        this.personagemLocal.setFlipX(true)
-        this.personagemLocal.anims.play('pato-walk', true)
-      })
-      .on('pointerout', () => {
-        this.direita.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagemLocal.anims.play('pato-idle', true)
-        }
-        this.personagemLocal.setVelocityX(0)
-      })
-      .setScrollFactor(0, 0)
-
-    this.esquerda = this.add.sprite(284, 736, 'botao-esquerda')
-      .setInteractive()
-      .on('pointerover', () => {
-        this.esquerda.setFrame(1)
-        this.personagemLocal.setVelocityX(-100)
-        this.personagemLocal.setFlipX(false)
-        this.personagemLocal.anims.play('pato-walk', true)
-      })
-      .on('pointerout', () => {
-        this.esquerda.setFrame(0)
-        if (this.cima.frame.name === 0 && this.baixo.frame.name === 0 && this.direita.frame.name === 0 && this.esquerda.frame.name === 0) {
-          this.personagemLocal.anims.play('pato-idle', true)
-        }
-        this.personagemLocal.setVelocityX(0)
-      })
-      .setScrollFactor(0, 0)
-
-    this.telaCheia = this.add.sprite(406, 40, 'tela-cheia', 0)
-      .setInteractive()
-      .on('pointerover', () => {
-        if (this.scale.isFullscreen) {
-          this.telaCheia.setFrame(0)
-          this.scale.stopFullscreen()
-        } else {
-          this.telaCheia.setFrame(1)
-          this.scale.startFullscreen()
-        }
-      })
-      .setScrollFactor(0)
-
-    // Criação de limites e câmera //
-
-    this.personagemLocal.setCollideWorldBounds(true)
-    // this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-    // this.cameras.main.setBounds(0, 19074, 448, 6530)
-    this.cameras.main.startFollow(this.personagemLocal)
-
-    // Estado notificar //
-
-    this.game.socket.on('estado-notificar', ({ cena, x, y, frame, flipx }) => {
-      this.personagemRemoto.x = x
-      this.personagemRemoto.y = y
-      this.personagemRemoto.setFrame(frame)
-      this.personagemRemoto.setFlipX(flipx)
-    })
   }
 
   update () {
     try {
       this.game.socket.emit('estado-publicar', this.game.sala, {
-        cena: 'floresta',
         x: this.personagemLocal.x,
         y: this.personagemLocal.y,
         frame: this.personagemLocal.frame.name,
         flipx: this.personagemLocal.flipX
       })
-    } catch (error) {
-      console.error(error)
-    }
-
-    try {
-      if (!this.personagemRemoto) {
-        this.personagem = this.add.sprite(this.personagem.x, this.personagem.y, this.personagem.frame.name)
-      }
     } catch (error) {
       console.error(error)
     }

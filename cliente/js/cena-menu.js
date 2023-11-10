@@ -143,6 +143,8 @@ export default class menu extends Phaser.Scene {
 
     this.fundo = this.add.image(224, 400, 'fundo')
 
+    this.escolhaRemoto = 0
+
     this.timer = 1
 
     this.timerNotificacao = 1
@@ -335,10 +337,6 @@ export default class menu extends Phaser.Scene {
         this.iniciar.setFrame(0)
       })
 
-    this.game.socket.on('escolha-notificar', (personagem) => {
-      this.game.estadoPersonagemRemoto = personagem
-    })
-
     /* Mostrar o primeiro personagem na tela */
     this.atualizarPersonagem()
   }
@@ -360,7 +358,7 @@ export default class menu extends Phaser.Scene {
     }
 
     this.game.socket.emit('escolha-publicar', this.game.sala, this.game.estadoPersonagem, {
-      escolha: this.escolhas.escolhasFeitas
+      escolha: this.escolhaRemoto
     })
 
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
@@ -402,7 +400,7 @@ export default class menu extends Phaser.Scene {
     if (this.timer <= 0) {
       this.trilhaMenu.stop()
       this.game.scene.stop('menu')
-      this.game.scene.start('floresta')
+      this.game.scene.start('mundo-magico')
     }
   }
 }
