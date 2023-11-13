@@ -55,7 +55,7 @@ export default class abertura extends Phaser.Scene {
     this.timer -= 1
     if (this.timer <= 0) {
       this.game.scene.stop('abertura')
-      this.game.scene.start('menu')
+      this.game.scene.start('sala')
     }
   }
 

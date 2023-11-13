@@ -40,7 +40,7 @@ class Game extends Phaser.Game {
       })
     })
 
-    this.personagemEscolhido = 1
+    this.personagemEscolhido = 0
     this.acessorioEscolhido = 0
     this.estadoPersonagem = undefined
     this.estadoPersonagem2 = undefined

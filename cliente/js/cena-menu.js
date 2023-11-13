@@ -188,21 +188,27 @@ export default class menu extends Phaser.Scene {
         personagemId: 2,
         frameRateIdle: 10,
         frameRateWalking: 40,
-        textoX: 192
+        textoX: 192,
+        texto1: 'Isa, a patinha mais velha e curio\nsa, acaba viajando acidentalmen\nte para um mundo mágico onde as \nregras do nosso cotidiano não \nse aplicam. A magia é volátil e a\npenas os mais sábios conseguem \nutilizá-la ao seu favor. Felizmen',
+        texto2: 'te, dominar a arte da magia não \nfoi um desafio para a pata bran\nca, que aproveitou de seu alto \nintelecto para tirar proveito da \nmagia.'
       },
       {
         id: 'pam',
         personagemId: 3,
         frameRateIdle: 40,
         frameRateWalking: 40,
-        textoX: 184
+        textoX: 184,
+        texto1: 'Pâm, um marreco-selvagem, é \numa patinha que adora a brisa \ndo campo. As vastas terras ver\ndejantes têm espaço de sobra pa\nra Pâm praticar seu hobby favo\nrito: futebol. Essa escandalosa \npatinha pode ser considerada um',
+        texto2: 'prodígio entre os patos quando \no assunto é jogar bola.'
       },
       {
         id: 'tucano',
         personagemId: 4,
         frameRateIdle: 12,
         frameRateWalking: 40,
-        textoX: 150
+        textoX: 150,
+        texto1: 'Tucano, que tem nome de pás\nsaro, vive com patos mas na ver\ndade é um ganso, foi encontrado \nna beira do mar, fazendo sabe-se \nlá o que. Tucano é um mistério en\ntre os patinhos e é de longe o pa\ntinho mais distante da familia,',
+        texto2: 'tanto em aparência quanto em \ndistância. Ele não é dos mais in\nteligentes, mas consegue compen\nsar isso com seu incrível vigor \nfísico.'
       }
     ]
 
@@ -241,14 +247,10 @@ export default class menu extends Phaser.Scene {
         } else {
           this.game.personagemEscolhido += 1
         }
-        this.personagemDireita.setFrame(1)
         this.textoDescricao.destroy()
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-      })
-      .on('pointerup', () => {
-        this.personagemDireita.setFrame(0)
       })
 
     this.personagemEsquerda = this.add.sprite(116, 395, 'botao-selecionar')
@@ -260,14 +262,10 @@ export default class menu extends Phaser.Scene {
         } else {
           this.game.personagemEscolhido -= 1
         }
-        this.personagemEsquerda.setFrame(1)
         this.textoDescricao.destroy()
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-      })
-      .on('pointerup', () => {
-        this.personagemEsquerda.setFrame(0)
       })
 
     this.acessorios = [
@@ -302,13 +300,8 @@ export default class menu extends Phaser.Scene {
           this.game.acessorioEscolhido += 1
         }
 
-        this.acessorioDireita.setFrame(1)
-
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-      })
-      .on('pointerup', () => {
-        this.acessorioDireita.setFrame(0)
       })
 
     this.acessorioEsquerda = this.add.sprite(116, 305, 'botao-selecionar')
@@ -321,13 +314,8 @@ export default class menu extends Phaser.Scene {
           this.game.acessorioEscolhido -= 1
         }
 
-        this.acessorioEsquerda.setFrame(1)
-
         /* Atualizar o personagem */
         this.atualizarPersonagem()
-      })
-      .on('pointerup', () => {
-        this.acessorioEsquerda.setFrame(0)
       })
 
     this.iniciar = this.add.sprite(226, 740, 'botao-iniciar')
@@ -422,7 +410,7 @@ export default class menu extends Phaser.Scene {
     if (this.timer <= 0) {
       this.trilhaMenu.stop()
       this.game.scene.stop('menu')
-      this.game.scene.start('mundo-magico')
+      this.game.scene.start('floresta')
     }
   }
 }
