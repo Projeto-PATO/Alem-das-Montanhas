@@ -7,7 +7,7 @@ export default class sala extends Phaser.Scene {
 
   preload () {
     this.load.spritesheet('fundo-sala', '../assets/menu-sala.png', {
-      frameWidth: 450,
+      frameWidth: 448,
       frameHeight: 800
     })
 

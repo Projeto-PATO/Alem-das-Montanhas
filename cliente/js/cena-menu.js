@@ -143,11 +143,7 @@ export default class menu extends Phaser.Scene {
 
     this.fundo = this.add.image(224, 400, 'fundo')
 
-    this.escolhaRemoto = 0
-
     this.timer = 1
-
-    this.timerNotificacao = 1
 
     this.voltar = this.add.sprite(58, 62, 'botao-voltar')
       .setScale(0.85)
@@ -168,6 +164,48 @@ export default class menu extends Phaser.Scene {
 
     this.barra = this.add.sprite(411, 520, 'barra')
 
+    this.personagens = [
+      {
+        id: 'thiaguinho',
+        personagemId: 0,
+        frameRateIdle: 10,
+        frameRateWalking: 40,
+        textoX: 114,
+        texto1: 'O mais amarelo dos patinhos, Thi\naguinho é um pato comum mas is\nso de jeito algum tira seu brilho. \nO pato do meio foi o único que a\ntendeu ao chamado de sua mãe, \npois estava perto o suficiente pa\nra ouvir. A fim de tranquilizar a',
+        texto2: 'Mamãe Pato, Thiaguinho sai cora\njosamente em busca de seus ir\nmãos.'
+      },
+      {
+        id: 'cacique',
+        personagemId: 1,
+        frameRateIdle: 10,
+        frameRateWalking: 40,
+        textoX: 146,
+        texto1: 'Brincando no meio de um mata\ngal, Cacique foi encontrado por \nThiaguinho e agora junta-se a \nele na busca de seus irmãos. Sen\ndo o caçula do grupo, Cacique \ntem menos noção do perigo e aca\nba se metendo em meio de animais',
+        texto2: 'mortais na floresta onde brin\ncava.'
+      },
+      {
+        id: 'isa',
+        personagemId: 2,
+        frameRateIdle: 10,
+        frameRateWalking: 40,
+        textoX: 192
+      },
+      {
+        id: 'pam',
+        personagemId: 3,
+        frameRateIdle: 40,
+        frameRateWalking: 40,
+        textoX: 184
+      },
+      {
+        id: 'tucano',
+        personagemId: 4,
+        frameRateIdle: 12,
+        frameRateWalking: 40,
+        textoX: 150
+      }
+    ]
+
     this.setaBarraCima = this.physics.add.sprite(411, 502, 'seta-barra')
       .setScale(0.6)
       .setImmovable()
@@ -175,6 +213,7 @@ export default class menu extends Phaser.Scene {
       .on('pointerover', () => {
         this.setaBarraCima.setFrame(0)
         this.barra.setY(520)
+        this.textoDescricao.setText(this.personagens[this.game.personagemEscolhido].texto1)
       })
       .on('pointerout', () => {
         this.setaBarraCima.setFrame(0)
@@ -188,43 +227,11 @@ export default class menu extends Phaser.Scene {
       .on('pointerover', () => {
         this.setaBarraBaixo.setFrame(0)
         this.barra.setY(635)
+        this.textoDescricao.setText(this.personagens[this.game.personagemEscolhido].texto2)
       })
       .on('pointerout', () => {
         this.setaBarraBaixo.setFrame(0)
       })
-
-    this.personagens = [
-      {
-        id: 'thiaguinho',
-        personagemId: 0,
-        frameRateIdle: 10,
-        frameRateWalking: 40
-      },
-      {
-        id: 'cacique',
-        personagemId: 1,
-        frameRateIdle: 10,
-        frameRateWalking: 40
-      },
-      {
-        id: 'isa',
-        personagemId: 2,
-        frameRateIdle: 10,
-        frameRateWalking: 40
-      },
-      {
-        id: 'pam',
-        personagemId: 3,
-        frameRateIdle: 40,
-        frameRateWalking: 40
-      },
-      {
-        id: 'tucano',
-        personagemId: 4,
-        frameRateIdle: 12,
-        frameRateWalking: 40
-      }
-    ]
 
     this.personagemDireita = this.add.sprite(331, 395, 'botao-selecionar')
       .setInteractive()
@@ -235,6 +242,7 @@ export default class menu extends Phaser.Scene {
           this.game.personagemEscolhido += 1
         }
         this.personagemDireita.setFrame(1)
+        this.textoDescricao.destroy()
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
@@ -253,6 +261,7 @@ export default class menu extends Phaser.Scene {
           this.game.personagemEscolhido -= 1
         }
         this.personagemEsquerda.setFrame(1)
+        this.textoDescricao.destroy()
 
         /* Atualizar o personagem */
         this.atualizarPersonagem()
@@ -327,7 +336,7 @@ export default class menu extends Phaser.Scene {
         this.trilhaMenu.stop()
         this.iniciar.setFrame(1)
         this.time.addEvent({
-          delay: 5000,
+          delay: 1000,
           callback: this.contagemIniciar,
           callbackScope: this,
           loop: true
@@ -352,6 +361,11 @@ export default class menu extends Phaser.Scene {
     if (this.textoPersonagem) {
       this.textoPersonagem.destroy()
     }
+
+    if (this.textoDescricao) {
+      this.textoDescricao.destroy()
+    }
+
     this.game.estadoPersonagem = {
       spriteId: this.personagens[this.game.personagemEscolhido].personagemId + '-' + this.acessorios[this.game.acessorioEscolhido].acessorioId,
       spritePato: '/' + this.personagens[this.game.personagemEscolhido].id + '/' + this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id + '.png'
@@ -364,11 +378,19 @@ export default class menu extends Phaser.Scene {
     this.personagemFinal = this.add.sprite(239, 315, this.personagens[this.game.personagemEscolhido].id + '-' + this.acessorios[this.game.acessorioEscolhido].id)
       .setScale(2.5)
 
-    this.textoPersonagem = this.add.text(108, 452, this.personagens[this.game.personagemEscolhido].id, {
+    this.textoPersonagem = this.add.text(this.personagens[this.game.personagemEscolhido].textoX, 452, this.personagens[this.game.personagemEscolhido].id, {
       fontFamily: 'Silkscreen',
       fontSize: '32px',
       stroke: '#000000',
       strokeThickness: 4,
+      fill: '#ffffff'
+    })
+
+    this.textoDescricao = this.add.text(34, 492, this.personagens[this.game.personagemEscolhido].texto1, {
+      fontFamily: 'Silkscreen',
+      fontSize: '17px',
+      stroke: '#000000',
+      strokeThickness: 2,
       fill: '#ffffff'
     })
 
