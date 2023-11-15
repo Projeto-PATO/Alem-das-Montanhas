@@ -131,38 +131,25 @@ export default class floresta extends Phaser.Scene {
     // Migalha //
     this.migalhas = [
       {
-        x: 224,
-        y: 5832
+        x: 373,
+        y: 25143
       },
       {
-        x: 224,
-        y: 5632
+        x: 286,
+        y: 24988
       },
       {
-        x: 320,
-        y: -600
+        x: 61,
+        y: 24820
       },
       {
-        x: -330,
-        y: -600
+        x: 61,
+        y: 24657
       },
       {
-        x: 1920,
-        y: -600
-      },
-      {
-        x: -195,
-        y: 100
-      },
-      {
-        x: 1535,
-        y: 100
-      },
-      {
-        x: 575,
-        y: 100
+        x: 308,
+        y: 24515
       }
-
     ]
 
     this.migalhas.forEach((migalha) => {
@@ -208,6 +195,9 @@ export default class floresta extends Phaser.Scene {
         .setOffset(20, 64)
         .setImmovable()
       this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
+      if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+        this.personagemRemoto.setTint(0xff4c4c)
+      }
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
@@ -216,6 +206,9 @@ export default class floresta extends Phaser.Scene {
         .setOffset(20, 64)
         .setImmovable()
       this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
+      if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+        this.personagemRemoto.setTint(0xff4c4c)
+      }
 
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then((stream) => {
