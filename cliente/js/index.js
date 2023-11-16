@@ -2,6 +2,7 @@
 import config from './config.js'
 import abertura from './cena-abertura.js'
 import sala from './cena-sala.js'
+import cutscene from './cena-cutscene.js'
 import menu from './cena-menu.js'
 import floresta from './cena-floresta.js'
 import mundoMagico from './cena-mundo-magico.js'
@@ -54,6 +55,7 @@ class Game extends Phaser.Game {
     }
     this.scene.add('abertura', abertura)
     this.scene.add('sala', sala)
+    this.scene.add('cutscene', cutscene)
     this.scene.add('menu', menu)
     this.scene.add('floresta', floresta)
     this.scene.add('mundo-magico', mundoMagico)
