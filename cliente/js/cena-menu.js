@@ -132,6 +132,10 @@ export default class menu extends Phaser.Scene {
       frameWidth: 15,
       frameHeight: 50
     })
+    this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
+      frameWidth: 26,
+      frameHeight: 24
+    })
 
     this.load.audio('trilha-menu', '../assets/audios/trilha-menu.mp3')
   }
@@ -163,6 +167,17 @@ export default class menu extends Phaser.Scene {
       })
 
     this.barra = this.add.sprite(411, 520, 'barra')
+
+    this.migalha = this.add.sprite(358, 58, 'migalha')
+      .setScale(2.5)
+
+    this.texto = this.add.text(394, 42, `x${this.game.migalhasGuardadas}`, {
+      fontFamily: 'Silkscreen',
+      fontSize: '20px',
+      stroke: '#000000',
+      strokeThickness: 4,
+      fill: '#ffffff'
+    })
 
     this.personagens = [
       {

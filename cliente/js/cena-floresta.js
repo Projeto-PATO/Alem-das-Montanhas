@@ -526,6 +526,7 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
     this.cobra.disableBody(true, false)
+    this.game.migalhasGuardadas += this.game.scoreMigalha.score - 1
     this.game.scoreMigalha.score = 0
     this.game.vida.frameCoracoes = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
