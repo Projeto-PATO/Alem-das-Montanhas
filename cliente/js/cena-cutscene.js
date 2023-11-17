@@ -17,11 +17,11 @@ export default class cutscene extends Phaser.Scene {
   }
 
   create () {
-    // this.dialogo = this.add.sprite(224, 400, 'dialogo')
+    this.dialogo = this.add.sprite(224, 400, 'dialogo')
 
     this.cutscene = this.add.sprite(224, 400, 'cutscene').setScrollFactor(0, 0)
 
-    /* this.timerTroca = 1
+    this.timerTroca = 1
 
     this.timerFim = 1
 
@@ -31,7 +31,7 @@ export default class cutscene extends Phaser.Scene {
         start: 0,
         end: 79
       }),
-      frameRate: 40,
+      frameRate: 10,
       repeat: 0
     })
 
@@ -48,18 +48,19 @@ export default class cutscene extends Phaser.Scene {
     this.cutscene.anims.play('cutscene-anim', true)
 
     this.time.addEvent({
-      delay: 5000,
-      callback: this.contagemTroca,
-      callbackScope: this,
-      loop: false
-    })
-
-    /* this.time.addEvent({
       delay: 10000,
       callback: this.contagemFim,
       callbackScope: this,
       loop: false
-    }) */
+    })
+
+    /*  this.time.addEvent({
+        delay: 10000,
+        callback: this.contagemFim,
+        callbackScope: this,
+        loop: false
+      })
+      */
   }
 
   contagemTroca () {
@@ -71,11 +72,8 @@ export default class cutscene extends Phaser.Scene {
   }
 
   contagemFim () {
-    this.timerFIm -= 1
-    if (this.timerFim <= 0) {
-      this.game.scene.stop('cutscene')
-      this.game.scene.start('menu')
-    }
+    this.game.scene.stop('cutscene')
+    this.game.scene.start('menu')
   }
 
   update () { }
