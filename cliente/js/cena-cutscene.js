@@ -41,7 +41,7 @@ export default class cutscene extends Phaser.Scene {
         start: 0,
         end: 53
       }),
-      frameRate: 40,
+      frameRate: 10,
       repeat: 0
     })
 
@@ -49,18 +49,17 @@ export default class cutscene extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 10000,
-      callback: this.contagemFim,
+      callback: this.contagemTroca,
       callbackScope: this,
       loop: false
     })
 
-    /*  this.time.addEvent({
-        delay: 10000,
-        callback: this.contagemFim,
-        callbackScope: this,
-        loop: false
-      })
-      */
+    this.time.addEvent({
+      delay: 17000,
+      callback: this.contagemFim,
+      callbackScope: this,
+      loop: false
+    })
   }
 
   contagemTroca () {
