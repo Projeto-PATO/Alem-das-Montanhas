@@ -476,6 +476,16 @@ export default class floresta extends Phaser.Scene {
       this.personagemRemoto.setFrame(frame)
       this.personagemRemoto.setFlipX(flipx)
     })
+
+    this.game.socket.on('artefatos-notificar', (artefatos) => {
+      if (artefatos.migalhas) {
+        for (let i = 0; i < artefatos.migalhas.length; i++) {
+          if (!artefatos.migalhas[i]) {
+            this.migalhas[i].objeto.disableBody(true, true)
+          }
+        }
+      }
+    })
   }
 
   update () {
@@ -534,12 +544,14 @@ export default class floresta extends Phaser.Scene {
     this.audioGameover.play()
   }
 
-  coletarMigalha (migalha) {
+  coletarMigalha (personagemLocal, migalha) {
     migalha.disableBody(true, true)
     this.game.scoreMigalha.score++
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
     this.audioMigalha.play()
-    return false
+    this.game.socket.emit('artefatos-publicar', this.game.sala, {
+      migalhas: this.migalhas.map((migalha) => migalha.objeto.visible)
+    })
   }
 
   colisaoCobra () {
