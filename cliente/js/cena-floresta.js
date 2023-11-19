@@ -196,7 +196,7 @@ export default class floresta extends Phaser.Scene {
         .setImmovable()
       this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
       if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
-        this.personagemRemoto.setTint(0xff4c4c)
+        this.personagemRemoto.setTint(0x808080)
       }
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
@@ -207,7 +207,7 @@ export default class floresta extends Phaser.Scene {
         .setImmovable()
       this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
       if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
-        this.personagemRemoto.setTint(0xff4c4c)
+        this.personagemRemoto.setTint(0x808080)
       }
 
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
@@ -477,6 +477,8 @@ export default class floresta extends Phaser.Scene {
       this.personagemRemoto.setFlipX(flipx)
     })
 
+    // Artefatos notificar //
+
     this.game.socket.on('artefatos-notificar', (artefatos) => {
       if (artefatos.migalhas) {
         for (let i = 0; i < artefatos.migalhas.length; i++) {
@@ -485,6 +487,18 @@ export default class floresta extends Phaser.Scene {
           }
         }
       }
+    })
+
+    // Dano notificar //
+
+    this.game.socket.on('dano-notificar', () => {
+      this.personagemRemoto.setTint(0xFF0000)
+      this.time.addEvent({
+        callback: () => { this.corNormalRemoto() },
+        delay: 200,
+        callbackScope: this,
+        loop: false
+      })
     })
   }
 
@@ -560,6 +574,14 @@ export default class floresta extends Phaser.Scene {
       .setOffset(21, 54)
   }
 
+  corNormalLocal () {
+    this.personagemLocal.setTint(0xFFFFFF)
+  }
+
+  corNormalRemoto () {
+    this.personagemRemoto.setTint(0x808080)
+  }
+
   danoCobra (coracoes) {
     this.cobra
       .setSize(1, 1)
@@ -570,6 +592,14 @@ export default class floresta extends Phaser.Scene {
       callbackScope: this,
       loop: false
     })
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
     if (this.coracoes.frame.name === 5) {
       this.coracoes.setFrame(6)
     } else {
@@ -582,6 +612,14 @@ export default class floresta extends Phaser.Scene {
   }
 
   danoCenario (coracoes) {
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
     this.game.vida.frameCoracoes += 1
     this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
     if (this.coracoes.frame.name === 6) {
