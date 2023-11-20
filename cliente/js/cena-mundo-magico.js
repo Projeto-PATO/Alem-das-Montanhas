@@ -86,8 +86,8 @@ export default class mundoMagico extends Phaser.Scene {
     this.tilesetMundoMagico = this.tilemapMundoMagico.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMundoMagico.createLayer('chao', [this.tilesetMundoMagico])
-    // this.layerLapideF04 = this.tilemapMundoMagico.createLayer('lapideF-04', [this.tilesetMundoMagico])
-    // this.layerOssos1 = this.tilemapMundoMagico.createLayer('ossos1', [this.tilesetMundoMagico])
+    this.layerLapideF04 = this.tilemapMundoMagico.createLayer('lapideF-04', [this.tilesetMundoMagico])
+    this.layerOssos1 = this.tilemapMundoMagico.createLayer('ossos1', [this.tilesetMundoMagico])
     // this.layerOssos2 = this.tilemapMundoMagico.createLayer('ossos2', [this.tilesetMundoMagico])
 
     // Animação migalha //
@@ -103,60 +103,16 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Colisões //
 
-    /*  this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerChao.setCollisionByProperty({ canCollide: true })
     this.layerLapideF04.setCollisionByProperty({ canCollide: true })
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
-    this.layerOssos2.setCollisionByProperty({ canCollide: true })
-*/
+    // this.layerOssos2.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
-    this.migalhas = [
-      {
-        x: 224,
-        y: 5832
-      },
-      {
-        x: 224,
-        y: 5632
-      },
-      {
-        x: 320,
-        y: -600
-      },
-      {
-        x: -330,
-        y: -600
-      },
-      {
-        x: 1920,
-        y: -600
-      },
-      {
-        x: -195,
-        y: 100
-      },
-      {
-        x: 1535,
-        y: 100
-      },
-      {
-        x: 575,
-        y: 100
-      }
-
-    ]
-
-    this.migalhas.forEach((migalha) => {
-      migalha.objeto = this.physics.add.sprite(migalha.x, migalha.y, 'migalha')
-        .setImmovable()
-      migalha.objeto.anims.play('migalha-girando', true)
-    })
 
     // Fantasma //
 
     // Caldeirão //
-
-    this.caldeirao2 = this.physics.add.sprite(224, 19130, 'caldeirao')
 
     // Isa //
 
@@ -179,9 +135,9 @@ export default class mundoMagico extends Phaser.Scene {
         .setImmovable()
       this.personagemRemoto = this.add.sprite(140, 18960, this.remoto)
 
-      // this.layerLapideT04 = this.tilemapMundoMagico.createLayer('lapideT-04', [this.tilesetMundoMagico])
+      this.layerLapideT04 = this.tilemapMundoMagico.createLayer('lapideT-04', [this.tilesetMundoMagico])
 
-      //  this.layerLapideT04.setCollisionByProperty({ canCollide: true })
+      this.layerLapideT04.setCollisionByProperty({ canCollide: true })
 
       // Collider //
 
@@ -189,16 +145,15 @@ export default class mundoMagico extends Phaser.Scene {
       this.physics.add.collider(this.personagemLocal, this.layerLapideF04, this.danoCenario, null, this)
       this.physics.add.collider(this.personagemLocal, this.layerOssos1, this.danoCenario, null, this)
       this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
+      */
 
-      this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
-*/
-      this.migalhas.forEach((migalha) => {
+      /*  this.migalhas.forEach((migalha) => {
         this.physics.add.collider(migalha.objeto, this.layerChao)
         this.physics.add.collider(migalha.objeto, this.layerLapideF04)
         this.physics.add.collider(migalha.objeto, this.layerOssos1)
         this.physics.add.collider(migalha.objeto, this.layerOssos2)
         this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
-      })
+      }) */
 
       // Score //
 
@@ -368,7 +323,7 @@ export default class mundoMagico extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.scene.stop('floresta')
+        this.game.scene.stop('mundo-magico')
         this.game.scene.start('menu')
       })
     this.personagemLocal.setImmovable()

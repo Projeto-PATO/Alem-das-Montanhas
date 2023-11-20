@@ -500,6 +500,17 @@ export default class floresta extends Phaser.Scene {
         loop: false
       })
     })
+
+    this.game.socket.on('cena-notificar', () => {
+      this.game.scene.stop('floresta')
+      this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
+      this.game.scene.star('mundo-magico')
+      this.personagemLocal.setVelocityX(0)
+      this.personagemLocal.setVelocityY(0)
+      this.personagemLocal.setImmovable()
+      this.personagemLocal.anims.play('pato-idle', true)
+      this.trilhaFloresta.stop()
+    })
   }
 
   update () {
@@ -531,6 +542,7 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.anims.play('pato-idle', true)
     this.trilhaFloresta.stop()
     this.game.scene.stop('floresta')
+    this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
     this.game.scene.start('mundo-magico')
   }
 
@@ -550,7 +562,7 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.anims.play('pato-idle', true)
     this.cobra.setVelocityY(0)
     this.cobra.disableBody(true, false)
-    this.game.migalhasGuardadas += this.game.scoreMigalha.score - 1
+    this.game.migalhasGuardadas += this.game.scoreMigalha.score
     this.game.scoreMigalha.score = 0
     this.game.vida.frameCoracoes = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
@@ -619,6 +631,7 @@ export default class floresta extends Phaser.Scene {
       callbackScope: this,
       loop: false
     })
+    this.personagemLocal.setBounce(1, 1)
     this.game.socket.emit('dano-publicar', this.game.sala)
     this.game.vida.frameCoracoes += 1
     this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
