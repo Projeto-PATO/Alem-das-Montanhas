@@ -9,13 +9,7 @@ export default class mundoMagico extends Phaser.Scene {
   preload () {
     this.load.tilemapTiledJSON('mapa2', '../assets/mapa/mapa-full.json')
 
-    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
-
     this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
-
-    this.load.image('tileset-campo', '../assets/mapa/tileset-campo.png')
-
-    this.load.image('tileset-praia', '../assets/mapa/tileset-praia.png')
 
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
