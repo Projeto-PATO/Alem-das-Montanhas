@@ -9,6 +9,8 @@ export default class floresta extends Phaser.Scene {
   preload () {
     this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
 
+    this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
+
     this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
 
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
@@ -89,20 +91,22 @@ export default class floresta extends Phaser.Scene {
     this.audioGameover = this.sound.add('audio-gameover')
 
     // Criação de mapa e de camadas de fundo //
-
-    this.tilemapFloresta = this.make.tilemap({
+    this.tilemapMapa = this.make.tilemap({
       key: 'mapa'
     })
 
-    this.tilesetFloresta = this.tilemapFloresta.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapFloresta.addTilesetImage('tileset-mundomagico')
-    this.tilesetCampo = this.tilemapFloresta.addTilesetImage('tileset-campo')
-    this.tilesetPraia = this.tilemapFloresta.addTilesetImage('tileset-praia')
+    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
+    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
-    this.layerChao = this.tilemapFloresta.createLayer('chao', [this.tilesetFloresta])
-    this.layerTronco01 = this.tilemapFloresta.createLayer('tronco-01', [this.tilesetFloresta])
-    this.layerPedra = this.tilemapFloresta.createLayer('pedra', [this.tilesetFloresta])
-    this.layerNaFrente03 = this.tilemapFloresta.createLayer('naFrente-03', [this.tilesetFloresta])
+    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
+    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetFloresta])
+    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
+    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetFloresta])
+    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetMundoMagico])
+    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetMundoMagico])
+    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetMundoMagico])
+
+    console.log(this.cache.tilemap.get('mapa').data)
 
     // Animação migalha //
     this.anims.create({
@@ -121,6 +125,9 @@ export default class floresta extends Phaser.Scene {
     this.layerTronco01.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerNaFrente03.setCollisionByProperty({ canCollide: true })
+    this.layerLapideF04.setCollisionByProperty({ canCollide: true })
+    this.layerOssos1.setCollisionByProperty({ canCollide: true })
+    this.layerOssos2.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
     this.migalhas = [
@@ -255,13 +262,15 @@ export default class floresta extends Phaser.Scene {
 
     // Camadas de frente //
 
-    this.layerAtras03 = this.tilemapFloresta.createLayer('atras-03', [this.tilesetFloresta])
-    this.layerCopaT01 = this.tilemapFloresta.createLayer('copaT-01', [this.tilesetFloresta])
-    this.layerCopaF01 = this.tilemapFloresta.createLayer('copaF-01', [this.tilesetFloresta])
+    this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
+    this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
+    this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
+    this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetMundoMagico])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
     this.layerCopaF01.setCollisionByProperty({ canCollide: true })
+    this.layerLapideT04.setCollisionByProperty({ canCollide: true })
 
     this.mamae = this.physics.add.sprite(225, 25480, 'mamae-pato')
 
@@ -458,8 +467,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 19074, 448, 6530)
+    this.physics.world.setBounds(0, 15064, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 15074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
@@ -495,16 +504,17 @@ export default class floresta extends Phaser.Scene {
       })
     })
 
-    this.game.socket.on('cena-notificar', () => {
-      this.game.scene.stop('floresta')
-      this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
-      this.game.scene.star('mundo-magico')
-      this.personagemLocal.setVelocityX(0)
-      this.personagemLocal.setVelocityY(0)
-      this.personagemLocal.setImmovable()
-      this.personagemLocal.anims.play('pato-idle', true)
-      this.trilhaFloresta.stop()
-    })
+    /*  this.game.socket.on('cena-notificar', () => {
+        this.game.scene.stop('floresta')
+        this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
+        this.game.scene.star('mundo-magico')
+        this.personagemLocal.setVelocityX(0)
+        this.personagemLocal.setVelocityY(0)
+        this.personagemLocal.setImmovable()
+        this.personagemLocal.anims.play('pato-idle', true)
+        this.trilhaFloresta.stop()
+      })
+      */
   }
 
   update () {
@@ -536,7 +546,7 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.anims.play('pato-idle', true)
     this.trilhaFloresta.stop()
     this.game.scene.stop('floresta')
-    this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
+    //  this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
     this.game.scene.start('mundo-magico')
   }
 
