@@ -7,7 +7,9 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
+    this.load.tilemapTiledJSON('mapa', '../assets/mapa/novomapa.json')
+
+    this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
 
     this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
 
@@ -79,16 +81,17 @@ export default class mundoMagico extends Phaser.Scene {
       key: 'mapa'
     })
 
+    this.tilesetGeral = this.tilemapMapa.addTilesetImage('tileset-geral')
     this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
     this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
-    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetMundoMagico])
-    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetFloresta])
-    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
-    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetFloresta])
-    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetMundoMagico])
-    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetMundoMagico])
-    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetMundoMagico])
+    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
+    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
+    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
+    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
+    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetGeral])
+    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetGeral])
+    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
 
     console.log(this.cache.tilemap.get('mapa').data)
 
@@ -126,24 +129,24 @@ export default class mundoMagico extends Phaser.Scene {
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(140, 16800, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 16300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 18960, this.remoto)
+      this.personagemRemoto = this.add.sprite(324, 16300, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 16800, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 16300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable()
-      this.personagemRemoto = this.add.sprite(140, 18960, this.remoto)
+      this.personagemRemoto = this.add.sprite(140, 16300, this.remoto)
 
-      this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
-      this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
-      this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
-      this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetMundoMagico])
+      this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
+      this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
+      this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
+      this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetGeral])
 
       this.layerAtras03.setCollisionByProperty({ canCollide: true })
       this.layerCopaT01.setCollisionByProperty({ canCollide: true })
@@ -289,8 +292,8 @@ export default class mundoMagico extends Phaser.Scene {
       // Criação de limites e câmera //
 
       this.personagemLocal.setCollideWorldBounds(true)
-      // this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-      // this.cameras.main.setBounds(0, 19074, 448, 6530)
+      this.physics.world.setBounds(0, 12828, 448, 0, true, true, true, false)
+      this.cameras.main.setBounds(0, 12838, 448, 6530)
       this.cameras.main.startFollow(this.personagemLocal)
 
       // Estado notificar //

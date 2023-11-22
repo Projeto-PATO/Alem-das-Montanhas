@@ -7,7 +7,9 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
+    this.load.tilemapTiledJSON('mapa', '../assets/mapa/novomapa.json')
+
+    this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
 
     this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
 
@@ -95,16 +97,17 @@ export default class floresta extends Phaser.Scene {
       key: 'mapa'
     })
 
+    this.tilesetGeral = this.tilemapMapa.addTilesetImage('tileset-geral')
     this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
     this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
-    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetFloresta])
-    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetFloresta])
-    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetFloresta])
-    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetFloresta])
-    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetMundoMagico])
-    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetMundoMagico])
-    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetMundoMagico])
+    this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
+    this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
+    this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
+    this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
+    this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetGeral])
+    this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetGeral])
+    this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
 
     console.log(this.cache.tilemap.get('mapa').data)
 
@@ -264,10 +267,10 @@ export default class floresta extends Phaser.Scene {
 
     // Camadas de frente //
 
-    this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetFloresta])
-    this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetFloresta])
-    this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetFloresta])
-    this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetMundoMagico])
+    this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
+    this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
+    this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
+    this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetGeral])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
