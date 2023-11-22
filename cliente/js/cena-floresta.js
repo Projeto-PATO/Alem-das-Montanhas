@@ -194,7 +194,8 @@ export default class floresta extends Phaser.Scene {
       this.personagemLocal = this.physics.add.sprite(140, 25300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
-        .setImmovable()
+        .setImmovable(false)
+        .setBounce(1, 1)
       this.personagemRemoto = this.add.sprite(324, 6050, this.remoto)
       if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
         this.personagemRemoto.setTint(0x808080)
@@ -205,7 +206,8 @@ export default class floresta extends Phaser.Scene {
       this.personagemLocal = this.physics.add.sprite(308, 25300, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
-        .setImmovable()
+        .setImmovable(false)
+        .setBounce(1, 1)
       this.personagemRemoto = this.add.sprite(124, 6050, this.remoto)
       if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
         this.personagemRemoto.setTint(0x808080)
@@ -466,9 +468,9 @@ export default class floresta extends Phaser.Scene {
 
     // Criação de limites e câmera //
 
-    this.personagemLocal.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 15064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 15074, 448, 6530)
+    this.personagemLocal.setCollideWorldBounds(true, 0, 0)
+    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 19074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
@@ -564,6 +566,14 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)
     this.personagemLocal.anims.play('pato-idle', true)
+    this.cima.emit('pointerout')
+    this.baixo.emit('pointerout')
+    this.direita.emit('pointerout')
+    this.esquerda.emit('pointerout')
+    this.cima.setInteractive(false)
+    this.baixo.setInteractive(false)
+    this.direita.setInteractive(false)
+    this.esquerda.setInteractive(false)
     this.cobra.setVelocityY(0)
     this.cobra.disableBody(true, false)
     this.game.migalhasGuardadas += this.game.scoreMigalha.score
@@ -631,16 +641,40 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
       callback: () => { this.corNormalLocal() },
-      delay: 200,
+      delay: 500,
       callbackScope: this,
       loop: false
     })
-    this.personagemLocal.setBounce(1, 1)
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 500,
+      callbackScope: this,
+      loop: false
+    })
     this.game.socket.emit('dano-publicar', this.game.sala)
     this.game.vida.frameCoracoes += 1
     this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
     if (this.coracoes.frame.name === 6) {
       this.morrer()
+    }
+  }
+
+  forcarPointerOut () {
+    if (this.cima.frame.name === 1) {
+      this.cima.emit('pointerout')
+      this.cima.emit('pointerover')
+    }
+    if (this.baixo.frame.name === 1) {
+      this.baixo.emit('pointerout')
+      this.baixo.emit('pointerover')
+    }
+    if (this.direita.frame.name === 1) {
+      this.direita.emit('pointerout')
+      this.direita.emit('pointerover')
+    }
+    if (this.esquerda.frame.name === 1) {
+      this.esquerda.emit('pointerout')
+      this.esquerda.emit('pointerover')
     }
   }
 }
