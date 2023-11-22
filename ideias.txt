@@ -4,6 +4,11 @@ https://medium.com/@alizah.lalani/collecting-objects-in-phaser-3-platformer-game
 ## Comandos úteis
 this.game.scene.getScene('floresta').personagem.x
 
+## Sequência para atualizar o jogo na VM
+cd repo
+git pull
+sudo systemctl restart
+
 ### Regras do jogo
 Runner vertical;
 Se mexendo para os lados; 

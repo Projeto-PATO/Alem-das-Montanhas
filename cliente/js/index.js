@@ -10,6 +10,9 @@ class Game extends Phaser.Game {
   constructor () {
     super(config)
 
+    this.id = 2
+    this.valor = 100
+
     let iceServers
     if (window.location.host === 'feira-de-jogos.sj.ifsc.edu.br') {
       iceServers = [
