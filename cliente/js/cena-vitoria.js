@@ -17,11 +17,17 @@ export default class vitoria extends Phaser.Scene {
 
     this.posicao = ''
 
+    this.informacoes = this.add.text(36, 20, 'DIGITE SUAS \nINFORMAÇÕES', {
+      fontFamily: 'Silkscreen',
+      fontSize: '36px',
+      fill: '#cccccc'
+    })
+
     this.usuarioTextoBase = 'Usuário: '
     this.usuarioDigitado = ''
-    this.usuario = this.add.text(450, 100, this.usuarioTextoBase, {
+    this.usuario = this.add.text(36, 164, this.usuarioTextoBase, {
       fontFamily: 'Silkscreen',
-      font: '32px Courier',
+      fontSize: '32px',
       fill: '#cccccc'
     })
       .setInteractive()
@@ -30,15 +36,15 @@ export default class vitoria extends Phaser.Scene {
         this.posicao = 'usuário'
         this.usuario.setFill('#ffffff')
         this.senha.setFill('#cccccc')
-        this.voltar.x = 750
+        this.voltar.x = 392
         this.voltar.y = this.usuario.y
       })
 
     this.senhaTextoBase = 'Senha: '
     this.senhaDigitada = ''
-    this.senha = this.add.text(450, 200, this.senhaTextoBase, {
+    this.senha = this.add.text(36, 240, this.senhaTextoBase, {
       fontFamily: 'Silkscreen',
-      font: '32px Courier',
+      fontSize: '32px',
       fill: '#cccccc'
     })
       .setInteractive()
@@ -47,16 +53,16 @@ export default class vitoria extends Phaser.Scene {
         this.posicao = 'senha'
         this.usuario.setFill('#cccccc')
         this.senha.setFill('#ffffff')
-        this.voltar.x = 750
+        this.voltar.x = 392
         this.voltar.y = this.senha.y
       })
 
     const teclado = [...Array(10).keys()]
     teclado.forEach(digito => {
       const valor = (digito + 1) % 10
-      this.textoTeclado = this.add.text(80 * ((digito % 3) + 1), 360 * (Math.floor(digito / 3) + 1), valor, {
+      this.textoTeclado = this.add.text(108 * ((digito % 3) + 1), 80 * (Math.floor(digito / 3) + 4.5), valor, {
         fontFamily: 'Silkscreen',
-        font: '32px Courier',
+        fontSize: '32px',
         fill: '#ffffff'
       })
         .setInteractive()
@@ -78,9 +84,9 @@ export default class vitoria extends Phaser.Scene {
             }
           }
           if (this.usuarioDigitado.length === 4 && this.senhaDigitada.length === 4) {
-            this.enviar = this.add.text(450, 300, '[ENVIAR]', {
+            this.enviar = this.add.text(142, 684, '[ENVIAR]', {
               fontFamily: 'Silkscreen',
-              font: '64px Courier',
+              fontSize: '32px',
               fill: '#ffffff'
             })
               .setInteractive()
@@ -102,7 +108,7 @@ export default class vitoria extends Phaser.Scene {
                           this.tempo--
                           if (this.tempo === 0) {
                             this.relogio.destroy()
-                            this.scene.stop('final-feliz')
+                            this.scene.stop('vitoria')
                             this.scene.start('abertura')
                           }
                         },
@@ -138,7 +144,7 @@ export default class vitoria extends Phaser.Scene {
 
     this.voltar = this.add.text(800, 100, '<', {
       fontFamily: 'Silkscreen',
-      font: '32px Courier',
+      fontSize: '32px',
       fill: '#ffffff'
     })
       .setInteractive()
