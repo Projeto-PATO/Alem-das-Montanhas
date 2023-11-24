@@ -135,24 +135,84 @@ export default class floresta extends Phaser.Scene {
     // Migalha //
     this.migalhas = [
       {
-        x: 373,
-        y: 25143
+        x: 224,
+        y: 25240
       },
       {
-        x: 286,
-        y: 24988
+        x: 360,
+        y: 25152
       },
       {
-        x: 61,
-        y: 24820
+        x: 176,
+        y: 24792
       },
       {
-        x: 61,
-        y: 24657
+        x: 312,
+        y: 24456
       },
       {
-        x: 308,
-        y: 24515
+        x: 216,
+        y: 24056
+      },
+      {
+        x: 40,
+        y: 23672
+      },
+      {
+        x: 352,
+        y: 23464
+      },
+      {
+        x: 368,
+        y: 23168
+      },
+      {
+        x: 152,
+        y: 22864
+      },
+      {
+        x: 96,
+        y: 22400
+      },
+      {
+        x: 192,
+        y: 22056
+      },
+      {
+        x: 288,
+        y: 21752
+      },
+      {
+        x: 376,
+        y: 21456
+      },
+      {
+        x: 136,
+        y: 21080
+      },
+      {
+        x: 64,
+        y: 20640
+      },
+      {
+        x: 296,
+        y: 20352
+      },
+      {
+        x: 384,
+        y: 20000
+      },
+      {
+        x: 104,
+        y: 19608
+      },
+      {
+        x: 376,
+        y: 19336
+      },
+      {
+        x: 208,
+        y: 19192
       }
     ]
 
@@ -472,8 +532,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true, 0, 0)
-    this.physics.world.setBounds(0, 13064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 13074, 448, 6530)
+    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 19074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
@@ -509,17 +569,18 @@ export default class floresta extends Phaser.Scene {
       })
     })
 
-    /*  this.game.socket.on('cena-notificar', () => {
-        this.game.scene.stop('floresta')
-        this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
-        this.game.scene.star('mundo-magico')
-        this.personagemLocal.setVelocityX(0)
-        this.personagemLocal.setVelocityY(0)
-        this.personagemLocal.setImmovable()
-        this.personagemLocal.anims.play('pato-idle', true)
-        this.trilhaFloresta.stop()
-      })
-      */
+    // Cena notificar //
+
+    this.game.socket.on('cena-notificar', () => {
+      this.game.scene.stop('floresta')
+      this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
+      this.game.scene.start('mundo-magico')
+      this.personagemLocal.setVelocityX(0)
+      this.personagemLocal.setVelocityY(0)
+      this.personagemLocal.setImmovable()
+      this.personagemLocal.anims.play('pato-idle', true)
+      this.trilhaFloresta.stop()
+    })
   }
 
   update () {
@@ -551,7 +612,7 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.anims.play('pato-idle', true)
     this.trilhaFloresta.stop()
     this.game.scene.stop('floresta')
-    //  this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
+    this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
     this.game.scene.start('mundo-magico')
   }
 
