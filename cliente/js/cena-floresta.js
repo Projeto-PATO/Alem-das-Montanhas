@@ -7,7 +7,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   preload () {
-    this.load.tilemapTiledJSON('mapa', '../assets/mapa/novomapa.json')
+    this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
 
     this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
 
@@ -472,8 +472,8 @@ export default class floresta extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true, 0, 0)
-    this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 19074, 448, 6530)
+    this.physics.world.setBounds(0, 13064, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 13074, 448, 6530)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
