@@ -52,6 +52,10 @@ io.on('connection', (socket) => {
     socket.to(sala).emit('dano-notificar')
   })
 
+  socket.on('inimigos-publicar', (sala) => {
+    socket.to(sala).emit('inimigos-notificar')
+  })
+
   socket.on('cena-publicar', (sala) => {
     socket.to(sala).emit('cena-notificar')
   })

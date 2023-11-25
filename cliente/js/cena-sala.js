@@ -126,25 +126,16 @@ export default class sala extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => {
           item.botao.setFrame(1)
+          this.fundo.setFrame(1)
           this.salas.forEach((item) => {
-            this.clock = this.time.addEvent({
-              delay: 100,
-              callback: this.contagem,
-              callbackScope: this,
-              loop: true
-            })
+            item.botao.destroy()
           })
+          this.game.sala = item.numero
+          this.game.socket.emit('entrar-na-sala', this.game.sala)
         })
         .on('pointerup', () => {
-          item.botao.setFrame(0)
+          this.item.botao.setFrame(0)
         })
-      this.game.sala = item.numero
-    })
-  }
-
-  contagem () {
-    this.timer -= 1
-    if (this.timer === 0) {
       this.game.socket.on('jogadores', (jogadores) => {
         console.log(jogadores)
         if (jogadores.segundo) {
@@ -160,12 +151,6 @@ export default class sala extends Phaser.Scene {
             .catch((error) => console.error(error))
         }
       })
-      this.game.socket.emit('entrar-na-sala', this.game.sala)
-      this.fundo.setFrame(1)
-      this.salas.forEach((item) => {
-        item.botao.destroy()
-      })
-      this.clock.destroy()
-    }
+    })
   }
 }
