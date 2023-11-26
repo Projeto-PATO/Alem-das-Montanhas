@@ -7,7 +7,7 @@ this.game.scene.getScene('floresta').personagem.x
 ## Sequência para atualizar o jogo na VM
 cd repo
 git pull
-sudo systemctl restart
+sudo systemctl restart jogo.service
 
 ### Regras do jogo
 Runner vertical;
