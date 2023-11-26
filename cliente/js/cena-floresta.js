@@ -102,6 +102,27 @@ export default class floresta extends Phaser.Scene {
     this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
+
+    this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area1)
+    this.area1.body.setAllowGravity(false)
+
+    this.area2 = this.add.rectangle(224, 24293, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area2)
+    this.area1.body.setAllowGravity(false)
+
+    this.area3 = this.add.rectangle(224, 22043, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area3)
+    this.area1.body.setAllowGravity(false)
+
+    this.area4 = this.add.rectangle(224, 21155, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area4)
+    this.area1.body.setAllowGravity(false)
+
+    this.area5 = this.add.rectangle(224, 19936, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area5)
+    this.area1.body.setAllowGravity(false)
+
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
     this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
@@ -142,10 +163,6 @@ export default class floresta extends Phaser.Scene {
     this.layerLapideF04.setCollisionByProperty({ canCollide: true })
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
     this.layerOssos2.setCollisionByProperty({ canCollide: true })
-
-    this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 1)
-    this.physics.world.enable(this.area1)
-    this.area1.body.setAllowGravity(false)
 
     // Migalha //
     this.migalhas = [
@@ -267,7 +284,7 @@ export default class floresta extends Phaser.Scene {
         .setSize(72, 33)
         .setOffset(21, 54)
         .setImmovable()
-        .setVelocityY(100)
+        .setVisible(false)
       cobra.objeto.anims.play('cobra', true)
     })
 
@@ -407,6 +424,31 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.area1, this.layerPedra)
     this.physics.add.collider(this.area1, this.layerTronco01)
     this.physics.add.collider(this.area1, this.layerNaFrente03)
+    this.physics.add.overlap(this.personagemLocal, this.area1, this.primeiraArea, null, this)
+
+    this.physics.add.collider(this.area2, this.layerChao)
+    this.physics.add.collider(this.area2, this.layerPedra)
+    this.physics.add.collider(this.area2, this.layerTronco01)
+    this.physics.add.collider(this.area2, this.layerNaFrente03)
+    this.physics.add.overlap(this.personagemLocal, this.area2, this.segundaArea, null, this)
+
+    this.physics.add.collider(this.area3, this.layerChao)
+    this.physics.add.collider(this.area3, this.layerPedra)
+    this.physics.add.collider(this.area3, this.layerTronco01)
+    this.physics.add.collider(this.area3, this.layerNaFrente03)
+    this.physics.add.overlap(this.personagemLocal, this.area4, this.terceiraArea, null, this)
+
+    this.physics.add.collider(this.area4, this.layerChao)
+    this.physics.add.collider(this.area4, this.layerPedra)
+    this.physics.add.collider(this.area5, this.layerTronco01)
+    this.physics.add.collider(this.area5, this.layerNaFrente03)
+    this.physics.add.overlap(this.personagemLocal, this.area4, this.quartaArea, null, this)
+
+    this.physics.add.collider(this.area5, this.layerChao)
+    this.physics.add.collider(this.area5, this.layerPedra)
+    this.physics.add.collider(this.area5, this.layerTronco01)
+    this.physics.add.collider(this.area5, this.layerNaFrente03)
+    this.physics.add.overlap(this.personagemLocal, this.area5, this.quintaArea, null, this)
 
     this.physics.add.collider(this.personagemLocal, this.caldeirao, this.entrarCaldeirao, null, this)
 
@@ -616,6 +658,15 @@ export default class floresta extends Phaser.Scene {
       this.personagemLocal.anims.play('pato-idle', true)
       this.trilhaFloresta.stop()
     })
+
+    // Inimigos notificar //
+
+    this.game.socket.on('inimigos-notificar', ({ areaN }) => {
+      this.game.areaMsg = areaN
+      if ((this.game.nArea < this.game.areaMsg) === true) {
+        this.game.cobrasLiberadas++
+      }
+    })
   }
 
   update () {
@@ -637,6 +688,32 @@ export default class floresta extends Phaser.Scene {
       }
     } catch (error) {
       console.error(error)
+    }
+
+    if (this.game.cobrasLiberadas === 1) {
+      this.cobras[0].objeto
+        .setVisible(true)
+        .setVelocityY(100)
+    }
+    if (this.game.cobrasLiberadas === 2) {
+      this.cobras[1].objeto
+        .setVisible(true)
+        .setVelocityY(100)
+    }
+    if (this.game.cobrasLiberadas === 3) {
+      this.cobras[2].objeto
+        .setVisible(true)
+        .setVelocityY(100)
+    }
+    if (this.game.cobrasLiberadas === 4) {
+      this.cobras[3].objeto
+        .setVisible(true)
+        .setVelocityY(100)
+    }
+    if (this.game.cobrasLiberadas === 5) {
+      this.cobras[4].objeto
+        .setVisible(true)
+        .setVelocityY(100)
     }
   }
 
@@ -673,8 +750,8 @@ export default class floresta extends Phaser.Scene {
     this.baixo.setInteractive(false)
     this.direita.setInteractive(false)
     this.esquerda.setInteractive(false)
-    cobra.setVelocityY(0)
-    cobra.disableBody(true, false)
+    this.utlimaCobra.setVelocityY(0)
+    this.utlimaCobra.disableBody(true, false)
     this.game.migalhasGuardadas += this.game.scoreMigalha.score
     this.game.scoreMigalha.score = 0
     this.game.vida.frameCoracoes = 0
@@ -701,10 +778,31 @@ export default class floresta extends Phaser.Scene {
     this.personagemRemoto.setTint(0x808080)
   }
 
-  danoCobra (inimigos) {
+  colisaoCobra (cobras) {
+    this.utlimaCobra
+      .setSize(72, 33)
+      .setOffset(21, 54)
+    this.personagemLocal.setAlpha(1)
+  }
+
+  danoCobra (cobras) {
+    for (let i = 0; i < this.cobras.length; i++) {
+      if (!cobras[i]) {
+        this.utlimaCobra = this.cobras[i].objeto
+        this.utlimaCobra.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.cobras[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
     this.personagemLocal.setAlpha(0.75)
     this.personagemLocal.setTint(0xFF0000)
-
     this.time.addEvent({
       callback: () => { this.corNormalLocal() },
       delay: 200,
@@ -727,35 +825,9 @@ export default class floresta extends Phaser.Scene {
     if (this.coracoes.frame.name === 6) {
       this.morrer()
     }
-    if (inimigos.cobras) {
-      for (let i = 0; i < inimigos.cobras.length; i++) {
-        if (!inimigos.cobras[i]) {
-          this.cobras[i].objeto.setSize(1, 1).setOffset(1000000, 10000000000000)
-          this.time.addEvent({
-            callback: () => {
-              this.cobras[i].objeto.setSize(72, 33).setOffset(21, 54)
-              this.personagemLocal.setAlpha(1)
-            },
-            delay: 2000,
-            callbackScope: this,
-            loop: false
-          })
-        }
-        this.game.socket.emit('dano-publicar', this.game.sala)
-        if (this.coracoes.frame.name === 5) {
-          this.coracoes.setFrame(6)
-        } else {
-          this.game.vida.frameCoracoes += 2
-          this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
-        }
-        if (this.coracoes.frame.name === 6) {
-          this.morrer()
-        }
-      }
-    }
   }
 
-  danoCenario (coracoes) {
+  danoCenario () {
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
       callback: () => { this.corNormalLocal() },
@@ -793,6 +865,61 @@ export default class floresta extends Phaser.Scene {
     if (this.esquerda.frame.name === 1) {
       this.esquerda.emit('pointerout')
       this.esquerda.emit('pointerover')
+    }
+  }
+
+  primeiraArea () {
+    this.physics.world.disable(this.area1)
+    this.game.nArea = 1
+    this.game.socket.emit('inimigos-publicar', this.game.sala, {
+      areaN: this.game.nArea
+    })
+    if (this.game.cobrasLiberadas === 0) {
+      this.game.cobrasLiberadas++
+    }
+  }
+
+  segundaArea () {
+    this.physics.world.disable(this.area2)
+    this.game.nArea = 2
+    this.game.socket.emit('inimigos-publicar', this.game.sala, {
+      areaN: this.game.nArea
+    })
+    if (this.game.cobrasLiberadas === 1) {
+      this.game.cobrasLiberadas++
+    }
+  }
+
+  terceiraArea () {
+    this.physics.world.disable(this.area3)
+    this.game.nArea = 3
+    this.game.socket.emit('inimigos-publicar', this.game.sala, {
+      areaN: this.game.nArea
+    })
+    if (this.game.cobrasLiberadas === 2) {
+      this.game.cobrasLiberadas++
+    }
+  }
+
+  quartaArea () {
+    this.physics.world.disable(this.area4)
+    this.game.nArea = 4
+    this.game.socket.emit('inimigos-publicar', this.game.sala, {
+      areaN: this.game.nArea
+    })
+    if (this.game.cobrasLiberadas === 3) {
+      this.game.cobrasLiberadas++
+    }
+  }
+
+  quintaArea () {
+    this.physics.world.disable(this.area5)
+    this.game.nArea = 5
+    this.game.socket.emit('inimigos-publicar', this.game.sala, {
+      areaN: this.game.nArea
+    })
+    if (this.game.cobrasLiberadas === 4) {
+      this.game.cobrasLiberadas++
     }
   }
 }
