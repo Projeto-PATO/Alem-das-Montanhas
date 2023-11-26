@@ -103,23 +103,23 @@ export default class floresta extends Phaser.Scene {
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
-    this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 1)
+    this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
     this.area1.body.setAllowGravity(false)
 
-    this.area2 = this.add.rectangle(224, 24293, 448, 20, 0xFFFFFF, 1)
+    this.area2 = this.add.rectangle(224, 24293, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area2)
     this.area1.body.setAllowGravity(false)
 
-    this.area3 = this.add.rectangle(224, 22043, 448, 20, 0xFFFFFF, 1)
+    this.area3 = this.add.rectangle(224, 22043, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area3)
     this.area1.body.setAllowGravity(false)
 
-    this.area4 = this.add.rectangle(224, 21155, 448, 20, 0xFFFFFF, 1)
+    this.area4 = this.add.rectangle(224, 21155, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area4)
     this.area1.body.setAllowGravity(false)
 
-    this.area5 = this.add.rectangle(224, 19936, 448, 20, 0xFFFFFF, 1)
+    this.area5 = this.add.rectangle(224, 19936, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area5)
     this.area1.body.setAllowGravity(false)
 
