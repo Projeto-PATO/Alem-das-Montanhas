@@ -33,6 +33,10 @@ export default class mundoMagico extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet('isa-idle', '../assets/patos/isa/isa-mago.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 96,
       frameHeight: 102
@@ -209,28 +213,46 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Fantasma //
 
-    // Caldeirão //
+    // Caldeirões //
+
+    this.caldeirao1 = this.physics.add.sprite(224, 18928, 'caldeirao')
+      .setImmovable()
+      .setBounce(0)
+
+    this.caldeirao2 = this.physics.add.sprite(224, 12824, 'caldeirao')
+      .setImmovable()
+      .setBounce(0)
+
 
     // Isa //
+
+    this.isa = this.physics.add.sprite(73, 12884, 'isa-idle')
+      .setSize(52, 40)
+      .setOffset(20, 64)
+      .setImmovable()
+      .setBounce(0)
+
 
     // Personagem //
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(140, 16300, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 18860, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
-        .setImmovable()
-      this.personagemRemoto = this.add.sprite(324, 16300, this.remoto)
+        .setImmovable(false)
+        .setBounce(1, 1)
+      this.personagemRemoto = this.add.sprite(324, 18860, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 16300, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 18860, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
-        .setImmovable()
-      this.personagemRemoto = this.add.sprite(140, 16300, this.remoto)
+        .setImmovable(false)
+        .setBounce(1, 1)
+      this.personagemRemoto = this.add.sprite(140, 18860, this.remoto)
     }
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
@@ -248,6 +270,27 @@ export default class mundoMagico extends Phaser.Scene {
     this.physics.add.collider(this.personagemLocal, this.layerLapideF04, this.danoCenario, null, this)
     this.physics.add.collider(this.personagemLocal, this.layerOssos1, this.danoCenario, null, this)
     this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
+
+    this.physics.add.collider(this.isa, this.layerChao)
+    this.physics.add.collider(this.isa, this.layerPedra)
+    this.physics.add.collider(this.isa, this.layerTronco01)
+    this.physics.add.collider(this.isa, this.layerNaFrente03)
+
+    this.physics.add.collider(this.personagemLocal, this.isa)
+
+    this.physics.add.collider(this.caldeirao1, this.layerChao)
+    this.physics.add.collider(this.caldeirao1, this.layerPedra)
+    this.physics.add.collider(this.caldeirao1, this.layerTronco01)
+    this.physics.add.collider(this.caldeirao1, this.layerNaFrente03)
+
+    this.physics.add.collider(this.personagemLocal, this.caldeirao1)
+
+    this.physics.add.collider(this.caldeirao2, this.layerChao)
+    this.physics.add.collider(this.caldeirao2, this.layerPedra)
+    this.physics.add.collider(this.caldeirao2, this.layerTronco01)
+    this.physics.add.collider(this.caldeirao2, this.layerNaFrente03)
+
+    this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
 
     this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
@@ -290,7 +333,22 @@ export default class mundoMagico extends Phaser.Scene {
       repeat: -1
     })
 
+    this.anims.create({
+      key: 'isa-idle',
+      frames: this.anims.generateFrameNumbers('isa-idle', {
+        start: 0,
+        end: 43
+      }),
+      frameRate: 40,
+      repeat: -1
+    })
+
     // Animações automáticas //
+
+    this.isa.anims.play('isa-idle', true)
+
+
+    // Corações //
 
     this.coracoes = this.add.sprite(100, 42, 'coracoes')
       .setScale(1.5)
@@ -380,8 +438,8 @@ export default class mundoMagico extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true)
-    this.physics.world.setBounds(0, 12828, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 12838, 448, 6530)
+    this.physics.world.setBounds(0, 12760, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 12760, 448, 6246)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
@@ -416,6 +474,18 @@ export default class mundoMagico extends Phaser.Scene {
         loop: false
       })
     })
+
+    // Cena notificar //
+
+    this.game.socket.on('cena-notificar', () => {
+      this.game.scene.stop('mundo-magico')
+      this.game.socket.emit('vitoria', this.game.sala, 'vitoria')
+      this.game.scene.start('vitoria')
+      this.personagemLocal.setVelocityX(0)
+      this.personagemLocal.setVelocityY(0)
+      this.personagemLocal.setImmovable()
+      this.personagemLocal.anims.play('pato-idle', true)
+    })
   }
 
   update () {
@@ -445,9 +515,9 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemLocal.setVelocityY(0)
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
-    this.trilhaFloresta.stop()
     this.game.scene.stop('mundo-magico')
-    this.game.scene.start('mundo-magico')
+    this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
+    this.game.scene.start('vitoria')
   }
 
   morrer (personagemLocal) {
@@ -457,7 +527,7 @@ export default class mundoMagico extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.scene.stop('floresta')
+        this.game.scene.stop('mundo-magico')
         this.game.scene.start('menu')
       })
     this.personagemLocal.setImmovable()
@@ -518,7 +588,7 @@ export default class mundoMagico extends Phaser.Scene {
     }
   }
 
-  danoCenario (coracoes) {
+  danoCenario () {
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
       callback: () => { this.corNormalLocal() },

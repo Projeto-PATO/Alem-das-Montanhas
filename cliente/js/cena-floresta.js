@@ -436,7 +436,7 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.area3, this.layerPedra)
     this.physics.add.collider(this.area3, this.layerTronco01)
     this.physics.add.collider(this.area3, this.layerNaFrente03)
-    this.physics.add.overlap(this.personagemLocal, this.area4, this.terceiraArea, null, this)
+    this.physics.add.overlap(this.personagemLocal, this.area3, this.terceiraArea, null, this)
 
     this.physics.add.collider(this.area4, this.layerChao)
     this.physics.add.collider(this.area4, this.layerPedra)
@@ -507,9 +507,9 @@ export default class floresta extends Phaser.Scene {
       key: 'cacique-idle',
       frames: this.anims.generateFrameNumbers('cacique-idle', {
         start: 0,
-        end: 11
+        end: 43
       }),
-      frameRate: 10,
+      frameRate: 40,
       repeat: -1
     })
 
@@ -661,14 +661,25 @@ export default class floresta extends Phaser.Scene {
 
     // Inimigos notificar //
 
-    this.game.socket.on('inimigos-notificar', ({ areaN }) => {
-      this.game.areaMsg = areaN
-      if ((this.game.nArea < this.game.areaMsg) === true) {
-        this.game.cobrasLiberadas++
+    this.game.socket.on('inimigos-notificar', () => {
+      if (this.personagemRemoto.y < 25200 && this.personagemRemoto.y > 24800) {
+        this.game.cobrasLiberadas = 1
+      }
+      if (this.personagemRemoto.y < 24360 && this.personagemRemoto.y > 23960) {
+        this.game.cobrasLiberadas = 2
+      }
+      if (this.personagemRemoto.y < 22100 && this.personagemRemoto.y > 21900) {
+        this.game.cobrasLiberadas = 3
+      }
+      if (this.personagemRemoto.y < 21200 && this.personagemRemoto.y > 21000) {
+        this.game.cobrasLiberadas = 4
+      }
+      if (this.personagemRemoto.y < 20000 && this.personagemRemoto.y > 19800) {
+        this.game.cobrasLiberadas = 5
       }
     })
-  }
 
+  }
   update () {
     try {
       this.game.socket.emit('estado-publicar', this.game.sala, {
@@ -750,8 +761,6 @@ export default class floresta extends Phaser.Scene {
     this.baixo.setInteractive(false)
     this.direita.setInteractive(false)
     this.esquerda.setInteractive(false)
-    this.utlimaCobra.setVelocityY(0)
-    this.utlimaCobra.disableBody(true, false)
     this.game.migalhasGuardadas += this.game.scoreMigalha.score
     this.game.scoreMigalha.score = 0
     this.game.vida.frameCoracoes = 0
@@ -870,10 +879,7 @@ export default class floresta extends Phaser.Scene {
 
   primeiraArea () {
     this.physics.world.disable(this.area1)
-    this.game.nArea = 1
-    this.game.socket.emit('inimigos-publicar', this.game.sala, {
-      areaN: this.game.nArea
-    })
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
     if (this.game.cobrasLiberadas === 0) {
       this.game.cobrasLiberadas++
     }
@@ -881,10 +887,7 @@ export default class floresta extends Phaser.Scene {
 
   segundaArea () {
     this.physics.world.disable(this.area2)
-    this.game.nArea = 2
-    this.game.socket.emit('inimigos-publicar', this.game.sala, {
-      areaN: this.game.nArea
-    })
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
     if (this.game.cobrasLiberadas === 1) {
       this.game.cobrasLiberadas++
     }
@@ -892,10 +895,7 @@ export default class floresta extends Phaser.Scene {
 
   terceiraArea () {
     this.physics.world.disable(this.area3)
-    this.game.nArea = 3
-    this.game.socket.emit('inimigos-publicar', this.game.sala, {
-      areaN: this.game.nArea
-    })
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
     if (this.game.cobrasLiberadas === 2) {
       this.game.cobrasLiberadas++
     }
@@ -903,10 +903,7 @@ export default class floresta extends Phaser.Scene {
 
   quartaArea () {
     this.physics.world.disable(this.area4)
-    this.game.nArea = 4
-    this.game.socket.emit('inimigos-publicar', this.game.sala, {
-      areaN: this.game.nArea
-    })
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
     if (this.game.cobrasLiberadas === 3) {
       this.game.cobrasLiberadas++
     }
@@ -914,10 +911,7 @@ export default class floresta extends Phaser.Scene {
 
   quintaArea () {
     this.physics.world.disable(this.area5)
-    this.game.nArea = 5
-    this.game.socket.emit('inimigos-publicar', this.game.sala, {
-      areaN: this.game.nArea
-    })
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
     if (this.game.cobrasLiberadas === 4) {
       this.game.cobrasLiberadas++
     }
