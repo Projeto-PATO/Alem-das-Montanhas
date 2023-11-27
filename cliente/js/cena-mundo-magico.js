@@ -676,7 +676,9 @@ export default class mundoMagico extends Phaser.Scene {
         this.ultimoFantasmaD.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasD[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.fantasmasD[i].objeto
+              .setSize(48, 36)
+              .setOffset(4, 20)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
@@ -718,7 +720,9 @@ export default class mundoMagico extends Phaser.Scene {
         this.ultimoFantasmaE.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasE[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.fantasmasE[i].objeto
+              .setSize(48, 36)
+              .setOffset(4, 20)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
