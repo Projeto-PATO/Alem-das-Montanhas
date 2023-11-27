@@ -291,6 +291,10 @@ export default class floresta extends Phaser.Scene {
     // Caldeirão //
 
     this.caldeirao = this.physics.add.sprite(224, 19130, 'caldeirao')
+      .setImmovable()
+      .setBounce(0)
+      .setSize(60, 48)
+      .setOffset(2, 10)
 
     // Cacique //
 
@@ -418,7 +422,7 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.cacique, this.layerTronco01)
     this.physics.add.collider(this.cacique, this.layerNaFrente03)
 
-    this.physics.add.collider(this.personagemLocal, this.cacique)
+    this.physics.add.collider(this.personagemLocal, this.cacique, this.forcarPointerOut, null, this)
 
     this.physics.add.collider(this.area1, this.layerChao)
     this.physics.add.collider(this.area1, this.layerPedra)
@@ -678,8 +682,8 @@ export default class floresta extends Phaser.Scene {
         this.game.cobrasLiberadas = 5
       }
     })
-
   }
+
   update () {
     try {
       this.game.socket.emit('estado-publicar', this.game.sala, {
@@ -784,7 +788,11 @@ export default class floresta extends Phaser.Scene {
   }
 
   corNormalRemoto () {
-    this.personagemRemoto.setTint(0x808080)
+    if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+      this.personagemRemoto.setTint(0x808080)
+    } else {
+      this.personagemRemoto.setTint(0xFFFFFF)
+    }
   }
 
   colisaoCobra (cobras) {

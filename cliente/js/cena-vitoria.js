@@ -20,7 +20,7 @@ export default class vitoria extends Phaser.Scene {
     this.informacoes = this.add.text(36, 20, 'DIGITE SUAS \nINFORMAÇÕES', {
       fontFamily: 'Silkscreen',
       fontSize: '36px',
-      fill: '#cccccc'
+      fill: '#ffffff'
     })
 
     this.usuarioTextoBase = 'Usuário: '

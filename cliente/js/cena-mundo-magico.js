@@ -37,6 +37,10 @@ export default class mundoMagico extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet('fantasma', '../assets/inimigos/fantasma.png', {
+      frameWidth: 60,
+      frameHeight: 72
+    })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 96,
       frameHeight: 102
@@ -90,6 +94,17 @@ export default class mundoMagico extends Phaser.Scene {
     this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
+
+    this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area1)
+    this.area1.body.setAllowGravity(false)
+    this.area1.body.setImmovable(true)
+
+    this.area2 = this.add.rectangle(508, 18860, 1, 6246, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area2)
+    this.area2.body.setAllowGravity(false)
+    this.area2.body.setImmovable(true)
+
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
     this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
@@ -107,6 +122,18 @@ export default class mundoMagico extends Phaser.Scene {
         end: 3
       }),
       frameRate: 5,
+      repeat: -1
+    })
+
+    // Animação fantsama
+
+    this.anims.create({
+      key: 'fantasma',
+      frames: this.anims.generateFrameNumbers('fantasma', {
+        start: 0,
+        end: 5
+      }),
+      frameRate: 10,
       repeat: -1
     })
 
@@ -213,16 +240,84 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Fantasma //
 
+    this.fantasmasD = [
+      {
+        x: 224,
+        y: 18436
+      },
+      {
+        x: 508,
+        y: 17945
+      },
+      {
+        x: 508,
+        y: 15260
+      },
+      {
+        x: 508,
+        y: 13120
+      }
+    ]
+
+    this.fantasmasD.forEach((fantasmaD) => {
+      fantasmaD.objeto = this.physics.add.sprite(fantasmaD.x, fantasmaD.y, 'fantasma')
+        .setImmovable()
+        .setSize(48, 36)
+        .setOffset(4, 20)
+        .setVelocityX(-150)
+      fantasmaD.objeto.anims.play('fantasma', true)
+      this.time.addEvent({
+        callback: () => { this.fantasmaInvisivel() },
+        delay: 3000,
+        callbackScope: this,
+        loop: true
+      })
+    })
+
+    this.fantasmasE = [
+      {
+        x: 30,
+        y: 17268
+      },
+      {
+        x: 30,
+        y: 14218
+      },
+      {
+        x: 30,
+        y: 13490
+      }
+    ]
+
+    this.fantasmasE.forEach((fantasmaE) => {
+      fantasmaE.objeto = this.physics.add.sprite(fantasmaE.x, fantasmaE.y, 'fantasma')
+        .setImmovable()
+        .setSize(48, 36)
+        .setOffset(4, 20)
+        .setVelocityX(150)
+        .setFlipX(true)
+      fantasmaE.objeto.anims.play('fantasma', true)
+      this.time.addEvent({
+        callback: () => { this.fantasmaInvisivel() },
+        delay: 3000,
+        callbackScope: this,
+        loop: true
+      })
+    })
+
     // Caldeirões //
 
     this.caldeirao1 = this.physics.add.sprite(224, 18928, 'caldeirao')
       .setImmovable()
       .setBounce(0)
+      .setSize(60, 48)
+      .setOffset(2, 10)
 
     this.caldeirao2 = this.physics.add.sprite(224, 12824, 'caldeirao')
       .setImmovable()
       .setBounce(0)
-
+      .setSize(60, 48)
+      .setOffset(2, 10)
 
     // Isa //
 
@@ -231,7 +326,6 @@ export default class mundoMagico extends Phaser.Scene {
       .setOffset(20, 64)
       .setImmovable()
       .setBounce(0)
-
 
     // Personagem //
 
@@ -272,23 +366,32 @@ export default class mundoMagico extends Phaser.Scene {
     this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
 
     this.physics.add.collider(this.isa, this.layerChao)
-    this.physics.add.collider(this.isa, this.layerPedra)
-    this.physics.add.collider(this.isa, this.layerTronco01)
-    this.physics.add.collider(this.isa, this.layerNaFrente03)
+    this.physics.add.collider(this.isa, this.layerLapideF04)
+    this.physics.add.collider(this.isa, this.layerOssos1)
+    this.physics.add.collider(this.isa, this.layerOssos2)
 
-    this.physics.add.collider(this.personagemLocal, this.isa)
+    this.physics.add.collider(this.personagemLocal, this.isa, this.forcarPointerOut, null, this)
 
     this.physics.add.collider(this.caldeirao1, this.layerChao)
-    this.physics.add.collider(this.caldeirao1, this.layerPedra)
-    this.physics.add.collider(this.caldeirao1, this.layerTronco01)
-    this.physics.add.collider(this.caldeirao1, this.layerNaFrente03)
+    this.physics.add.collider(this.caldeirao1, this.layerLapideF04)
+    this.physics.add.collider(this.caldeirao1, this.layerOssos1)
+    this.physics.add.collider(this.caldeirao1, this.layerOssos2)
 
-    this.physics.add.collider(this.personagemLocal, this.caldeirao1)
+    this.physics.add.collider(this.personagemLocal, this.caldeirao1, this.forcarPointerOut, null, this)
 
     this.physics.add.collider(this.caldeirao2, this.layerChao)
     this.physics.add.collider(this.caldeirao2, this.layerPedra)
     this.physics.add.collider(this.caldeirao2, this.layerTronco01)
     this.physics.add.collider(this.caldeirao2, this.layerNaFrente03)
+
+    this.fantasmasD.forEach((fantasmaD) => {
+      this.physics.add.collider(this.personagemLocal, fantasmaD.objeto, this.danoFantasmasD, null, this)
+      this.physics.add.collider(fantasmaD.objeto, this.area1, this.voltarFantasmasD, null, this)
+    })
+    this.fantasmasD.forEach((fantasmaE) => {
+      this.physics.add.collider(this.personagemLocal, fantasmaE.objeto, this.danoFantasmasE, null, this)
+      this.physics.add.collider(fantasmaE.objeto, this.area2, this.voltarFantasmasE, null, this)
+    })
 
     this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
 
@@ -346,7 +449,6 @@ export default class mundoMagico extends Phaser.Scene {
     // Animações automáticas //
 
     this.isa.anims.play('isa-idle', true)
-
 
     // Corações //
 
@@ -437,7 +539,7 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Criação de limites e câmera //
 
-    this.personagemLocal.setCollideWorldBounds(true)
+    this.personagemLocal.setCollideWorldBounds(true, 0, 0)
     this.physics.world.setBounds(0, 12760, 448, 0, true, true, true, false)
     this.cameras.main.setBounds(0, 12760, 448, 6246)
     this.cameras.main.startFollow(this.personagemLocal)
@@ -567,16 +669,79 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemRemoto.setTint(0x808080)
   }
 
-  danoCobra (coracoes) {
-    this.cobra
-      .setSize(1, 1)
-      .setOffset(1000000, 10000000000000)
+  danoFantasmasD (fantasmasD) {
+    for (let i = 0; i < this.fantasmasD.length; i++) {
+      if (!fantasmasD[i]) {
+        this.ultimoFantasmaD = this.fantasmasD[i].objeto
+        this.ultimoFantasmaD.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.fantasmasD[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
-      callback: () => { this.colisaoCobra() },
-      delay: 1000,
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
       callbackScope: this,
       loop: false
     })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name === 5) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 2
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoFantasmasE (fantasmasE) {
+    for (let i = 0; i < this.fantasmasE.length; i++) {
+      if (!fantasmasE[i]) {
+        this.ultimoFantasmaD = this.fantasmasE[i].objeto
+        this.ultimoFantasmaE.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.fantasmasE[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
     if (this.coracoes.frame.name === 5) {
       this.coracoes.setFrame(6)
     } else {
@@ -627,5 +792,35 @@ export default class mundoMagico extends Phaser.Scene {
       this.esquerda.emit('pointerout')
       this.esquerda.emit('pointerover')
     }
+  }
+
+  voltarFantasmasD () {
+    this.fantasmasD.forEach((fantasmaD) => {
+      fantasmaD.objeto.setX(508)
+    })
+  }
+
+  voltarFantasmasE () {
+    this.fantasmasE.forEach((fantasmaE) => {
+      fantasmaE.objeto.setX(-60)
+    })
+  }
+
+  fantasmaInvisivel () {
+    this.fantasmasD.forEach((fantasmaD) => {
+      fantasmaD.objeto.setAlpha(0.25)
+      this.time.addEvent({
+        callback: () => { this.fantasmaVisivel() },
+        delay: 2000,
+        callbackScope: this,
+        loop: false
+      })
+    })
+  }
+
+  fantasmaVisivel () {
+    this.fantasmasD.forEach((fantasmaD) => {
+      fantasmaD.objeto.setAlpha(1)
+    })
   }
 }

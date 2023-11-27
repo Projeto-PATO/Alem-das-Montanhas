@@ -65,6 +65,12 @@ cobra default: 96x90
 
 walking: 15 framerate: 8
 
+// fantasma //
+
+fantasma default: 60x72
+
+walking: 6 framerate: 10
+
 // migalha //
 
 migalha default: 26x24
