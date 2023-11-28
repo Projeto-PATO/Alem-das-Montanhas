@@ -102,12 +102,12 @@ export default class mundoMagico extends Phaser.Scene {
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
 
-    this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 1)
+    this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
     this.area1.body.setAllowGravity(false)
     this.area1.body.setImmovable(true)
 
-    this.area2 = this.add.rectangle(508, 18860, 1, 6246, 0xFFFFFF, 1)
+    this.area2 = this.add.rectangle(508, 18860, 1, 6246, 0xFFFFFF, 0)
     this.physics.world.enable(this.area2)
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)

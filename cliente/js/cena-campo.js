@@ -97,97 +97,99 @@ export default class campo extends Phaser.Scene {
 
     // Área começo //
 
-    this.area0 = this.add.rectangle(224, 12680, 448, 20, 0xFFFFFF, 1)
+    this.area0 = this.add.rectangle(224, 12680, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
 
     // Área lateral //
 
-    this.area1 = this.add.rectangle(-200, 11720, 1, 6246, 0xFFFFFF, 1)
+    this.area1 = this.add.rectangle(-200, 11720, 1, 6246, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
     this.area1.body.setAllowGravity(false)
     this.area1.body.setImmovable(true)
 
     // Áreas trigger tratoresD //
 
-    this.area2 = this.add.rectangle(100, 11729, 52, 40, 0xFFFFFF, 1)
+    this.area2 = this.add.rectangle(100, 11729, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.area2)
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)
 
-    this.area3 = this.add.rectangle(224, 9814, 448, 20, 0xFFFFFF, 1)
+    this.area3 = this.add.rectangle(224, 9814, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area3)
     this.area3.body.setAllowGravity(false)
     this.area3.body.setImmovable(true)
 
-    this.area4 = this.add.rectangle(224, 8024, 448, 20, 0xFFFFFF, 1)
+    this.area4 = this.add.rectangle(224, 8024, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area4)
     this.area4.body.setAllowGravity(false)
     this.area4.body.setImmovable(true)
 
-    this.area5 = this.add.rectangle(224, 7490, 448, 20, 0xFFFFFF, 1)
+    this.area5 = this.add.rectangle(224, 7490, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area5)
     this.area5.body.setAllowGravity(false)
     this.area5.body.setImmovable(true)
 
     // Áreas trigger tratoresE //
 
-    this.area6 = this.add.rectangle(224, 11196, 448, 20, 0xFFFFFF, 1)
+    this.area6 = this.add.rectangle(224, 11196, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area6)
     this.area6.body.setAllowGravity(false)
     this.area6.body.setImmovable(true)
 
-    this.area7 = this.add.rectangle(109, 8456, 52, 40, 0xFFFFFF, 1)
+    this.area7 = this.add.rectangle(109, 8456, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.area7)
     this.area7.body.setAllowGravity(false)
     this.area7.body.setImmovable(true)
 
-    this.area8 = this.add.rectangle(224, 7103, 448, 20, 0xFFFFFF, 1)
+    this.area8 = this.add.rectangle(224, 7103, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area8)
     this.area8.body.setAllowGravity(false)
     this.area8.body.setImmovable(true)
 
     // Áreas parar tratoresD //
 
-    this.areaP0 = this.add.rectangle(117, 11558, 52, 40, 0xFFFFFF, 1)
+    this.areaP0 = this.add.rectangle(117, 11558, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP0)
     this.areaP0.body.setAllowGravity(false)
     this.areaP0.body.setImmovable(true)
 
-    this.areaP1 = this.add.rectangle(132, 9700, 52, 40, 0xFFFFFF, 1)
+    this.areaP1 = this.add.rectangle(132, 9700, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP1)
     this.areaP1.body.setAllowGravity(false)
     this.areaP1.body.setImmovable(true)
 
-    this.areaP2 = this.add.rectangle(116, 7838, 52, 40, 0xFFFFFF, 1)
+    this.areaP2 = this.add.rectangle(116, 7838, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP2)
     this.areaP2.body.setAllowGravity(false)
     this.areaP2.body.setImmovable(true)
 
-    this.areaP3 = this.add.rectangle(26, 7415, 52, 40, 0xFFFFFF, 1)
+    this.areaP3 = this.add.rectangle(26, 7415, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP3)
     this.areaP3.body.setAllowGravity(false)
     this.areaP3.body.setImmovable(true)
 
     // Áreas parar tratoresE //
 
-    this.areaP4 = this.add.rectangle(212, 11063, 52, 40, 0xFFFFFF, 1)
+    this.areaP4 = this.add.rectangle(212, 11063, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP4)
     this.areaP4.body.setAllowGravity(false)
     this.areaP4.body.setImmovable(true)
 
-    this.areaP5 = this.add.rectangle(212, 8346, 52, 40, 0xFFFFFF, 1)
+    this.areaP5 = this.add.rectangle(212, 8346, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP5)
     this.areaP5.body.setAllowGravity(false)
     this.areaP5.body.setImmovable(true)
 
-    this.areaP6 = this.add.rectangle(142, 7045, 52, 40, 0xFFFFFF, 1)
+    this.areaP6 = this.add.rectangle(142, 7045, 52, 40, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaP6)
     this.areaP6.body.setAllowGravity(false)
     this.areaP6.body.setImmovable(true)
 
-    this.areaE = this.add.rectangle(224, 6480, 448, 20, 0xFFFFFF, 1)
+    // Área fim //
+
+    this.areaE = this.add.rectangle(224, 6480, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.areaE)
     this.areaE.body.setAllowGravity(false)
     this.areaE.body.setImmovable(true)
