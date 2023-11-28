@@ -1,19 +1,15 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-template-curly-in-string
-export default class mundoMagico extends Phaser.Scene {
+export default class campo extends Phaser.Scene {
   constructor () {
-    super('mundo-magico')
+    super('campo')
   }
 
   preload () {
     this.load.tilemapTiledJSON('mapa', '../assets/mapa/mapa-full.json')
 
     this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
-
-    this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
-
-    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
 
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
@@ -33,13 +29,17 @@ export default class mundoMagico extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('isa-idle', '../assets/patos/isa/isa-mago.png', {
+    this.load.spritesheet('pam-idle', '../assets/patos/pam/pam-palha.png', {
       frameWidth: 92,
       frameHeight: 108
     })
-    this.load.spritesheet('fantasma', '../assets/inimigos/fantasma.png', {
-      frameWidth: 60,
-      frameHeight: 72
+    this.load.spritesheet('vaca', '../assets/inimigos/vaca.png', {
+      frameWidth: 128,
+      frameHeight: 88
+    })
+    this.load.spritesheet('trator', '../assets/inimigos/trator.png', {
+      frameWidth: 152,
+      frameHeight: 96
     })
     this.load.spritesheet('botao-cima', '../assets/botoes/cima.png', {
       frameWidth: 96,
@@ -90,25 +90,13 @@ export default class mundoMagico extends Phaser.Scene {
     })
 
     this.tilesetGeral = this.tilemapMapa.addTilesetImage('tileset-geral')
-    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
-    this.area0 = this.add.rectangle(224, 19000, 448, 20, 0xFFFFFF, 0)
+    this.area0 = this.add.rectangle(224, 12680, 448, 20, 0xFFFFFF, 1)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
-
-    this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 1)
-    this.physics.world.enable(this.area1)
-    this.area1.body.setAllowGravity(false)
-    this.area1.body.setImmovable(true)
-
-    this.area2 = this.add.rectangle(508, 18860, 1, 6246, 0xFFFFFF, 1)
-    this.physics.world.enable(this.area2)
-    this.area2.body.setAllowGravity(false)
-    this.area2.body.setImmovable(true)
 
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
@@ -131,13 +119,25 @@ export default class mundoMagico extends Phaser.Scene {
       repeat: -1
     })
 
-    // Animação fantsama
+    // Animação vaca //
 
     this.anims.create({
-      key: 'fantasma',
-      frames: this.anims.generateFrameNumbers('fantasma', {
+      key: 'vaca',
+      frames: this.anims.generateFrameNumbers('vaca', {
         start: 0,
-        end: 5
+        end: 7
+      }),
+      frameRate: 10,
+      repeat: -1
+    })
+
+    // Animação trator //
+
+    this.anims.create({
+      key: 'trator',
+      frames: this.anims.generateFrameNumbers('trator', {
+        start: 0,
+        end: 2
       }),
       frameRate: 10,
       repeat: -1
@@ -158,84 +158,84 @@ export default class mundoMagico extends Phaser.Scene {
 
     this.migalhas = [
       {
-        x: 328,
-        y: 18768
+        x: 144,
+        y: 12440
       },
       {
-        x: 400,
-        y: 18480
-      },
-      {
-        x: 208,
-        y: 18144
-      },
-      {
-        x: 384,
-        y: 17848
-      },
-      {
-        x: 304,
-        y: 17552
-      },
-      {
-        x: 104,
-        y: 17248
+        x: 344,
+        y: 12168
       },
       {
         x: 312,
-        y: 16992
-      },
-      {
-        x: 168,
-        y: 16696
-      },
-      {
-        x: 288,
-        y: 16368
-      },
-      {
-        x: 120,
-        y: 16112
-      },
-      {
-        x: 144,
-        y: 15816
-      },
-      {
-        x: 352,
-        y: 15536
-      },
-      {
-        x: 296,
-        y: 15288
+        y: 11872
       },
       {
         x: 104,
-        y: 15160
+        y: 11768
       },
       {
-        x: 240,
-        y: 14848
+        x: 344,
+        y: 11488
       },
       {
-        x: 72,
-        y: 14544
+        x: 248,
+        y: 11368
       },
       {
-        x: 200,
-        y: 14248
+        x: 424,
+        y: 11136
       },
       {
-        x: 360,
-        y: 13968
+        x: 392,
+        y: 10848
       },
       {
-        x: 88,
-        y: 13528
+        x: 272,
+        y: 10448
       },
       {
-        x: 192,
-        y: 13104
+        x: 104,
+        y: 10128
+      },
+      {
+        x: 64,
+        y: 9744
+      },
+      {
+        x: 344,
+        y: 9488
+      },
+      {
+        x: 224,
+        y: 9016
+      },
+      {
+        x: 328,
+        y: 8728
+      },
+      {
+        x: 104,
+        y: 8496
+      },
+      {
+        x: 160,
+        y: 8120
+      },
+      {
+        x: 248,
+        y: 7760
+      },
+      {
+        x: 48,
+        y: 7328
+      },
+      {
+        x: 248,
+        y: 6984
+      },
+      {
+        x: 232,
+        y: 6664
       }
     ]
 
@@ -245,82 +245,34 @@ export default class mundoMagico extends Phaser.Scene {
       migalha.objeto.anims.play('migalha-girando', true)
     })
 
-    // Fantasma //
+    // Vacas //
 
-    this.fantasmasD = [
+    this.vacas = [
       {
-        x: 224,
-        y: 18436
+        x: 80,
+        y: 9933
       },
       {
-        x: 508,
-        y: 17945
+        x: 120,
+        y: 8672
       },
       {
-        x: 508,
-        y: 15260
-      },
-      {
-        x: 508,
-        y: 13120
+        x: 54,
+        y: 6464
       }
     ]
 
-    this.fantasmasD.forEach((fantasmaD) => {
-      fantasmaD.objeto = this.physics.add.sprite(fantasmaD.x, fantasmaD.y, 'fantasma')
+    this.vacas.forEach((vaca) => {
+      vaca.objeto = this.physics.add.sprite(vaca.x, vaca.y, 'vaca')
+        .setSize(90, 78)
+        .setOffset(4, 0)
         .setImmovable()
-        .setSize(48, 36)
-        .setOffset(4, 20)
-        .setVelocityX(-150)
-      fantasmaD.objeto.anims.play('fantasma', true)
-      this.time.addEvent({
-        callback: () => { this.fantasmaInvisivel() },
-        delay: 3000,
-        callbackScope: this,
-        loop: true
-      })
-    })
-
-    this.fantasmasE = [
-      {
-        x: 30,
-        y: 17268
-      },
-      {
-        x: 30,
-        y: 14218
-      },
-      {
-        x: 30,
-        y: 13490
-      }
-    ]
-
-    this.fantasmasE.forEach((fantasmaE) => {
-      fantasmaE.objeto = this.physics.add.sprite(fantasmaE.x, fantasmaE.y, 'fantasma')
-        .setImmovable()
-        .setSize(48, 36)
-        .setOffset(4, 20)
-        .setVelocityX(150)
-        .setFlipX(true)
-      fantasmaE.objeto.anims.play('fantasma', true)
-      this.time.addEvent({
-        callback: () => { this.fantasmaInvisivel() },
-        delay: 3000,
-        callbackScope: this,
-        loop: true
-      })
+      vaca.objeto.anims.play('vaca', true)
     })
 
     // Caldeirões //
 
-    this.caldeirao1 = this.physics.add.sprite(224, 18928, 'caldeirao')
-      .setImmovable()
-      .setBounce(0)
-      .setSize(60, 48)
-      .setOffset(2, 10)
-
-    this.caldeirao2 = this.physics.add.sprite(224, 12824, 'caldeirao')
+    this.caldeirao = this.physics.add.sprite(224, 18928, 'caldeirao')
       .setImmovable()
       .setBounce(0)
       .setSize(60, 48)
@@ -339,21 +291,21 @@ export default class mundoMagico extends Phaser.Scene {
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(140, 18860, this.local)
+      this.personagemLocal = this.physics.add.sprite(140, 12486, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable(false)
         .setBounce(1, 1)
-      this.personagemRemoto = this.add.sprite(324, 18860, this.remoto)
+      this.personagemRemoto = this.add.sprite(324, 12486, this.remoto)
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
-      this.personagemLocal = this.physics.add.sprite(324, 18860, this.local)
+      this.personagemLocal = this.physics.add.sprite(324, 12486, this.local)
         .setSize(52, 40)
         .setOffset(20, 64)
         .setImmovable(false)
         .setBounce(1, 1)
-      this.personagemRemoto = this.add.sprite(140, 18860, this.remoto)
+      this.personagemRemoto = this.add.sprite(140, 12486, this.remoto)
     }
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
@@ -370,51 +322,30 @@ export default class mundoMagico extends Phaser.Scene {
     // Collider //
 
     this.physics.add.collider(this.personagemLocal, this.layerChao)
-    this.physics.add.collider(this.personagemLocal, this.layerLapideF04, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagemLocal, this.layerOssos1, this.danoCenario, null, this)
-    this.physics.add.collider(this.personagemLocal, this.layerOssos2, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.layerCercaF, this.danoCenario, null, this)
+
+    this.vacas.forEach((vaca) => {
+      this.physics.add.collider(vaca.objeto, this.layerChao)
+      this.physics.add.collider(vaca.objeto, this.layerCercaF)
+      this.physics.add.collider(vaca.objeto, this.layerCercaT)
+      this.physics.add.collider(this.personagemLocal, vaca.objeto, this.danoVaca, null, this)
+    })
 
     this.physics.add.collider(this.isa, this.layerChao)
-    this.physics.add.collider(this.isa, this.layerLapideF04)
-    this.physics.add.collider(this.isa, this.layerOssos1)
-    this.physics.add.collider(this.isa, this.layerOssos2)
+    this.physics.add.collider(this.isa, this.layerCercaF)
+
+    this.physics.add.collider(this.personagemLocal, this.area0)
 
     this.physics.add.collider(this.personagemLocal, this.isa, this.forcarPointerOut, null, this)
 
-    this.physics.add.collider(this.area0, this.layerChao)
-    this.physics.add.collider(this.area0, this.layerPedra)
-    this.physics.add.collider(this.area0, this.layerTronco01)
-    this.physics.add.collider(this.area0, this.layerNaFrente03)
-    this.physics.add.collider(this.personagemLocal, this.area0)
+    this.physics.add.collider(this.caldeirao, this.layerChao)
+    this.physics.add.collider(this.caldeirao, this.layerCercaF)
 
-    this.physics.add.collider(this.caldeirao1, this.layerChao)
-    this.physics.add.collider(this.caldeirao1, this.layerLapideF04)
-    this.physics.add.collider(this.caldeirao1, this.layerOssos1)
-    this.physics.add.collider(this.caldeirao1, this.layerOssos2)
-
-    this.physics.add.collider(this.personagemLocal, this.caldeirao1, this.forcarPointerOut, null, this)
-
-    this.physics.add.collider(this.caldeirao2, this.layerChao)
-    this.physics.add.collider(this.caldeirao2, this.layerPedra)
-    this.physics.add.collider(this.caldeirao2, this.layerTronco01)
-    this.physics.add.collider(this.caldeirao2, this.layerNaFrente03)
-
-    this.fantasmasD.forEach((fantasmaD) => {
-      this.physics.add.collider(this.personagemLocal, fantasmaD.objeto, this.danoFantasmasD, null, this)
-      this.physics.add.collider(fantasmaD.objeto, this.area1, this.voltarFantasmasD, null, this)
-    })
-    this.fantasmasD.forEach((fantasmaE) => {
-      this.physics.add.collider(this.personagemLocal, fantasmaE.objeto, this.danoFantasmasE, null, this)
-      this.physics.add.collider(fantasmaE.objeto, this.area2, this.voltarFantasmasE, null, this)
-    })
-
-    this.physics.add.collider(this.personagemLocal, this.caldeirao2, this.entrarCaldeirao, null, this)
+    this.physics.add.collider(this.personagemLocal, this.caldeirao, this.forcarPointerOut, null, this)
 
     this.migalhas.forEach((migalha) => {
       this.physics.add.collider(migalha.objeto, this.layerChao)
-      this.physics.add.collider(migalha.objeto, this.layerLapideF04)
-      this.physics.add.collider(migalha.objeto, this.layerOssos1)
-      this.physics.add.collider(migalha.objeto, this.layerOssos2)
+      this.physics.add.collider(migalha.objeto, this.layerCercaF)
       this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
     })
 
@@ -555,8 +486,8 @@ export default class mundoMagico extends Phaser.Scene {
     // Criação de limites e câmera //
 
     this.personagemLocal.setCollideWorldBounds(true, 0, 0)
-    this.physics.world.setBounds(0, 12770, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 12760, 448, 6246)
+    this.physics.world.setBounds(0, 6390, 448, 0, true, true, true, false)
+    this.cameras.main.setBounds(0, 6426, 448, 6246)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
@@ -627,14 +558,14 @@ export default class mundoMagico extends Phaser.Scene {
     }
   }
 
-  entrarCaldeirao (personagemLocal) {
+  chegarPraia (personagemLocal) {
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
-    this.game.scene.stop('mundo-magico')
+    this.game.scene.stop('campo')
     this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
-    this.game.scene.start('campo')
+    this.game.scene.start('vitoria')
   }
 
   morrer (personagemLocal) {
@@ -644,7 +575,7 @@ export default class mundoMagico extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.scene.stop('mundo-magico')
+        this.game.scene.stop('campo')
         this.game.scene.start('menu')
       })
     this.personagemLocal.setImmovable()
@@ -684,56 +615,14 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemRemoto.setTint(0x808080)
   }
 
-  danoFantasmasD (fantasmasD) {
-    for (let i = 0; i < this.fantasmasD.length; i++) {
-      if (!fantasmasD[i]) {
-        this.ultimoFantasmaD = this.fantasmasD[i].objeto
-        this.ultimoFantasmaD.setSize(1, 1).setOffset(100000000, 100000000)
+  danoVaca (vacas) {
+    for (let i = 0; i < this.vacas.length; i++) {
+      if (!vacas[i]) {
+        this.ultimaVaca = this.vacas[i].objeto
+        this.ultimaVaca.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasD[i].objeto.setSize(72, 33).setOffset(21, 54)
-            this.personagemLocal.setAlpha(1)
-          },
-          delay: 1500,
-          callbackScope: this,
-          loop: false
-        })
-      }
-    }
-    this.personagemLocal.setAlpha(0.75)
-    this.personagemLocal.setTint(0xFF0000)
-    this.time.addEvent({
-      callback: () => { this.corNormalLocal() },
-      delay: 200,
-      callbackScope: this,
-      loop: false
-    })
-    this.time.addEvent({
-      callback: () => { this.forcarPointerOut() },
-      delay: 350,
-      callbackScope: this,
-      loop: false
-    })
-    this.game.socket.emit('dano-publicar', this.game.sala)
-    if (this.coracoes.frame.name === 5) {
-      this.coracoes.setFrame(6)
-    } else {
-      this.game.vida.frameCoracoes += 2
-      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
-    }
-    if (this.coracoes.frame.name === 6) {
-      this.morrer()
-    }
-  }
-
-  danoFantasmasE (fantasmasE) {
-    for (let i = 0; i < this.fantasmasE.length; i++) {
-      if (!fantasmasE[i]) {
-        this.ultimoFantasmaD = this.fantasmasE[i].objeto
-        this.ultimoFantasmaE.setSize(1, 1).setOffset(100000000, 100000000)
-        this.time.addEvent({
-          callback: () => {
-            this.fantasmasE[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.vacas[i].objeto.setSize(90, 78).setOffset(4, 0)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
@@ -818,24 +707,6 @@ export default class mundoMagico extends Phaser.Scene {
   voltarFantasmasE () {
     this.fantasmasE.forEach((fantasmaE) => {
       fantasmaE.objeto.setX(-60)
-    })
-  }
-
-  fantasmaInvisivel () {
-    this.fantasmasD.forEach((fantasmaD) => {
-      fantasmaD.objeto.setAlpha(0.25)
-      this.time.addEvent({
-        callback: () => { this.fantasmaVisivel() },
-        delay: 2000,
-        callbackScope: this,
-        loop: false
-      })
-    })
-  }
-
-  fantasmaVisivel () {
-    this.fantasmasD.forEach((fantasmaD) => {
-      fantasmaD.objeto.setAlpha(1)
     })
   }
 }

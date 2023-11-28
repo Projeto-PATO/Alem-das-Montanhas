@@ -103,6 +103,10 @@ export default class floresta extends Phaser.Scene {
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
+    this.area0 = this.add.rectangle(224, 25400, 448, 20, 0xFFFFFF, 0)
+    this.physics.world.enable(this.area0)
+    this.area0.body.setAllowGravity(false)
+
     this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
     this.area1.body.setAllowGravity(false)
@@ -129,6 +133,7 @@ export default class floresta extends Phaser.Scene {
     this.layerLapideF04 = this.tilemapMapa.createLayer('lapideF-04', [this.tilesetGeral])
     this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetGeral])
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
+    this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
 
     console.log(this.cache.tilemap.get('mapa').data)
 
@@ -163,6 +168,7 @@ export default class floresta extends Phaser.Scene {
     this.layerLapideF04.setCollisionByProperty({ canCollide: true })
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
     this.layerOssos2.setCollisionByProperty({ canCollide: true })
+    this.layerCercaF.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
     this.migalhas = [
@@ -394,11 +400,13 @@ export default class floresta extends Phaser.Scene {
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
     this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetGeral])
+    this.layerCercaT = this.tilemapMapa.createLayer('cercaT', [this.tilesetGeral])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
     this.layerCopaF01.setCollisionByProperty({ canCollide: true })
     this.layerLapideT04.setCollisionByProperty({ canCollide: true })
+    this.layerCercaT.setCollisionByProperty({ canCollide: true })
 
     this.mamae = this.physics.add.sprite(225, 25480, 'mamae-pato')
 
@@ -423,6 +431,12 @@ export default class floresta extends Phaser.Scene {
     this.physics.add.collider(this.cacique, this.layerNaFrente03)
 
     this.physics.add.collider(this.personagemLocal, this.cacique, this.forcarPointerOut, null, this)
+
+    this.physics.add.collider(this.area0, this.layerChao)
+    this.physics.add.collider(this.area0, this.layerPedra)
+    this.physics.add.collider(this.area0, this.layerTronco01)
+    this.physics.add.collider(this.area0, this.layerNaFrente03)
+    this.physics.add.collider(this.personagemLocal, this.area0)
 
     this.physics.add.collider(this.area1, this.layerChao)
     this.physics.add.collider(this.area1, this.layerPedra)
@@ -614,7 +628,7 @@ export default class floresta extends Phaser.Scene {
 
     this.personagemLocal.setCollideWorldBounds(true, 0, 0)
     this.physics.world.setBounds(0, 19064, 448, 0, true, true, true, false)
-    this.cameras.main.setBounds(0, 19074, 448, 6530)
+    this.cameras.main.setBounds(0, 19074, 448, 6520)
     this.cameras.main.startFollow(this.personagemLocal)
 
     // Estado notificar //
