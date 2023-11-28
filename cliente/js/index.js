@@ -52,6 +52,8 @@ class Game extends Phaser.Game {
     this.estadoPersonagem = undefined
     this.estadoPersonagem2 = undefined
     this.cobrasLiberadas = 0
+    this.tratoresDLiberados = 0
+    this.tratoresELiberados = 0
     this.nArea = 0
     this.areaMsg = undefined
 

@@ -93,10 +93,97 @@ export default class campo extends Phaser.Scene {
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
+    // Área começo //
+
     this.area0 = this.add.rectangle(224, 12680, 448, 20, 0xFFFFFF, 1)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
+
+    // Área lateral //
+
+    this.area1 = this.add.rectangle(-200, 11720, 1, 6246, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area1)
+    this.area1.body.setAllowGravity(false)
+    this.area1.body.setImmovable(true)
+
+    // Áreas trigger tratoresD //
+
+    this.area2 = this.add.rectangle(100, 12700, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area2)
+    this.area2.body.setAllowGravity(false)
+    this.area2.body.setImmovable(true)
+
+    this.area3 = this.add.rectangle(224, 9814, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area3)
+    this.area3.body.setAllowGravity(false)
+    this.area3.body.setImmovable(true)
+
+    this.area4 = this.add.rectangle(224, 8024, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area4)
+    this.area4.body.setAllowGravity(false)
+    this.area4.body.setImmovable(true)
+
+    this.area5 = this.add.rectangle(224, 7490, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area5)
+    this.area5.body.setAllowGravity(false)
+    this.area5.body.setImmovable(true)
+
+    // Áreas trigger tratoresE //
+
+    this.area6 = this.add.rectangle(224, 11196, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area6)
+    this.area6.body.setAllowGravity(false)
+    this.area6.body.setImmovable(true)
+
+    this.area7 = this.add.rectangle(109, 8456, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area7)
+    this.area7.body.setAllowGravity(false)
+    this.area7.body.setImmovable(true)
+
+    this.area8 = this.add.rectangle(224, 7103, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.area8)
+    this.area8.body.setAllowGravity(false)
+    this.area8.body.setImmovable(true)
+
+    // Áreas parar tratoresD //
+
+    this.areaP0 = this.add.rectangle(117, 11558, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP0)
+    this.areaP0.body.setAllowGravity(false)
+    this.areaP0.body.setImmovable(true)
+
+    this.areaP1 = this.add.rectangle(132, 9700, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP1)
+    this.areaP1.body.setAllowGravity(false)
+    this.areaP1.body.setImmovable(true)
+
+    this.areaP2 = this.add.rectangle(116, 7838, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP2)
+    this.areaP2.body.setAllowGravity(false)
+    this.areaP2.body.setImmovable(true)
+
+    this.areaP3 = this.add.rectangle(26, 7415, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP3)
+    this.areaP3.body.setAllowGravity(false)
+    this.areaP3.body.setImmovable(true)
+
+    // Áreas parar tratoresE //
+
+    this.areaP4 = this.add.rectangle(212, 11063, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP4)
+    this.areaP4.body.setAllowGravity(false)
+    this.areaP4.body.setImmovable(true)
+
+    this.areaP5 = this.add.rectangle(212, 8346, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP5)
+    this.areaP5.body.setAllowGravity(false)
+    this.areaP5.body.setImmovable(true)
+
+    this.areaP6 = this.add.rectangle(142, 7045, 52, 40, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaP6)
+    this.areaP6.body.setAllowGravity(false)
+    this.areaP6.body.setImmovable(true)
 
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
@@ -272,34 +359,40 @@ export default class campo extends Phaser.Scene {
 
     // Tratores //
 
-    this.tratores = [
+    this.tratoresL = [
       {
-        x: 224,
+        x: 648,
         y: 12227
       },
+      {
+        x: 648,
+        y: 10420
+      },
+      {
+        x: 648,
+        y: 9013
+      },
+      {
+        x: 648,
+        y: 6746
+      }
+    ]
+
+    this.tratoresL.forEach((tratorL) => {
+      tratorL.objeto = this.physics.add.sprite(tratorL.x, tratorL.y, 'trator')
+        .setImmovable()
+        .setVelocityX(-250)
+      tratorL.objeto.anims.play('trator', true)
+    })
+
+    this.tratoresD = [
       {
         x: 224,
         y: 11558
       },
       {
         x: 224,
-        y: 11063
-      },
-      {
-        x: 224,
-        y: 10420
-      },
-      {
-        x: 224,
         y: 9700
-      },
-      {
-        x: 224,
-        y: 9013
-      },
-      {
-        x: 224,
-        y: 8346
       },
       {
         x: 224,
@@ -308,21 +401,34 @@ export default class campo extends Phaser.Scene {
       {
         x: 224,
         y: 7415
+      }
+    ]
+
+    this.tratoresD.forEach((tratorD) => {
+      tratorD.objeto = this.physics.add.sprite(tratorD.x, tratorD.y, 'trator')
+        .setImmovable()
+      tratorD.objeto.anims.play('trator', true)
+    })
+
+    this.tratoresE = [
+      {
+        x: 224,
+        y: 11063
+      },
+      {
+        x: 224,
+        y: 8346
       },
       {
         x: 224,
         y: 7045
-      },
-      {
-        x: 224,
-        y: 6746
       }
     ]
 
-    this.tratores.forEach((trator) => {
-      trator.objeto = this.physics.add.sprite(trator.x, trator.y, 'trator')
+    this.tratoresE.forEach((tratorE) => {
+      tratorE.objeto = this.physics.add.sprite(tratorE.x, tratorE.y, 'trator')
         .setImmovable()
-      trator.objeto.anims.play('trator', true)
+      tratorE.objeto.anims.play('trator', true)
     })
 
     // Caldeirões //
@@ -379,11 +485,39 @@ export default class campo extends Phaser.Scene {
     this.physics.add.collider(this.personagemLocal, this.layerChao)
     this.physics.add.collider(this.personagemLocal, this.layerCercaF, this.danoCenario, null, this)
 
+    this.physics.add.collider(this.personagemLocal, this.area2, this.area2F, null, this)
+    this.physics.add.collider(this.personagemLocal, this.area3, this.area3F, null, this)
+    this.physics.add.collider(this.personagemLocal, this.area4, this.area4F, null, this)
+    this.physics.add.collider(this.personagemLocal, this.area5, this.area5F, null, this)
+
+    this.physics.add.collider(this.personagemLocal, this.area6, this.area6F, null, this)
+    this.physics.add.collider(this.personagemLocal, this.area7, this.area7F, null, this)
+    this.physics.add.collider(this.personagemLocal, this.area8, this.area8F, null, this)
+
     this.vacas.forEach((vaca) => {
       this.physics.add.collider(vaca.objeto, this.layerChao)
       this.physics.add.collider(vaca.objeto, this.layerCercaF)
       this.physics.add.collider(vaca.objeto, this.layerCercaT)
       this.physics.add.collider(this.personagemLocal, vaca.objeto, this.danoVaca, null, this)
+    })
+
+    this.tratoresL.forEach((tratorL) => {
+      this.physics.add.collider(this.personagemLocal, tratorL.objeto, this.danoTratorL, null, this)
+      this.physics.add.collider(tratorL.objeto, this.area1, this.voltarTratoresL, null, this)
+    })
+
+    this.tratoresD.forEach((tratorD) => {
+      this.physics.add.collider(this.personagemLocal, tratorD.objeto, this.danoTratorD, null, this)
+      this.physics.add.collider(tratorD.objeto, this.areaP0, this.areaP0F, null, this)
+      this.physics.add.collider(tratorD.objeto, this.areaP1, this.areaP1F, null, this)
+      this.physics.add.collider(tratorD.objeto, this.areaP2, this.areaP2F, null, this)
+      this.physics.add.collider(tratorD.objeto, this.areaP3, this.areaP3F, null, this)
+    })
+
+    this.tratoresE.forEach((tratorE) => {
+      this.physics.add.collider(tratorE.objeto, this.areaP4, this.areaP4F, null, this)
+      this.physics.add.collider(tratorE.objeto, this.areaP5, this.areaP5F, null, this)
+      this.physics.add.collider(tratorE.objeto, this.areaP6, this.areaP6F, null, this)
     })
 
     this.physics.add.collider(this.isa, this.layerChao)
@@ -611,6 +745,34 @@ export default class campo extends Phaser.Scene {
     } catch (error) {
       console.error(error)
     }
+    if (this.game.tratoresDLiberados === 1) {
+      this.tratoresD[0].objeto
+        .setVelocityY(-250)
+    }
+    if (this.game.tratoresDLiberados === 2) {
+      this.tratoresD[1].objeto
+        .setVelocityY(-250)
+    }
+    if (this.game.tratoresDLiberados === 3) {
+      this.tratoresD[2].objeto
+        .setVelocityY(-250)
+    }
+    if (this.game.tratoresDLiberados === 4) {
+      this.tratoresD[3].objeto
+        .setVelocityY(-250)
+    }
+    if (this.game.tratoresELiberados === 1) {
+      this.tratoresE[0].objeto
+        .setVelocityY(250)
+    }
+    if (this.game.tratoresELiberados === 2) {
+      this.tratoresE[1].objeto
+        .setVelocityY(250)
+    }
+    if (this.game.tratoresELiberados === 3) {
+      this.tratoresE[2].objeto
+        .setVelocityX(250)
+    }
   }
 
   chegarPraia (personagemLocal) {
@@ -712,6 +874,132 @@ export default class campo extends Phaser.Scene {
     }
   }
 
+  danoTratorL (tratoresL) {
+    for (let i = 0; i < this.tratoresL.length; i++) {
+      if (!tratoresL[i]) {
+        this.ultimoTratorL = this.tratoresL[i].objeto
+        this.ultimoTratorL.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.tratoresL[i].objeto.setSize(152, 96).setOffset(0, 0)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name >= 3) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 4
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoTratorD (tratoresD) {
+    for (let i = 0; i < this.tratoresD.length; i++) {
+      if (!tratoresD[i]) {
+        this.ultimoTratorD = this.tratoresD[i].objeto
+        this.ultimoTratorD.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.tratoresD[i].objeto.setSize(152, 96).setOffset(0, 0)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name >= 3) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 4
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoTratorE (tratoresE) {
+    for (let i = 0; i < this.tratoresE.length; i++) {
+      if (!tratoresE[i]) {
+        this.ultimoTratorE = this.tratoresE[i].objeto
+        this.ultimoTratorE.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.tratoresE[i].objeto.setSize(152, 96).setOffset(0, 0)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 1500,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name >= 3) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 4
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
   danoCenario () {
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
@@ -753,9 +1041,9 @@ export default class campo extends Phaser.Scene {
     }
   }
 
-  voltarFantasmasD () {
-    this.fantasmasD.forEach((fantasmaD) => {
-      fantasmaD.objeto.setX(508)
+  voltarTratoresL () {
+    this.tratoresL.forEach((tratorL) => {
+      tratorL.objeto.setX(528)
     })
   }
 
@@ -763,5 +1051,75 @@ export default class campo extends Phaser.Scene {
     this.fantasmasE.forEach((fantasmaE) => {
       fantasmaE.objeto.setX(-60)
     })
+  }
+
+  area2F () {
+    this.physics.world.disable(this.area2)
+    this.tratoresD[0].objeto.setVelocityX(-250)
+  }
+
+  area3F () {
+    this.physics.world.disable(this.area3)
+    this.tratoresD[1].objeto.setVelocityX(-250)
+  }
+
+  area4F () {
+    this.physics.world.disable(this.area4)
+    this.tratoresD[2].objeto.setVelocityX(-250)
+  }
+
+  area5F () {
+    this.physics.world.disable(this.area5)
+    this.tratoresD[3].objeto.setVelocityX(-250)
+  }
+
+  area6F () {
+    this.physics.world.disable(this.area6)
+    this.tratoresE[1].objeto.setVelocityX(250)
+  }
+
+  area7F () {
+    this.physics.world.disable(this.area7)
+    this.tratoresE[2].objeto.setVelocityX(250)
+  }
+
+  area8F () {
+    this.physics.world.disable(this.area8)
+    this.tratoresE[3].objeto.setVelocityX(250)
+  }
+
+  areaP0F () {
+    this.physics.world.disable(this.areaP0)
+    this.tratoresD[0].objeto.setVelocityX(0)
+  }
+
+  areaP1F () {
+    this.physics.world.disable(this.areaP1)
+    this.tratoresD[1].objeto.setVelocityX(0)
+  }
+
+  areaP2F () {
+    this.physics.world.disable(this.areaP2)
+    this.tratoresD[2].objeto.setVelocityX(0)
+  }
+
+  areaP3F () {
+    this.physics.world.disable(this.areaP3)
+    this.tratoresD[3].objeto.setVelocityX(0)
+  }
+
+  areaP4F () {
+    this.physics.world.disable(this.areaP4)
+    this.tratoresE[0].objeto.setVelocityX(0)
+  }
+
+  areaP5F () {
+    this.physics.world.disable(this.areaP5)
+    this.tratoresE[1].objeto.setVelocityX(0)
+  }
+
+  areaP6F () {
+    this.physics.world.disable(this.areaP6)
+    this.tratoresE[2].objeto.setVelocityX(0)
   }
 }

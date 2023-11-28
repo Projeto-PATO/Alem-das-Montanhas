@@ -596,19 +596,20 @@ export default class mundoMagico extends Phaser.Scene {
 
     this.game.socket.on('cena-notificar', () => {
       this.game.scene.stop('mundo-magico')
-      this.game.socket.emit('vitoria', this.game.sala, 'vitoria')
-      this.game.scene.start('vitoria')
+      this.game.socket.emit('campo', this.game.sala, 'campo')
+      this.game.scene.start('campo')
       this.personagemLocal.setVelocityX(0)
       this.personagemLocal.setVelocityY(0)
       this.personagemLocal.setImmovable()
       this.personagemLocal.anims.play('pato-idle', true)
+      this.trilhaFloresta.stop()
     })
   }
 
   update () {
     try {
       this.game.socket.emit('estado-publicar', this.game.sala, {
-        cena: 'floresta',
+        cena: 'mundo-magico',
         x: this.personagemLocal.x,
         y: this.personagemLocal.y,
         frame: this.personagemLocal.frame.name,
@@ -633,7 +634,7 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
     this.game.scene.stop('mundo-magico')
-    this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
+    this.game.socket.emit('cena-publicar', this.game.sala, 'campo')
     this.game.scene.start('campo')
   }
 
