@@ -78,6 +78,8 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   create () {
+    this.game.cenaCorrente = 'mundo-magico'
+
     // Áudio //
 
     this.audioMigalha = this.sound.add('audio-migalha')
@@ -591,19 +593,6 @@ export default class mundoMagico extends Phaser.Scene {
         loop: false
       })
     })
-
-    // Cena notificar //
-
-    this.game.socket.on('cena-notificar', () => {
-      this.game.scene.stop('mundo-magico')
-      this.game.socket.emit('campo', this.game.sala, 'campo')
-      this.game.scene.start('campo')
-      this.personagemLocal.setVelocityX(0)
-      this.personagemLocal.setVelocityY(0)
-      this.personagemLocal.setImmovable()
-      this.personagemLocal.anims.play('pato-idle', true)
-      this.trilhaFloresta.stop()
-    })
   }
 
   update () {
@@ -633,8 +622,8 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemLocal.setVelocityY(0)
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
-    this.game.scene.stop('mundo-magico')
     this.game.socket.emit('cena-publicar', this.game.sala, 'campo')
+    this.game.scene.stop(this.game.cenaCorrente)
     this.game.scene.start('campo')
   }
 
@@ -692,7 +681,9 @@ export default class mundoMagico extends Phaser.Scene {
         this.ultimoFantasmaD.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasD[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.fantasmasD[i].objeto
+              .setSize(48, 36)
+              .setOffset(4, 20)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
@@ -734,7 +725,9 @@ export default class mundoMagico extends Phaser.Scene {
         this.ultimoFantasmaE.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasE[i].objeto.setSize(72, 33).setOffset(21, 54)
+            this.fantasmasE[i].objeto
+              .setSize(48, 36)
+              .setOffset(4, 20)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
