@@ -78,6 +78,8 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   create () {
+    this.game.cenaCorrente = 'mundo-magico'
+
     // Áudio //
 
     this.audioMigalha = this.sound.add('audio-migalha')
@@ -576,18 +578,6 @@ export default class mundoMagico extends Phaser.Scene {
         loop: false
       })
     })
-
-    // Cena notificar //
-
-    this.game.socket.on('cena-notificar', () => {
-      this.game.scene.stop('mundo-magico')
-      this.game.socket.emit('vitoria', this.game.sala, 'vitoria')
-      this.game.scene.start('vitoria')
-      this.personagemLocal.setVelocityX(0)
-      this.personagemLocal.setVelocityY(0)
-      this.personagemLocal.setImmovable()
-      this.personagemLocal.anims.play('pato-idle', true)
-    })
   }
 
   update () {
@@ -617,8 +607,8 @@ export default class mundoMagico extends Phaser.Scene {
     this.personagemLocal.setVelocityY(0)
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
-    this.game.scene.stop('mundo-magico')
     this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
+    this.game.scene.stop(this.game.cenaCorrente)
     this.game.scene.start('vitoria')
   }
 

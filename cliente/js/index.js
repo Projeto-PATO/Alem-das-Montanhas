@@ -44,6 +44,12 @@ class Game extends Phaser.Game {
       this.socket.on('escolha-notificar', (personagem) => {
         this.estadoPersonagemRemoto = personagem
       })
+
+      this.cenaCorrente = ''
+      this.socket.on('cena-notificar', (cena) => {
+        this.game.scene.stop(this.cenaCorrente)
+        this.game.scene.start(cena)
+      })
     })
 
     this.personagemEscolhido = 0
