@@ -257,8 +257,8 @@ export default class campo extends Phaser.Scene {
         y: 8672
       },
       {
-        x: 54,
-        y: 6464
+        x: 74,
+        y: 6564
       }
     ]
 
@@ -268,6 +268,61 @@ export default class campo extends Phaser.Scene {
         .setOffset(4, 0)
         .setImmovable()
       vaca.objeto.anims.play('vaca', true)
+    })
+
+    // Tratores //
+
+    this.tratores = [
+      {
+        x: 224,
+        y: 12227
+      },
+      {
+        x: 224,
+        y: 11558
+      },
+      {
+        x: 224,
+        y: 11063
+      },
+      {
+        x: 224,
+        y: 10420
+      },
+      {
+        x: 224,
+        y: 9700
+      },
+      {
+        x: 224,
+        y: 9013
+      },
+      {
+        x: 224,
+        y: 8346
+      },
+      {
+        x: 224,
+        y: 7838
+      },
+      {
+        x: 224,
+        y: 7415
+      },
+      {
+        x: 224,
+        y: 7045
+      },
+      {
+        x: 224,
+        y: 6746
+      }
+    ]
+
+    this.tratores.forEach((trator) => {
+      trator.objeto = this.physics.add.sprite(trator.x, trator.y, 'trator')
+        .setImmovable()
+      trator.objeto.anims.play('trator', true)
     })
 
     // Caldeirões //
