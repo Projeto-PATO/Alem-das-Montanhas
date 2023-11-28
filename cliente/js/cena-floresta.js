@@ -83,6 +83,8 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
+    this.game.cenaCorrente = 'floresta'
+
     // Áudio //
 
     this.trilhaFloresta = this.sound.add('trilha-floresta')
@@ -650,19 +652,6 @@ export default class floresta extends Phaser.Scene {
       })
     })
 
-    // Cena notificar //
-
-    this.game.socket.on('cena-notificar', () => {
-      this.game.scene.stop('floresta')
-      this.game.socket.emit('mundo-magico', this.game.sala, 'mundo-magico')
-      this.game.scene.start('mundo-magico')
-      this.personagemLocal.setVelocityX(0)
-      this.personagemLocal.setVelocityY(0)
-      this.personagemLocal.setImmovable()
-      this.personagemLocal.anims.play('pato-idle', true)
-      this.trilhaFloresta.stop()
-    })
-
     // Inimigos notificar //
 
     this.game.socket.on('inimigos-notificar', () => {
@@ -738,8 +727,8 @@ export default class floresta extends Phaser.Scene {
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
     this.trilhaFloresta.stop()
-    this.game.scene.stop('floresta')
     this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
+    this.game.scene.stop(this.game.cenaCorrente)
     this.game.scene.start('mundo-magico')
   }
 
