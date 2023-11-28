@@ -67,7 +67,7 @@ export default class campo extends Phaser.Scene {
       frameHeight: 40
     })
 
-    this.load.spritesheet('caldeirao', '../assets/caldeirao.png', {
+    this.load.spritesheet('caldeirao-campo', '../assets/caldeirao-campo.png', {
       frameWidth: 64,
       frameHeight: 64
     })
@@ -78,6 +78,8 @@ export default class campo extends Phaser.Scene {
   }
 
   create () {
+    this.game.cenaCorrente = 'campo'
+
     // Áudio //
 
     this.audioMigalha = this.sound.add('audio-migalha')
@@ -109,7 +111,7 @@ export default class campo extends Phaser.Scene {
 
     // Áreas trigger tratoresD //
 
-    this.area2 = this.add.rectangle(100, 12700, 52, 40, 0xFFFFFF, 1)
+    this.area2 = this.add.rectangle(100, 11729, 52, 40, 0xFFFFFF, 1)
     this.physics.world.enable(this.area2)
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)
@@ -185,6 +187,12 @@ export default class campo extends Phaser.Scene {
     this.areaP6.body.setAllowGravity(false)
     this.areaP6.body.setImmovable(true)
 
+    this.areaE = this.add.rectangle(224, 6480, 448, 20, 0xFFFFFF, 1)
+    this.physics.world.enable(this.areaE)
+    this.areaE.body.setAllowGravity(false)
+    this.areaE.body.setImmovable(true)
+
+    this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
     this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
@@ -233,6 +241,7 @@ export default class campo extends Phaser.Scene {
     // Colisões //
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerSombra.setCollisionByProperty({ canCollide: true })
     this.layerTronco01.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerNaFrente03.setCollisionByProperty({ canCollide: true })
@@ -380,7 +389,9 @@ export default class campo extends Phaser.Scene {
 
     this.tratoresL.forEach((tratorL) => {
       tratorL.objeto = this.physics.add.sprite(tratorL.x, tratorL.y, 'trator')
-        .setImmovable()
+        .setImmovable(true)
+        .setSize(152, 60)
+        .setOffset(0, 30)
         .setVelocityX(-250)
       tratorL.objeto.anims.play('trator', true)
     })
@@ -396,7 +407,7 @@ export default class campo extends Phaser.Scene {
       },
       {
         x: 648,
-        y: 7838
+        y: 7860
       },
       {
         x: 648,
@@ -406,7 +417,9 @@ export default class campo extends Phaser.Scene {
 
     this.tratoresD.forEach((tratorD) => {
       tratorD.objeto = this.physics.add.sprite(tratorD.x, tratorD.y, 'trator')
-        .setImmovable()
+        .setImmovable(true)
+        .setSize(152, 60)
+        .setOffset(0, 30)
       tratorD.objeto.anims.play('trator', true)
     })
 
@@ -427,25 +440,27 @@ export default class campo extends Phaser.Scene {
 
     this.tratoresE.forEach((tratorE) => {
       tratorE.objeto = this.physics.add.sprite(tratorE.x, tratorE.y, 'trator')
-        .setImmovable()
+        .setImmovable(true)
+        .setSize(152, 60)
+        .setOffset(0, 30)
         .setFlipX(true)
       tratorE.objeto.anims.play('trator', true)
     })
 
     // Caldeirões //
 
-    this.caldeirao = this.physics.add.sprite(224, 18928, 'caldeirao')
+    this.caldeirao = this.physics.add.sprite(224, 12568, 'caldeirao-campo')
       .setImmovable()
       .setBounce(0)
       .setSize(60, 48)
       .setOffset(2, 10)
 
-    // Isa //
+    // Pam //
 
-    this.isa = this.physics.add.sprite(73, 12884, 'isa-idle')
+    this.pam = this.physics.add.sprite(375, 6552, 'pam-idle')
       .setSize(52, 40)
       .setOffset(20, 64)
-      .setImmovable()
+      .setImmovable(true)
       .setBounce(0)
 
     // Personagem //
@@ -495,6 +510,8 @@ export default class campo extends Phaser.Scene {
     this.physics.add.overlap(this.personagemLocal, this.area7, this.area7F, null, this)
     this.physics.add.overlap(this.personagemLocal, this.area8, this.area8F, null, this)
 
+    this.physics.add.overlap(this.personagemLocal, this.areaE, this.chegarPraia, null, this)
+
     this.vacas.forEach((vaca) => {
       this.physics.add.collider(vaca.objeto, this.layerChao)
       this.physics.add.collider(vaca.objeto, this.layerCercaF)
@@ -522,12 +539,12 @@ export default class campo extends Phaser.Scene {
       this.physics.add.collider(tratorE.objeto, this.areaP6, this.areaEP, null, this)
     })
 
-    this.physics.add.collider(this.isa, this.layerChao)
-    this.physics.add.collider(this.isa, this.layerCercaF)
+    this.physics.add.collider(this.pam, this.layerChao)
+    this.physics.add.collider(this.pam, this.layerCercaF)
 
     this.physics.add.collider(this.personagemLocal, this.area0)
 
-    this.physics.add.collider(this.personagemLocal, this.isa, this.forcarPointerOut, null, this)
+    this.physics.add.collider(this.personagemLocal, this.pam, this.forcarPointerOut, null, this)
 
     this.physics.add.collider(this.caldeirao, this.layerChao)
     this.physics.add.collider(this.caldeirao, this.layerCercaF)
@@ -574,8 +591,8 @@ export default class campo extends Phaser.Scene {
     })
 
     this.anims.create({
-      key: 'isa-idle',
-      frames: this.anims.generateFrameNumbers('isa-idle', {
+      key: 'pam-idle',
+      frames: this.anims.generateFrameNumbers('pam-idle', {
         start: 0,
         end: 43
       }),
@@ -585,7 +602,7 @@ export default class campo extends Phaser.Scene {
 
     // Animações automáticas //
 
-    this.isa.anims.play('isa-idle', true)
+    this.pam.anims.play('pam-idle', true)
 
     // Corações //
 
@@ -729,7 +746,7 @@ export default class campo extends Phaser.Scene {
     // Inimigos notificar //
 
     this.game.socket.on('inimigos-notificar', () => {
-      if (this.personagemRemoto.y < 12800 && this.personagemRemoto.y > 12600) {
+      if (this.personagemRemoto.y < 11829 && this.personagemRemoto.y > 11629) {
         this.game.tratoresDLiberados = 1
       }
       if (this.personagemRemoto.y < 9914 && this.personagemRemoto.y > 9714) {
@@ -948,13 +965,13 @@ export default class campo extends Phaser.Scene {
     for (let i = 0; i < this.tratoresD.length; i++) {
       if (!tratoresD[i]) {
         this.ultimoTratorD = this.tratoresD[i].objeto
-        this.ultimoTratorD.setSize(1, 1).setOffset(100000000, 100000000)
+        this.ultimoTratorD.setSize(1, 1).setOffset(100000000, 100000000).setImmovable(true)
         this.time.addEvent({
           callback: () => {
             this.tratoresD[i].objeto.setSize(152, 96).setOffset(0, 0)
             this.personagemLocal.setAlpha(1)
           },
-          delay: 1500,
+          delay: 2500,
           callbackScope: this,
           loop: false
         })
@@ -990,13 +1007,13 @@ export default class campo extends Phaser.Scene {
     for (let i = 0; i < this.tratoresE.length; i++) {
       if (!tratoresE[i]) {
         this.ultimoTratorE = this.tratoresE[i].objeto
-        this.ultimoTratorE.setSize(1, 1).setOffset(100000000, 100000000)
+        this.ultimoTratorE.setSize(1, 1).setOffset(100000000, 100000000).setImmovable(true)
         this.time.addEvent({
           callback: () => {
             this.tratoresE[i].objeto.setSize(152, 96).setOffset(0, 0)
             this.personagemLocal.setAlpha(1)
           },
-          delay: 1500,
+          delay: 2500,
           callbackScope: this,
           loop: false
         })

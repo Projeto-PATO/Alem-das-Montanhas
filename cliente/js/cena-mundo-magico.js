@@ -67,7 +67,7 @@ export default class mundoMagico extends Phaser.Scene {
       frameHeight: 40
     })
 
-    this.load.spritesheet('caldeirao', '../assets/caldeirao.png', {
+    this.load.spritesheet('caldeirao-mm', '../assets/caldeirao-mm.png', {
       frameWidth: 64,
       frameHeight: 64
     })
@@ -112,6 +112,7 @@ export default class mundoMagico extends Phaser.Scene {
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)
 
+    this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
     this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
@@ -148,6 +149,7 @@ export default class mundoMagico extends Phaser.Scene {
     // Colisões //
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerSombra.setCollisionByProperty({ canCollide: true })
     this.layerTronco01.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerNaFrente03.setCollisionByProperty({ canCollide: true })
@@ -316,13 +318,13 @@ export default class mundoMagico extends Phaser.Scene {
 
     // Caldeirões //
 
-    this.caldeirao1 = this.physics.add.sprite(224, 18928, 'caldeirao')
+    this.caldeirao1 = this.physics.add.sprite(224, 18928, 'caldeirao-mm')
       .setImmovable()
       .setBounce(0)
       .setSize(60, 48)
       .setOffset(2, 10)
 
-    this.caldeirao2 = this.physics.add.sprite(224, 12824, 'caldeirao')
+    this.caldeirao2 = this.physics.add.sprite(224, 12824, 'caldeirao-mm')
       .setImmovable()
       .setBounce(0)
       .setSize(60, 48)

@@ -129,6 +129,7 @@ export default class floresta extends Phaser.Scene {
     this.physics.world.enable(this.area5)
     this.area1.body.setAllowGravity(false)
 
+    this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
     this.layerNaFrente03 = this.tilemapMapa.createLayer('naFrente-03', [this.tilesetGeral])
@@ -164,6 +165,7 @@ export default class floresta extends Phaser.Scene {
     // Colisões //
 
     this.layerChao.setCollisionByProperty({ canCollide: true })
+    this.layerSombra.setCollisionByProperty({ canCollide: true })
     this.layerTronco01.setCollisionByProperty({ canCollide: true })
     this.layerPedra.setCollisionByProperty({ canCollide: true })
     this.layerNaFrente03.setCollisionByProperty({ canCollide: true })
