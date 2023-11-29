@@ -95,7 +95,7 @@ export default class gameoverCampo extends Phaser.Scene {
                   id: this.usuarioDigitado,
                   senha: this.senhaDigitada,
                   jogo: this.game.id,
-                  valor: this.game.valor
+                  valor: this.game.valor - 60
                 })
                   .then((response) => {
                     if (response.status === 200) {

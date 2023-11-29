@@ -20,12 +20,7 @@ class Game extends Phaser.Game {
     super(config)
 
     this.id = 2
-    this.valor0 = 0
-    this.valor1 = 20
-    this.valor2 = 40
-    this.valor3 = 60
-    this.valor4 = 80
-    this.valor5 = 100
+    this.valor = 100
 
     let iceServers
     if (window.location.host === 'feira-de-jogos.sj.ifsc.edu.br') {

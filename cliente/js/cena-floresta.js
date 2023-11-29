@@ -75,6 +75,8 @@ export default class floresta extends Phaser.Scene {
 
     this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
 
+    this.load.audio('audio-dano', '../assets/audios/dano.mp3')
+
     this.load.audio('audio-gameover', './assets/audios/gameover.mp3')
   }
 
@@ -88,6 +90,7 @@ export default class floresta extends Phaser.Scene {
     this.trilhaFloresta.play()
 
     this.audioMigalha = this.sound.add('audio-migalha')
+    this.audioDano = this.sound.add('audio-dano')
     this.audioGameover = this.sound.add('audio-gameover')
 
     // Criação de mapa e de camadas de fundo //
@@ -820,6 +823,7 @@ export default class floresta extends Phaser.Scene {
         })
       }
     }
+    this.audioDano.play()
     this.personagemLocal.setAlpha(0.75)
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
@@ -847,6 +851,7 @@ export default class floresta extends Phaser.Scene {
   }
 
   danoCenario () {
+    this.audioDano.play()
     this.personagemLocal.setTint(0xFF0000)
     this.time.addEvent({
       callback: () => { this.corNormalLocal() },

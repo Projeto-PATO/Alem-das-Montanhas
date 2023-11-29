@@ -95,7 +95,7 @@ export default class gameoverPraia extends Phaser.Scene {
                   id: this.usuarioDigitado,
                   senha: this.senhaDigitada,
                   jogo: this.game.id,
-                  valor: this.game.valor
+                  valor: this.game.valor - 40
                 })
                   .then((response) => {
                     if (response.status === 200) {

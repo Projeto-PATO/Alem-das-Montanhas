@@ -95,7 +95,7 @@ export default class vitoria extends Phaser.Scene {
                   id: this.usuarioDigitado,
                   senha: this.senhaDigitada,
                   jogo: this.game.id,
-                  valor: this.game.valor
+                  valor: this.game.valor - 20
                 })
                   .then((response) => {
                     if (response.status === 200) {
