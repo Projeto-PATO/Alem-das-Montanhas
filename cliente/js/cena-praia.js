@@ -86,20 +86,43 @@ export default class praia extends Phaser.Scene {
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
-    this.area0 = this.add.rectangle(224, 6500, 448, 20, 0xFFFFFF, 1)
+    // Área começo //
+
+    this.area0 = this.add.rectangle(224, 6500, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
 
-    this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 1)
+    // Áreas laterais //
+
+    this.area1 = this.add.rectangle(-220, 5500, 1, 6700, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
     this.area1.body.setAllowGravity(false)
     this.area1.body.setImmovable(true)
 
-    this.area2 = this.add.rectangle(508, 18860, 1, 6246, 0xFFFFFF, 1)
+    this.area2 = this.add.rectangle(720, 6500, 1, 6700, 0xFFFFFF, 0)
     this.physics.world.enable(this.area2)
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)
+
+    // Áreas trigger caranguejosCB //
+
+    this.area3 = this.add.rectangle(224, 4595, 448, 20, 0xFFFFFF, 0)
+    this.physics.world.enable(this.area3)
+    this.area3.body.setAllowGravity(false)
+    this.area3.body.setImmovable(true)
+
+    this.area4 = this.add.rectangle(224, 1990, 448, 20, 0xFFFFFF, 0)
+    this.physics.world.enable(this.area4)
+    this.area4.body.setAllowGravity(false)
+    this.area4.body.setImmovable(true)
+
+    // Área trigger caranguejosBC //
+
+    this.area5 = this.add.rectangle(224, 6076, 448, 20, 0xFFFFFF, 0)
+    this.physics.world.enable(this.area5)
+    this.area5.body.setAllowGravity(false)
+    this.area5.body.setImmovable(true)
 
     this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
@@ -124,7 +147,17 @@ export default class praia extends Phaser.Scene {
       repeat: -1
     })
 
-    // Animação fantsama
+    // Animação fantsama //
+
+    this.anims.create({
+      key: 'caranguejo',
+      frames: this.anims.generateFrameNumbers('caranguejo', {
+        start: 0,
+        end: 11
+      }),
+      frameRate: 8,
+      repeat: -1
+    })
 
     // Colisões //
 
@@ -230,7 +263,71 @@ export default class praia extends Phaser.Scene {
       migalha.objeto.anims.play('migalha-girando', true)
     })
 
-    // Caranguejo //
+    // Caranguejos //
+
+    this.caranguejosD = [
+      {
+        x: 720,
+        y: 2816
+      },
+      {
+        x: 720,
+        y: 613
+      }
+    ]
+
+    this.caranguejosD.forEach((caranguejoD) => {
+      caranguejoD.objeto = this.physics.add.sprite(caranguejoD.x, caranguejoD.y, 'caranguejo')
+        .setImmovable(true)
+        .setVelocityX(-350)
+      caranguejoD.objeto.anims.play('caranguejo', true)
+    })
+
+    this.caranguejosE = [
+      {
+        x: -220,
+        y: 5206
+      }
+    ]
+
+    this.caranguejosE.forEach((caranguejoE) => {
+      caranguejoE.objeto = this.physics.add.sprite(caranguejoE.x, caranguejoE.y, 'caranguejo')
+        .setImmovable(true)
+        .setVelocityX(350)
+      caranguejoE.objeto.anims.play('caranguejo', true)
+    })
+
+    this.caranguejosCB = [
+      {
+        x: 140,
+        y: 4278
+      },
+      {
+        x: 142,
+        y: 1741
+      }
+    ]
+
+    this.caranguejosCB.forEach((caranguejoCB) => {
+      caranguejoCB.objeto = this.physics.add.sprite(caranguejoCB.x, caranguejoCB.y, 'caranguejo')
+        .setImmovable(true)
+        .setVisible(false)
+      caranguejoCB.objeto.anims.play('caranguejo', true)
+    })
+
+    this.caranguejosBC = [
+      {
+        x: 103,
+        y: 6120
+      }
+    ]
+
+    this.caranguejosBC.forEach((caranguejoBC) => {
+      caranguejoBC.objeto = this.physics.add.sprite(caranguejoBC.x, caranguejoBC.y, 'caranguejo')
+        .setImmovable(true)
+        .setVisible(false)
+      caranguejoBC.objeto.anims.play('caranguejo', true)
+    })
 
     // Tucano //
 
@@ -284,8 +381,13 @@ export default class praia extends Phaser.Scene {
     // Collider //
 
     this.physics.add.collider(this.personagemLocal, this.layerChao)
+    this.physics.add.collider(this.personagemLocal, this.area0)
     this.physics.add.collider(this.personagemLocal, this.layerCasteloF, this.danoCenario, null, this)
     this.physics.add.collider(this.personagemLocal, this.layerCasteloT, this.danoCenario, null, this)
+
+    this.physics.add.overlap(this.personagemLocal, this.area3, this.area3F, null, this)
+    this.physics.add.overlap(this.personagemLocal, this.area4, this.area4F, null, this)
+    this.physics.add.overlap(this.personagemLocal, this.area5, this.area5F, null, this)
 
     this.physics.add.collider(this.tucano, this.layerChao)
     this.physics.add.collider(this.tucano, this.layerCasteloF)
@@ -298,6 +400,25 @@ export default class praia extends Phaser.Scene {
       this.physics.add.overlap(this.personagemLocal, migalha.objeto, this.coletarMigalha, null, this)
     })
 
+    this.caranguejosD.forEach((caranguejoD) => {
+      this.physics.add.collider(this.personagemLocal, caranguejoD.objeto, this.danoCaranguejosD, null, this)
+      this.physics.add.collider(caranguejoD.objeto, this.area1, this.voltarCaranguejosD, null, this)
+    })
+
+    this.caranguejosE.forEach((caranguejoE) => {
+      this.physics.add.collider(this.personagemLocal, caranguejoE.objeto, this.danoCaranguejosE, null, this)
+      this.physics.add.collider(caranguejoE.objeto, this.area1, this.voltarCaranguejosE, null, this)
+    })
+
+    this.caranguejosCB.forEach((caranguejoCB) => {
+      this.physics.add.collider(this.personagemLocal, caranguejoCB.objeto, this.danoCaranguejosCB, null, this)
+      this.physics.add.collider(caranguejoCB.objeto, this.layerCasteloF)
+    })
+
+    this.caranguejosBC.forEach((caranguejoBC) => {
+      this.physics.add.collider(this.personagemLocal, caranguejoBC.objeto, this.danoCaranguejosBC, null, this)
+      this.physics.add.collider(caranguejoBC.objeto, this.layerCasteloF)
+    })
     // Score //
 
     this.texto = this.add.text(26, 68, `Migalhas: ${this.game.scoreMigalha.score}`, {
@@ -471,6 +592,20 @@ export default class praia extends Phaser.Scene {
         loop: false
       })
     })
+
+    // Inimigos notificar //
+
+    this.game.socket.on('inimigos-notificar', () => {
+      if (this.personagemRemoto.y < 4795 && this.personagemRemoto.y > 4395) {
+        this.game.caranguejosCBLiberados = 1
+      }
+      if (this.personagemRemoto.y < 2190 && this.personagemRemoto.y > 1790) {
+        this.game.caranguejosCBLiberados = 2
+      }
+      if (this.personagemRemoto.y < 6276 && this.personagemRemoto.y > 5876) {
+        this.game.caranguejosBCLiberados = 1
+      }
+    })
   }
 
   update () {
@@ -493,16 +628,49 @@ export default class praia extends Phaser.Scene {
     } catch (error) {
       console.error(error)
     }
+
+    if (this.game.caranguejosCBLiberados === 1) {
+      this.caranguejosCB[0].objeto
+        .setVisible(true)
+        .setVelocityY(200)
+    }
+    if (this.game.caranguejosCBLiberados === 2) {
+      this.caranguejosCB[1].objeto
+        .setVisible(true)
+        .setVelocityY(200)
+    }
+    if (this.game.caranguejosBCLiberados === 1) {
+      this.caranguejosBC[0].objeto
+        .setVisible(true)
+        .setVelocityY(-200)
+    }
   }
 
   encontrarTucano (personagemLocal) {
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)
-    this.personagemLocal.setImmovable()
+    this.personagemLocal.setImmovable(true)
+    this.cima.emit('pointerout')
+    this.baixo.emit('pointerout')
+    this.direita.emit('pointerout')
+    this.esquerda.emit('pointerout')
+    this.cima.setInteractive(false)
+    this.baixo.setInteractive(false)
+    this.direita.setInteractive(false)
+    this.esquerda.setInteractive(false)
     this.personagemLocal.anims.play('pato-idle', true)
-    this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
-    this.game.scene.stop(this.game.cenaCorrente)
-    this.game.scene.start('vitoria')
+    this.game.migalhasGuardadas += this.game.scoreMigalha.score
+    this.game.scoreMigalha.score = 0
+    const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
+    const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
+    this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
+    this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
+        this.game.scene.stop(this.game.cenaCorrente)
+        this.game.scene.start('vitoria')
+      })
   }
 
   morrer (personagemLocal) {
@@ -556,16 +724,104 @@ export default class praia extends Phaser.Scene {
     }
   }
 
-  danoFantasmasD (fantasmasD) {
-    for (let i = 0; i < this.fantasmasD.length; i++) {
-      if (!fantasmasD[i]) {
-        this.ultimoFantasmaD = this.fantasmasD[i].objeto
-        this.ultimoFantasmaD.setSize(1, 1).setOffset(100000000, 100000000)
+  danoCaranguejosD (caranguejosD) {
+    for (let i = 0; i < this.caranguejosD.length; i++) {
+      if (!caranguejosD[i]) {
+        this.ultimoCaranguejoD = this.caranguejosD[i].objeto
+        this.ultimoCaranguejoD.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasD[i].objeto
-              .setSize(48, 36)
-              .setOffset(4, 20)
+            this.caranguejosD[i].objeto
+              .setSize(34, 18)
+              .setOffset(0, 0)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 750,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name === 5) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 2
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoCaranguejosE (caranguejosE) {
+    for (let i = 0; i < this.caranguejosE.length; i++) {
+      if (!caranguejosE[i]) {
+        this.ultimoCaranguejoE = this.caranguejosE[i].objeto
+        this.ultimoCaranguejoE.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.caranguejosE[i].objeto
+              .setSize(34, 18)
+              .setOffset(0, 0)
+            this.personagemLocal.setAlpha(1)
+          },
+          delay: 750,
+          callbackScope: this,
+          loop: false
+        })
+      }
+    }
+    this.personagemLocal.setAlpha(0.75)
+    this.personagemLocal.setTint(0xFF0000)
+    this.time.addEvent({
+      callback: () => { this.corNormalLocal() },
+      delay: 200,
+      callbackScope: this,
+      loop: false
+    })
+    this.time.addEvent({
+      callback: () => { this.forcarPointerOut() },
+      delay: 350,
+      callbackScope: this,
+      loop: false
+    })
+    this.game.socket.emit('dano-publicar', this.game.sala)
+    if (this.coracoes.frame.name === 5) {
+      this.coracoes.setFrame(6)
+    } else {
+      this.game.vida.frameCoracoes += 2
+      this.coracoes.setFrame(`${this.game.vida.frameCoracoes}`)
+    }
+    if (this.coracoes.frame.name === 6) {
+      this.morrer()
+    }
+  }
+
+  danoCaranguejosCB (caranguejosCB) {
+    for (let i = 0; i < this.caranguejosCB.length; i++) {
+      if (!caranguejosCB[i]) {
+        this.ultimoCaranguejoCB = this.caranguejosCB[i].objeto
+        this.ultimoCaranguejoCB.setSize(1, 1).setOffset(100000000, 100000000)
+        this.time.addEvent({
+          callback: () => {
+            this.caranguejosCB[i].objeto
+              .setSize(34, 18)
+              .setOffset(0, 0)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
@@ -600,16 +856,16 @@ export default class praia extends Phaser.Scene {
     }
   }
 
-  danoFantasmasE (fantasmasE) {
-    for (let i = 0; i < this.fantasmasE.length; i++) {
-      if (!fantasmasE[i]) {
-        this.ultimoFantasmaD = this.fantasmasE[i].objeto
-        this.ultimoFantasmaE.setSize(1, 1).setOffset(100000000, 100000000)
+  danoCaranguejosBC (caranguejosBC) {
+    for (let i = 0; i < this.caranguejosBC.length; i++) {
+      if (!caranguejosBC[i]) {
+        this.ultimoCaranguejoBC = this.caranguejosBC[i].objeto
+        this.ultimoCaranguejoBC.setSize(1, 1).setOffset(100000000, 100000000)
         this.time.addEvent({
           callback: () => {
-            this.fantasmasE[i].objeto
-              .setSize(48, 36)
-              .setOffset(4, 20)
+            this.caranguejosBC[i].objeto
+              .setSize(34, 18)
+              .setOffset(0, 0)
             this.personagemLocal.setAlpha(1)
           },
           delay: 1500,
@@ -685,15 +941,39 @@ export default class praia extends Phaser.Scene {
     }
   }
 
-  voltarFantasmasD () {
-    this.fantasmasD.forEach((fantasmaD) => {
-      fantasmaD.objeto.setX(508)
+  voltarCaranguejosD () {
+    this.caranguejosD.forEach((caranguejoD) => {
+      caranguejoD.objeto.setX(720)
     })
   }
 
-  voltarFantasmasE () {
-    this.fantasmasE.forEach((fantasmaE) => {
-      fantasmaE.objeto.setX(-60)
+  voltarCaranguejosE () {
+    this.caranguejosE.forEach((caranguejoE) => {
+      caranguejoE.objeto.setX(-220)
     })
+  }
+
+  area3F () {
+    this.physics.world.disable(this.area3)
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
+    if (this.game.caranguejosCBLiberados === 0) {
+      this.game.caranguejosCBLiberados++
+    }
+  }
+
+  area4F () {
+    this.physics.world.disable(this.area4)
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
+    if (this.game.caranguejosCBLiberados === 1) {
+      this.game.caranguejosCBLiberados++
+    }
+  }
+
+  area5F () {
+    this.physics.world.disable(this.area5)
+    this.game.socket.emit('inimigos-publicar', this.game.sala)
+    if (this.game.caranguejosBCLiberados === 0) {
+      this.game.caranguejosBCLiberados++
+    }
   }
 }
