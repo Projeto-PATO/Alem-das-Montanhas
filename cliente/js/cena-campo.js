@@ -202,6 +202,7 @@ export default class campo extends Phaser.Scene {
     this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetGeral])
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
+    this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
 
     console.log(this.cache.tilemap.get('mapa').data)
 
@@ -251,6 +252,7 @@ export default class campo extends Phaser.Scene {
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
     this.layerOssos2.setCollisionByProperty({ canCollide: true })
     this.layerCercaF.setCollisionByProperty({ canCollide: true })
+    this.layerCasteloF.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
 
@@ -476,6 +478,9 @@ export default class campo extends Phaser.Scene {
         .setImmovable(false)
         .setBounce(1, 1)
       this.personagemRemoto = this.add.sprite(324, 12486, this.remoto)
+      if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+        this.personagemRemoto.setTint(0x808080)
+      }
     } else if (this.game.jogadores.segundo === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
       this.remoto = `sprite-${this.game.estadoPersonagemRemoto.spriteId}`
@@ -485,18 +490,23 @@ export default class campo extends Phaser.Scene {
         .setImmovable(false)
         .setBounce(1, 1)
       this.personagemRemoto = this.add.sprite(140, 12486, this.remoto)
+      if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+        this.personagemRemoto.setTint(0x808080)
+      }
     }
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
     this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetGeral])
     this.layerCercaT = this.tilemapMapa.createLayer('cercaT', [this.tilesetGeral])
+    this.layerCasteloT = this.tilemapMapa.createLayer('casteloT', [this.tilesetGeral])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
     this.layerCopaF01.setCollisionByProperty({ canCollide: true })
     this.layerLapideT04.setCollisionByProperty({ canCollide: true })
     this.layerCercaT.setCollisionByProperty({ canCollide: true })
+    this.layerCasteloT.setCollisionByProperty({ canCollide: true })
 
     // Collider //
 
@@ -733,18 +743,6 @@ export default class campo extends Phaser.Scene {
       })
     })
 
-    // Cena notificar //
-
-    this.game.socket.on('cena-notificar', () => {
-      this.game.scene.stop('mundo-magico')
-      this.game.socket.emit('vitoria', this.game.sala, 'vitoria')
-      this.game.scene.start('vitoria')
-      this.personagemLocal.setVelocityX(0)
-      this.personagemLocal.setVelocityY(0)
-      this.personagemLocal.setImmovable()
-      this.personagemLocal.anims.play('pato-idle', true)
-    })
-
     // Inimigos notificar //
 
     this.game.socket.on('inimigos-notificar', () => {
@@ -828,8 +826,8 @@ export default class campo extends Phaser.Scene {
     this.personagemLocal.setImmovable()
     this.personagemLocal.anims.play('pato-idle', true)
     this.game.scene.stop('campo')
-    this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
-    this.game.scene.start('vitoria')
+    this.game.socket.emit('cena-publicar', this.game.sala, 'praia')
+    this.game.scene.start('praia')
   }
 
   morrer (personagemLocal) {
@@ -876,7 +874,11 @@ export default class campo extends Phaser.Scene {
   }
 
   corNormalRemoto () {
-    this.personagemRemoto.setTint(0x808080)
+    if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
+      this.personagemRemoto.setTint(0x808080)
+    } else {
+      this.personagemRemoto.setTint(0xFFFFFF)
+    }
   }
 
   danoVaca (vacas) {

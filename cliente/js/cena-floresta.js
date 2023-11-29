@@ -11,10 +11,6 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
 
-    this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
-
-    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
-
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
     this.load.image('tela-gameover', '../assets/tela-gameover.png')
@@ -100,8 +96,6 @@ export default class floresta extends Phaser.Scene {
     })
 
     this.tilesetGeral = this.tilemapMapa.addTilesetImage('tileset-geral')
-    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
@@ -137,6 +131,7 @@ export default class floresta extends Phaser.Scene {
     this.layerOssos1 = this.tilemapMapa.createLayer('ossos1', [this.tilesetGeral])
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
+    this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
 
     console.log(this.cache.tilemap.get('mapa').data)
 
@@ -173,6 +168,7 @@ export default class floresta extends Phaser.Scene {
     this.layerOssos1.setCollisionByProperty({ canCollide: true })
     this.layerOssos2.setCollisionByProperty({ canCollide: true })
     this.layerCercaF.setCollisionByProperty({ canCollide: true })
+    this.layerCasteloF.setCollisionByProperty({ canCollide: true })
 
     // Migalha //
     this.migalhas = [
@@ -348,7 +344,6 @@ export default class floresta extends Phaser.Scene {
       if (this.game.estadoPersonagem.spritePato === this.game.estadoPersonagemRemoto.spritePato) {
         this.personagemRemoto.setTint(0x808080)
       }
-
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then((stream) => {
           this.game.localConnection = new RTCPeerConnection(this.game.ice_servers)
@@ -405,12 +400,14 @@ export default class floresta extends Phaser.Scene {
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
     this.layerLapideT04 = this.tilemapMapa.createLayer('lapideT-04', [this.tilesetGeral])
     this.layerCercaT = this.tilemapMapa.createLayer('cercaT', [this.tilesetGeral])
+    this.layerCasteloT = this.tilemapMapa.createLayer('casteloT', [this.tilesetGeral])
 
     this.layerAtras03.setCollisionByProperty({ canCollide: true })
     this.layerCopaT01.setCollisionByProperty({ canCollide: true })
     this.layerCopaF01.setCollisionByProperty({ canCollide: true })
     this.layerLapideT04.setCollisionByProperty({ canCollide: true })
     this.layerCercaT.setCollisionByProperty({ canCollide: true })
+    this.layerCasteloT.setCollisionByProperty({ canCollide: true })
 
     this.mamae = this.physics.add.sprite(225, 25480, 'mamae-pato')
 

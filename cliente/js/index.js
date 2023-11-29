@@ -6,8 +6,9 @@ import cutscene from './cena-cutscene.js'
 import menu from './cena-menu.js'
 import floresta from './cena-floresta.js'
 import mundoMagico from './cena-mundo-magico.js'
-import vitoria from './cena-vitoria.js'
 import campo from './cena-campo.js'
+import praia from './cena-praia.js'
+import vitoria from './cena-vitoria.js'
 
 class Game extends Phaser.Game {
   constructor () {
@@ -80,6 +81,7 @@ class Game extends Phaser.Game {
     this.scene.add('floresta', floresta)
     this.scene.add('mundo-magico', mundoMagico)
     this.scene.add('campo', campo)
+    this.scene.add('praia', praia)
     this.scene.add('vitoria', vitoria)
 
     this.scene.start('abertura')
