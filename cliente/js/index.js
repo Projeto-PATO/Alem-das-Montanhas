@@ -8,14 +8,24 @@ import floresta from './cena-floresta.js'
 import mundoMagico from './cena-mundo-magico.js'
 import campo from './cena-campo.js'
 import praia from './cena-praia.js'
+import gameoverFloresta from './cena-gameover-floresta.js'
+import gameoverMundoMagico from './cena-gameover-mundo-magico.js'
+import gameoverCampo from './cena-gameover-campo.js'
+import gameoverPraia from './cena-gameover-praia.js'
 import vitoria from './cena-vitoria.js'
+import vitoriaMigalhas from './cena-vitoria-migalhas.js'
 
 class Game extends Phaser.Game {
   constructor () {
     super(config)
 
     this.id = 2
-    this.valor = 100
+    this.valor0 = 0
+    this.valor1 = 20
+    this.valor2 = 40
+    this.valor3 = 60
+    this.valor4 = 80
+    this.valor5 = 100
 
     let iceServers
     if (window.location.host === 'feira-de-jogos.sj.ifsc.edu.br') {
@@ -84,7 +94,12 @@ class Game extends Phaser.Game {
     this.scene.add('mundo-magico', mundoMagico)
     this.scene.add('campo', campo)
     this.scene.add('praia', praia)
+    this.scene.add('gameover-floresta', gameoverFloresta)
+    this.scene.add('gameover-mundo-magico', gameoverMundoMagico)
+    this.scene.add('gameover-campo', gameoverCampo)
+    this.scene.add('gameover-praia', gameoverPraia)
     this.scene.add('vitoria', vitoria)
+    this.scene.add('vitoria-migalhas', vitoriaMigalhas)
 
     this.scene.start('abertura')
   }

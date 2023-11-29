@@ -667,9 +667,15 @@ export default class praia extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
-        this.game.scene.stop(this.game.cenaCorrente)
-        this.game.scene.start('vitoria')
+        if (migalhasGuardadas >= 52) {
+          this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria-migalhas')
+          this.game.scene.stop(this.game.cenaCorrente)
+          this.game.scene.start('vitoria-migalhas')
+        } else {
+          this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
+          this.game.scene.stop(this.game.cenaCorrente)
+          this.game.scene.start('vitoria')
+        }
       })
   }
 
@@ -680,8 +686,8 @@ export default class praia extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-gameover')
       .setInteractive()
       .on('pointerdown', () => {
-        this.game.scene.stop('mundo-magico')
-        this.game.scene.start('menu')
+        this.game.scene.stop('praia')
+        this.game.scene.start('gameover-praia')
       })
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)

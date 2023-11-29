@@ -647,7 +647,7 @@ export default class mundoMagico extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('mundo-magico')
-        this.game.scene.start('menu')
+        this.game.scene.start('gameover-mundo-magico')
       })
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)

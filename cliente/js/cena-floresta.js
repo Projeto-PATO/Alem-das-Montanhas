@@ -753,7 +753,7 @@ export default class floresta extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('floresta')
-        this.game.scene.start('menu')
+        this.game.scene.start('gameover-floresta')
       })
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)

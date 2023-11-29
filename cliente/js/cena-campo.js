@@ -838,7 +838,7 @@ export default class campo extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('campo')
-        this.game.scene.start('menu')
+        this.game.scene.start('gameover-campo')
       })
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)
