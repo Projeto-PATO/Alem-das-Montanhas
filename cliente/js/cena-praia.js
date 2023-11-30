@@ -63,6 +63,11 @@ export default class praia extends Phaser.Scene {
       frameHeight: 40
     })
 
+    this.load.spritesheet('caixa-de-som', '../assets/caixa-de-som.png', {
+      frameWidth: 60,
+      frameHeight: 60
+    })
+
     this.load.audio('trilha-praia', '../assets/audios/trilha-praia.mp3')
 
     this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
@@ -343,11 +348,24 @@ export default class praia extends Phaser.Scene {
 
     // Tucano //
 
-    this.tucano = this.physics.add.sprite(69, 176, 'tucano-idle')
+    this.tucano = this.physics.add.sprite(84, 176, 'tucano-idle')
       .setSize(52, 40)
       .setOffset(20, 64)
       .setImmovable()
       .setBounce(0)
+
+    // Caixa de som //
+
+    this.caixaDeSom = this.physics.add.sprite(20, 212, 'caixa-de-som')
+      .setImmovable()
+      .setBounce(0)
+      .setSize(40, 50)
+
+    this.caixaDeSom2 = this.physics.add.sprite(146, 212, 'caixa-de-som')
+      .setImmovable()
+      .setBounce(0)
+      .setSize(40, 50)
+      .setFlipX(true)
 
     // Personagem //
 
@@ -396,6 +414,8 @@ export default class praia extends Phaser.Scene {
     this.physics.add.collider(this.personagemLocal, this.area0)
     this.physics.add.collider(this.personagemLocal, this.layerCasteloF, this.danoCenario, null, this)
     this.physics.add.collider(this.personagemLocal, this.layerCasteloT, this.danoCenario, null, this)
+    this.physics.add.collider(this.personagemLocal, this.caixaDeSom, this.forcarPointerOut, null, this)
+    this.physics.add.collider(this.personagemLocal, this.caixaDeSom2, this.forcarPointerOut, null, this)
 
     this.physics.add.overlap(this.personagemLocal, this.area3, this.area3F, null, this)
     this.physics.add.overlap(this.personagemLocal, this.area4, this.area4F, null, this)

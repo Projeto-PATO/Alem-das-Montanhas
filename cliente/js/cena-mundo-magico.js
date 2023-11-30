@@ -645,7 +645,7 @@ export default class mundoMagico extends Phaser.Scene {
       this.game.scene.stop(this.game.cenaCorrente)
       this.game.socket.emit('cena-publicar', this.game.sala, 'campo')
       this.game.scene.start('campo')
-    }, 1);
+    }, 1)
   }
 
   morrer (personagemLocal) {
