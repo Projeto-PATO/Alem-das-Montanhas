@@ -141,7 +141,7 @@ export default class sala extends Phaser.Scene {
         if (jogadores.segundo) {
           this.game.jogadores = jogadores
           this.game.scene.stop('sala')
-          this.game.scene.start('menu')
+          this.game.scene.start('cutscene')
         } else if (jogadores.primeiro) {
           navigator.mediaDevices
             .getUserMedia({ video: false, audio: true })
