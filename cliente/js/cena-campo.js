@@ -72,6 +72,8 @@ export default class campo extends Phaser.Scene {
       frameHeight: 64
     })
 
+    this.load.audio('trilha-campo', '../assets/audios/trilha-campo.mp3')
+
     this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
 
     this.load.audio('audio-dano', '../assets/audios/dano.mp3')
@@ -83,6 +85,10 @@ export default class campo extends Phaser.Scene {
     this.game.cenaCorrente = 'campo'
 
     // Áudio //
+
+    this.trilhaCampo = this.sound.add('trilha-campo')
+    this.trilhaCampo.loop = true
+    this.trilhaCampo.play()
 
     this.audioMigalha = this.sound.add('audio-migalha')
     this.audioDano = this.sound.add('audio-dano')
@@ -824,13 +830,13 @@ export default class campo extends Phaser.Scene {
   }
 
   chegarPraia (personagemLocal) {
-    this.personagemLocal.setVelocityX(0)
-    this.personagemLocal.setVelocityY(0)
-    this.personagemLocal.setImmovable()
-    this.personagemLocal.anims.play('pato-idle', true)
-    this.game.scene.stop('campo')
-    this.game.socket.emit('cena-publicar', this.game.sala, 'praia')
-    this.game.scene.start('praia')
+    this.trilhaCampo.loop = false
+    this.trilhaCampo.stop()
+    setTimeout(() => {
+      this.game.scene.stop(this.game.cenaCorrente)
+      this.game.socket.emit('cena-publicar', this.game.sala, 'praia')
+      this.game.scene.start('praia')
+    }, 1);
   }
 
   morrer (personagemLocal) {
@@ -843,6 +849,8 @@ export default class campo extends Phaser.Scene {
         this.game.scene.stop('campo')
         this.game.scene.start('gameover-campo')
       })
+    this.trilhaCampo.loop = false
+    this.trilhaCampo.stop()
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)

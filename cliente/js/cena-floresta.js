@@ -738,14 +738,13 @@ export default class floresta extends Phaser.Scene {
   }
 
   entrarCaldeirao (personagemLocal) {
-    this.personagemLocal.setVelocityX(0)
-    this.personagemLocal.setVelocityY(0)
-    this.personagemLocal.setImmovable()
-    this.personagemLocal.anims.play('pato-idle', true)
+    this.trilhaFloresta.loop = false
     this.trilhaFloresta.stop()
-    this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
-    this.game.scene.stop(this.game.cenaCorrente)
-    this.game.scene.start('mundo-magico')
+    setTimeout(() => {
+      this.game.scene.stop(this.game.cenaCorrente)
+      this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
+      this.game.scene.start('mundo-magico')
+    }, 1);
   }
 
   morrer (cobra) {
@@ -774,6 +773,7 @@ export default class floresta extends Phaser.Scene {
     this.game.scoreMigalha.score = 0
     this.game.vida.frameCoracoes = 0
     this.texto.setText(`Migalhas: ${this.game.scoreMigalha.score}`)
+    this.trilhaFloresta.loop = false
     this.trilhaFloresta.stop()
     this.audioGameover.play()
   }

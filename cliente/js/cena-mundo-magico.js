@@ -72,6 +72,8 @@ export default class mundoMagico extends Phaser.Scene {
       frameHeight: 64
     })
 
+    this.load.audio('trilha-mm', '../assets/audios/trilha-mm.mp3')
+
     this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
 
     this.load.audio('audio-dano', '../assets/audios/dano.mp3')
@@ -83,6 +85,10 @@ export default class mundoMagico extends Phaser.Scene {
     this.game.cenaCorrente = 'mundo-magico'
 
     // Áudio //
+
+    this.trilhaMM = this.sound.add('trilha-mm')
+    this.trilhaMM.loop = true
+    this.trilhaMM.play()
 
     this.audioMigalha = this.sound.add('audio-migalha')
     this.audioDano = this.sound.add('audio-dano')
@@ -633,13 +639,13 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   entrarCaldeirao (personagemLocal) {
-    this.personagemLocal.setVelocityX(0)
-    this.personagemLocal.setVelocityY(0)
-    this.personagemLocal.setImmovable()
-    this.personagemLocal.anims.play('pato-idle', true)
-    this.game.socket.emit('cena-publicar', this.game.sala, 'campo')
-    this.game.scene.stop(this.game.cenaCorrente)
-    this.game.scene.start('campo')
+    this.trilhaMM.loop = false
+    this.trilhaMM.stop()
+    setTimeout(() => {
+      this.game.scene.stop(this.game.cenaCorrente)
+      this.game.socket.emit('cena-publicar', this.game.sala, 'campo')
+      this.game.scene.start('campo')
+    }, 1);
   }
 
   morrer (personagemLocal) {
@@ -652,6 +658,8 @@ export default class mundoMagico extends Phaser.Scene {
         this.game.scene.stop('mundo-magico')
         this.game.scene.start('gameover-mundo-magico')
       })
+    this.trilhaMM.loop = false
+    this.trilhaMM.stop()
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)

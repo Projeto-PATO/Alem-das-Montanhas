@@ -63,6 +63,8 @@ export default class praia extends Phaser.Scene {
       frameHeight: 40
     })
 
+    this.load.audio('trilha-praia', '../assets/audios/trilha-praia.mp3')
+
     this.load.audio('audio-migalha', '../assets/audios/migalha.mp3')
 
     this.load.audio('audio-dano', '../assets/audios/dano.mp3')
@@ -76,6 +78,10 @@ export default class praia extends Phaser.Scene {
     this.game.cenaCorrente = 'praia'
 
     // Áudio //
+
+    this.trilhaPraia = this.sound.add('trilha-praia')
+    this.trilhaPraia.loop = true
+    this.trilhaPraia.play()
 
     this.audioMigalha = this.sound.add('audio-migalha')
     this.audioDano = this.sound.add('audio-dano')
@@ -324,14 +330,14 @@ export default class praia extends Phaser.Scene {
     this.caranguejosBC = [
       {
         x: 103,
-        y: 6120
+        y: 6200
       }
     ]
 
     this.caranguejosBC.forEach((caranguejoBC) => {
       caranguejoBC.objeto = this.physics.add.sprite(caranguejoBC.x, caranguejoBC.y, 'caranguejo')
         .setImmovable(true)
-        .setVisible(false)
+        .disableBody(true, true)
       caranguejoBC.objeto.anims.play('caranguejo', true)
     })
 
@@ -647,12 +653,14 @@ export default class praia extends Phaser.Scene {
     }
     if (this.game.caranguejosBCLiberados === 1) {
       this.caranguejosBC[0].objeto
-        .setVisible(true)
+        .enableBody(false, 103, 6183, true, true)
         .setVelocityY(-200)
     }
   }
 
   encontrarTucano (personagemLocal) {
+    this.trilhaPraia.loop = false
+    this.trilhaPraia.stop()
     this.audioVitoria.play()
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)
@@ -674,14 +682,16 @@ export default class praia extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
       .setInteractive()
       .on('pointerdown', () => {
-        if (migalhasGuardadas >= 52) {
-          this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria-migalhas')
-          this.game.scene.stop(this.game.cenaCorrente)
-          this.game.scene.start('vitoria-migalhas')
+        if (migalhasGuardadas >= 40) {
+          setTimeout(() => {
+            this.game.scene.stop(this.game.cenaCorrente)
+            this.game.scene.start('vitoria-migalhas')
+          }, 1);
         } else {
-          this.game.socket.emit('cena-publicar', this.game.sala, 'vitoria')
-          this.game.scene.stop(this.game.cenaCorrente)
-          this.game.scene.start('vitoria')
+          setTimeout(() => {
+            this.game.scene.stop(this.game.cenaCorrente)
+            this.game.scene.start('vitoria')
+          }, 1);
         }
       })
   }
@@ -696,6 +706,8 @@ export default class praia extends Phaser.Scene {
         this.game.scene.stop('praia')
         this.game.scene.start('gameover-praia')
       })
+    this.trilhaPraia.loop = false
+    this.trilhaPraia.stop()
     this.personagemLocal.setImmovable()
     this.personagemLocal.setVelocityX(0)
     this.personagemLocal.setVelocityY(0)
