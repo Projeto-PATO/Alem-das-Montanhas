@@ -682,16 +682,16 @@ export default class praia extends Phaser.Scene {
     this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
       .setInteractive()
       .on('pointerdown', () => {
-        if (migalhasGuardadas >= 40) {
+        if (this.game.migalhasGuardadas >= 40) {
           setTimeout(() => {
             this.game.scene.stop(this.game.cenaCorrente)
             this.game.scene.start('vitoria-migalhas')
-          }, 1);
+          }, 1)
         } else {
           setTimeout(() => {
             this.game.scene.stop(this.game.cenaCorrente)
             this.game.scene.start('vitoria')
-          }, 1);
+          }, 1)
         }
       })
   }

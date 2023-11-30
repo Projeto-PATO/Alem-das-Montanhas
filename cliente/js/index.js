@@ -54,6 +54,10 @@ class Game extends Phaser.Game {
 
       this.cenaCorrente = ''
       this.socket.on('cena-notificar', (cena) => {
+        this.sound.stopByKey('trilha-floresta')
+        this.sound.stopByKey('trilha-mm')
+        this.sound.stopByKey('trilha-campo')
+        this.sound.stopByKey('trilha-praia')
         this.scene.stop(this.cenaCorrente)
         this.scene.start(cena)
       })
