@@ -15,8 +15,6 @@ export default class campo extends Phaser.Scene {
 
     this.load.image('tela-gameover', '../assets/tela-gameover.png')
 
-    this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
-
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
       frameHeight: 24
@@ -82,6 +80,8 @@ export default class campo extends Phaser.Scene {
   }
 
   create () {
+    // Cena corrente //
+
     this.game.cenaCorrente = 'campo'
 
     // Áudio //
@@ -212,8 +212,6 @@ export default class campo extends Phaser.Scene {
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
     this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
-
-    console.log(this.cache.tilemap.get('mapa').data)
 
     // Animação migalha //
     this.anims.create({
@@ -476,7 +474,7 @@ export default class campo extends Phaser.Scene {
       .setImmovable(true)
       .setBounce(0)
 
-    // Personagem //
+    // Personagens //
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
@@ -503,6 +501,9 @@ export default class campo extends Phaser.Scene {
         this.personagemRemoto.setTint(0x808080)
       }
     }
+
+    // Restante das camadas //
+
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
@@ -531,7 +532,7 @@ export default class campo extends Phaser.Scene {
     this.physics.add.overlap(this.personagemLocal, this.area7, this.area7F, null, this)
     this.physics.add.overlap(this.personagemLocal, this.area8, this.area8F, null, this)
 
-    this.physics.add.overlap(this.personagemLocal, this.areaE, this.chegarPraia, null, this)
+    this.physics.add.collider(this.personagemLocal, this.areaE, this.chegarPraia, null, this)
 
     this.vacas.forEach((vaca) => {
       this.physics.add.collider(vaca.objeto, this.layerChao)
@@ -836,7 +837,7 @@ export default class campo extends Phaser.Scene {
       this.game.scene.stop(this.game.cenaCorrente)
       this.game.socket.emit('cena-publicar', this.game.sala, 'praia')
       this.game.scene.start('praia')
-    }, 1);
+    }, 1)
   }
 
   morrer (personagemLocal) {

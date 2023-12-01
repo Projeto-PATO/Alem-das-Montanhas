@@ -112,10 +112,6 @@ export default class menu extends Phaser.Scene {
       frameHeight: 108
     })
 
-    this.load.spritesheet('botao-voltar', '../assets/botoes/esquerda.png', {
-      frameWidth: 96,
-      frameHeight: 102
-    })
     this.load.spritesheet('botao-selecionar', '../assets/botoes/selecionar.png', {
       frameWidth: 35,
       frameHeight: 50
@@ -148,23 +144,6 @@ export default class menu extends Phaser.Scene {
     this.fundo = this.add.image(224, 400, 'fundo')
 
     this.timer = 1
-
-    this.voltar = this.add.sprite(58, 62, 'botao-voltar')
-      .setScale(0.85)
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.trilhaMenu.stop()
-        this.voltar.setFrame(1)
-        this.time.addEvent({
-          delay: 100,
-          callback: this.contagemVoltar,
-          callbackScope: this,
-          loop: true
-        })
-      })
-      .on('pointerup', () => {
-        this.voltar.setFrame(0)
-      })
 
     this.barra = this.add.sprite(411, 520, 'barra')
 
@@ -409,15 +388,6 @@ export default class menu extends Phaser.Scene {
     })
     this.textoPersonagem.setText(this.personagens[this.game.personagemEscolhido].id)
     this.personagemFinal.anims.play('pato-idle', true)
-  }
-
-  contagemVoltar () {
-    this.timer -= 1
-    if (this.timer <= 0) {
-      this.trilhaMenu.stop()
-      this.game.scene.stop('menu')
-      this.game.scene.start('abertura')
-    }
   }
 
   contagemIniciar () {

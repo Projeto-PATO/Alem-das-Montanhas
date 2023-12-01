@@ -15,8 +15,6 @@ export default class floresta extends Phaser.Scene {
 
     this.load.image('tela-gameover', '../assets/tela-gameover.png')
 
-    this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
-
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
       frameHeight: 24
@@ -81,6 +79,8 @@ export default class floresta extends Phaser.Scene {
   }
 
   create () {
+    // Cena corrente //
+
     this.game.cenaCorrente = 'floresta'
 
     // Áudio //
@@ -102,9 +102,13 @@ export default class floresta extends Phaser.Scene {
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
 
+    // Área começo //
+
     this.area0 = this.add.rectangle(224, 25400, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
+
+    // Áreas trigger //
 
     this.area1 = this.add.rectangle(224, 24988, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
@@ -126,6 +130,8 @@ export default class floresta extends Phaser.Scene {
     this.physics.world.enable(this.area5)
     this.area1.body.setAllowGravity(false)
 
+    // Restante das camadas //
+
     this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
@@ -135,8 +141,6 @@ export default class floresta extends Phaser.Scene {
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
     this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
-
-    console.log(this.cache.tilemap.get('mapa').data)
 
     // Animação migalha //
     this.anims.create({
@@ -313,7 +317,7 @@ export default class floresta extends Phaser.Scene {
       .setImmovable()
       .setBounce(0)
 
-    // Personagem //
+    // Personagens //
 
     console.log(this.game.estadoPersonagem)
     try {
@@ -411,6 +415,8 @@ export default class floresta extends Phaser.Scene {
     this.layerLapideT04.setCollisionByProperty({ canCollide: true })
     this.layerCercaT.setCollisionByProperty({ canCollide: true })
     this.layerCasteloT.setCollisionByProperty({ canCollide: true })
+
+    // Mamãe pato //
 
     this.mamae = this.physics.add.sprite(225, 25480, 'mamae-pato')
 
@@ -744,7 +750,7 @@ export default class floresta extends Phaser.Scene {
       this.game.scene.stop(this.game.cenaCorrente)
       this.game.socket.emit('cena-publicar', this.game.sala, 'mundo-magico')
       this.game.scene.start('mundo-magico')
-    }, 1);
+    }, 1)
   }
 
   morrer (cobra) {

@@ -80,6 +80,8 @@ export default class praia extends Phaser.Scene {
   }
 
   create () {
+    // Cena corrente //
+
     this.game.cenaCorrente = 'praia'
 
     // Áudio //
@@ -150,8 +152,6 @@ export default class praia extends Phaser.Scene {
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
     this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
-
-    console.log(this.cache.tilemap.get('mapa').data)
 
     // Animação migalha //
     this.anims.create({
@@ -367,7 +367,7 @@ export default class praia extends Phaser.Scene {
       .setSize(40, 50)
       .setFlipX(true)
 
-    // Personagem //
+    // Personagens //
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
@@ -394,6 +394,9 @@ export default class praia extends Phaser.Scene {
         this.personagemRemoto.setTint(0x808080)
       }
     }
+
+    // Restante das camadas //
+
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])

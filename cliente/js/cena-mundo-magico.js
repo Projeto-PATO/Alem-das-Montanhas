@@ -11,15 +11,9 @@ export default class mundoMagico extends Phaser.Scene {
 
     this.load.image('tileset-geral', '../assets/mapa/tileset-geral.png')
 
-    this.load.image('tileset-mundomagico', '../assets/mapa/tileset-mundomagico.png')
-
-    this.load.image('tileset-floresta', '../assets/mapa/tileset-floresta.png')
-
     this.load.image('fundo-preto', '../assets/fundo-preto.png')
 
     this.load.image('tela-gameover', '../assets/tela-gameover.png')
-
-    this.load.image('tela-vitoria', '../assets/tela-vitoria.png')
 
     this.load.spritesheet('migalha', '../assets/migalha-pao.png', {
       frameWidth: 26,
@@ -82,6 +76,8 @@ export default class mundoMagico extends Phaser.Scene {
   }
 
   create () {
+    // Cena corrente //
+
     this.game.cenaCorrente = 'mundo-magico'
 
     // Áudio //
@@ -101,15 +97,17 @@ export default class mundoMagico extends Phaser.Scene {
     })
 
     this.tilesetGeral = this.tilemapMapa.addTilesetImage('tileset-geral')
-    this.tilesetFloresta = this.tilemapMapa.addTilesetImage('tileset-floresta')
-    this.tilesetMundoMagico = this.tilemapMapa.addTilesetImage('tileset-mundomagico')
 
     this.layerChao = this.tilemapMapa.createLayer('chao', [this.tilesetGeral])
+
+    // Área começo //
 
     this.area0 = this.add.rectangle(224, 19000, 448, 20, 0xFFFFFF, 0)
     this.physics.world.enable(this.area0)
     this.area0.body.setAllowGravity(false)
     this.area0.body.setImmovable(true)
+
+    // Área loop //
 
     this.area1 = this.add.rectangle(-60, 18860, 1, 6246, 0xFFFFFF, 0)
     this.physics.world.enable(this.area1)
@@ -121,6 +119,8 @@ export default class mundoMagico extends Phaser.Scene {
     this.area2.body.setAllowGravity(false)
     this.area2.body.setImmovable(true)
 
+    // Restante das camadas //
+
     this.layerSombra = this.tilemapMapa.createLayer('sombra', [this.tilesetGeral])
     this.layerTronco01 = this.tilemapMapa.createLayer('tronco-01', [this.tilesetGeral])
     this.layerPedra = this.tilemapMapa.createLayer('pedra', [this.tilesetGeral])
@@ -130,8 +130,6 @@ export default class mundoMagico extends Phaser.Scene {
     this.layerOssos2 = this.tilemapMapa.createLayer('ossos2', [this.tilesetGeral])
     this.layerCercaF = this.tilemapMapa.createLayer('cercaF', [this.tilesetGeral])
     this.layerCasteloF = this.tilemapMapa.createLayer('casteloF', [this.tilesetGeral])
-
-    console.log(this.cache.tilemap.get('mapa').data)
 
     // Animação migalha //
     this.anims.create({
@@ -144,7 +142,7 @@ export default class mundoMagico extends Phaser.Scene {
       repeat: -1
     })
 
-    // Animação fantsama
+    // Animação fantsama //
 
     this.anims.create({
       key: 'fantasma',
@@ -349,7 +347,7 @@ export default class mundoMagico extends Phaser.Scene {
       .setImmovable()
       .setBounce(0)
 
-    // Personagem //
+    // Personagens //
 
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = `sprite-${this.game.estadoPersonagem.spriteId}`
@@ -376,6 +374,9 @@ export default class mundoMagico extends Phaser.Scene {
         this.personagemRemoto.setTint(0x808080)
       }
     }
+
+    // Camadas da frente //
+
     this.layerAtras03 = this.tilemapMapa.createLayer('atras-03', [this.tilesetGeral])
     this.layerCopaT01 = this.tilemapMapa.createLayer('copaT-01', [this.tilesetGeral])
     this.layerCopaF01 = this.tilemapMapa.createLayer('copaF-01', [this.tilesetGeral])
