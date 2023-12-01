@@ -78,6 +78,8 @@ export default class campo extends Phaser.Scene {
 
     this.load.audio('audio-dano', '../assets/audios/dano.mp3')
 
+    this.load.audio('audio-vitoria', '../assets/audios/vitoria.mp3')
+
     this.load.audio('audio-gameover', './assets/audios/gameover.mp3')
   }
 
@@ -93,6 +95,7 @@ export default class campo extends Phaser.Scene {
     this.audioMigalha = this.sound.add('audio-migalha')
     this.audioDano = this.sound.add('audio-dano')
     this.audioGameover = this.sound.add('audio-gameover')
+    this.audioVitoria = this.sound.add('audio-vitoria')
 
     // Criação de mapa e objetos //
 
@@ -531,7 +534,7 @@ export default class campo extends Phaser.Scene {
     this.physics.add.overlap(this.personagemLocal, this.area7, this.area7F, null, this)
     this.physics.add.overlap(this.personagemLocal, this.area8, this.area8F, null, this)
 
-    this.physics.add.overlap(this.personagemLocal, this.areaE, this.chegarPraia, null, this)
+    this.physics.add.overlap(this.personagemLocal, this.areaE, this.encontrarTucano, null, this)
 
     this.vacas.forEach((vaca) => {
       this.physics.add.collider(vaca.objeto, this.layerChao)
@@ -836,7 +839,7 @@ export default class campo extends Phaser.Scene {
       this.game.scene.stop(this.game.cenaCorrente)
       this.game.socket.emit('cena-publicar', this.game.sala, 'praia')
       this.game.scene.start('praia')
-    }, 1);
+    }, 1)
   }
 
   morrer (personagemLocal) {
@@ -1214,5 +1217,43 @@ export default class campo extends Phaser.Scene {
 
   areaP6F () {
     this.tratoresE[2].objeto.setVelocityX(0)
+  }
+
+  encontrarTucano (personagemLocal) {
+    this.trilhaCampo.loop = false
+    this.trilhaCampo.stop()
+    this.audioVitoria.play()
+    this.personagemLocal.setVelocityX(0)
+    this.personagemLocal.setVelocityY(0)
+    this.personagemLocal.setImmovable(true)
+    this.cima.emit('pointerout')
+    this.baixo.emit('pointerout')
+    this.direita.emit('pointerout')
+    this.esquerda.emit('pointerout')
+    this.cima.setInteractive(false)
+    this.baixo.setInteractive(false)
+    this.direita.setInteractive(false)
+    this.esquerda.setInteractive(false)
+    this.personagemLocal.anims.play('pato-idle', true)
+    this.game.migalhasGuardadas += this.game.scoreMigalha.score
+    this.game.scoreMigalha.score = 0
+    const centrox = this.cameras.main.worldView.x + this.cameras.main.width / 2
+    const centroy = this.cameras.main.worldView.y + this.cameras.main.height / 2
+    this.imagem = this.add.image(centrox, centroy, 'fundo-preto')
+    this.imagem = this.add.image(centrox, centroy, 'tela-vitoria')
+      .setInteractive()
+      .on('pointerdown', () => {
+        if (this.game.migalhasGuardadas >= 30) {
+          setTimeout(() => {
+            this.game.scene.stop(this.game.cenaCorrente)
+            this.game.scene.start('vitoria-migalhas')
+          }, 1)
+        } else {
+          setTimeout(() => {
+            this.game.scene.stop(this.game.cenaCorrente)
+            this.game.scene.start('vitoria')
+          }, 1)
+        }
+      })
   }
 }
