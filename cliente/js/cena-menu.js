@@ -19,6 +19,10 @@ export default class menu extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet('thiaguinho-natal', '../assets/patos/thiaguinho/thiaguinho-natal.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
     this.load.spritesheet('thiaguinho-oculos', '../assets/patos/thiaguinho/thiaguinho-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
@@ -37,6 +41,10 @@ export default class menu extends Phaser.Scene {
       frameHeight: 108
     })
     this.load.spritesheet('cacique-mago', '../assets/patos/cacique/cacique-mago.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('cacique-natal', '../assets/patos/cacique/cacique-natal.png', {
       frameWidth: 92,
       frameHeight: 108
     })
@@ -61,6 +69,10 @@ export default class menu extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet('isa-natal', '../assets/patos/isa/isa-natal.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
     this.load.spritesheet('isa-oculos', '../assets/patos/isa/isa-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
@@ -82,6 +94,10 @@ export default class menu extends Phaser.Scene {
       frameWidth: 92,
       frameHeight: 108
     })
+    this.load.spritesheet('pam-natal', '../assets/patos/pam/pam-natal.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
     this.load.spritesheet('pam-oculos', '../assets/patos/pam/pam-oculos.png', {
       frameWidth: 92,
       frameHeight: 108
@@ -100,6 +116,10 @@ export default class menu extends Phaser.Scene {
       frameHeight: 108
     })
     this.load.spritesheet('tucano-mago', '../assets/patos/tucano/tucano-mago.png', {
+      frameWidth: 92,
+      frameHeight: 108
+    })
+    this.load.spritesheet('tucano-natal', '../assets/patos/tucano/tucano-natal.png', {
       frameWidth: 92,
       frameHeight: 108
     })
@@ -282,6 +302,10 @@ export default class menu extends Phaser.Scene {
       {
         id: 'oculos',
         acessorioId: 4
+      },
+      {
+        id: 'natal',
+        acessorioId: 5
       }
     ]
 
@@ -303,7 +327,7 @@ export default class menu extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         if (this.game.acessorioEscolhido === 0) {
-          this.game.acessorioEscolhido = 4
+          this.game.acessorioEscolhido = 5
         } else {
           this.game.acessorioEscolhido -= 1
         }
